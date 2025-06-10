@@ -1,0 +1,9 @@
+NEXTAUTH_SECRET=dein-geheimes-token
+NEXTAUTH_URL=http://localhost:3000
+
+NEXT_PUBLIC_BACKEND_SERVER_URL=http://localhost:8000/graphql
+NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=camunda-identity
+NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=toKm1Y60gwq55nowbC4bDfyk0HCa8U3X
+NEXT_PUBLIC_KEYCLOAK_ISSUER=http://localhost:18080/auth/realms/camunda-platform
+
+NEXT_PUBLIC_DEFAULT_ROUTE=/
