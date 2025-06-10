@@ -76,7 +76,7 @@ export default function CreateCustomerPage() {
   const router = useRouter();
   const client = getApolloClient(undefined);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataPerson>({
     firstName: "",
     lastName: "",
     email: "",
@@ -91,10 +91,8 @@ export default function CreateCustomerPage() {
       state: "",
       country: "",
     },
-
     username: "",
     password: "",
-
     tierLevel: 1,
     subscribed: false,
     maritalStatus: "SINGLE",
@@ -113,13 +111,15 @@ export default function CreateCustomerPage() {
    *
    * @param {React.FormEvent<HTMLFormElement>} e - Das Submit-Event des Formulars.
    */
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formData.firstName || !formData.lastName || !formData.email) {
       alert("Bitte fülle alle erforderlichen Felder aus.");
       return;
     }
+
+    if (loading) return <Box>Hallo</Box>;
 
     try {
       const { data } = await createCustomer({
@@ -180,14 +180,15 @@ export default function CreateCustomerPage() {
    *
    * @param {React.ChangeEvent<HTMLInputElement>} e - Das Änderungsereignis eines Adressfeldes.
    */
-  const handleAddressChange = (e) => {
+  const handleAddressChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       address: { ...prev.address, [name]: value },
     }));
   };
-
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
@@ -315,8 +316,6 @@ export default function CreateCustomerPage() {
                   labelId="tier-level-label"
                   value={formData.tierLevel}
                   label="Mitgliedschaftsstufe"
-                  min={1}
-                  max={3}
                   onChange={(e) =>
                     setFormData({ ...formData, tierLevel: e.target.value })
                   }
@@ -484,7 +483,10 @@ export default function CreateCustomerPage() {
                   label="Kontaktoptionen"
                   value={formData.contactOptions}
                   onChange={(e) =>
-                    setFormData({ ...formData, contactOptions: e.target.value })
+                    setFormData({
+                      ...formData,
+                      contactOptions: e.target.value as string[],
+                    })
                   }
                   renderValue={(selected) => (
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -510,7 +512,10 @@ export default function CreateCustomerPage() {
                   label="Interessen"
                   value={formData.interests}
                   onChange={(e) =>
-                    setFormData({ ...formData, interests: e.target.value })
+                    setFormData({
+                      ...formData,
+                      interests: e.target.value as string[],
+                     })
                   }
                   renderValue={(selected) => (
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -583,4 +588,30 @@ export default function CreateCustomerPage() {
       </Paper>
     </Container>
   );
+}
+
+interface Address {
+  street: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  state: string;
+  country: string;
+}
+
+interface FormDataPerson {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  birthdate: string;
+  gender: "MALE" | "FEMALE" | "DIVERSE";
+  address: Address;
+  username: string;
+  password: string;
+  tierLevel: 1 | 2 | 3;
+  subscribed: boolean;
+  maritalStatus: "SINGLE" | "MARRIED" | "DIVORCED" | "WIDOWED";
+  contactOptions: string[]; // Optional: genauer typisieren mit Union
+  interests: string[];
 }

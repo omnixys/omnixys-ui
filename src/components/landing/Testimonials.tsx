@@ -24,7 +24,7 @@ export default function Testimonials() {
       </Typography>
       <Grid container spacing={4} justifyContent="center">
         {feedback.map((item, i) => (
-          <Grid item xs={12} md={6} key={i}>
+          <Grid sx={{ xs:12, md:6 }} key={i}>
             <Box
               sx={{
                 // backgroundColor: "rgba(255,255,255,0.08)",

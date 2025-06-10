@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
               image: "/user2.jpg",
             },
           ].map((item, i) => (
-            <Grid item xs={12} md={6} key={i}>
+            <Grid sx={{ xs: 12, md: 6 }} key={i}>
               <Box
                 sx={{
                   backgroundColor: "rgba(255,255,255,0.08)",

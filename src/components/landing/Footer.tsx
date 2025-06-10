@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 
 interface FooterProps {
-  opacity: any;
+  opacity: number | MotionValue<number>;
 }
 
 export default function Footer({ opacity }: FooterProps) {

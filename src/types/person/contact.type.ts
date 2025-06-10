@@ -8,6 +8,8 @@ export interface ContactPerson {
     relationship?: string;
     startDate?: string ;
     endDate?: string ;
+    // startDate?: { $date: string };
+    // endDate?: { $date: string };
     emergencyContact?:boolean,
 }
 

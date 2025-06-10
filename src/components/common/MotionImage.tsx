@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 // components/common/MotionImage.tsx
 "use client";
 

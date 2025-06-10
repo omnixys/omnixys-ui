@@ -18,6 +18,7 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useState } from "react";
+import Image from "next/image";
 
 // Timeline-Daten
 const MODULE_DETAILS = [
@@ -221,9 +222,17 @@ export default function FeatureTimeline() {
                 mb: 2,
                 textAlign: "center",
                 "& img": { borderRadius: 2, maxWidth: "100%" },
+                position: "relative",
+                width: "100%",
+                height: 400,
               }}
             >
-              <img src={selectedModule.image} alt={selectedModule.name} />
+              <Image
+                src={selectedModule.image}
+                alt={selectedModule.name}
+                fill
+                style={{ objectFit: "cover", borderRadius: 8 }}
+              />
             </Box>
           )}
 

@@ -13,7 +13,7 @@ export default function AppVideoPreview() {
   const reportedMilestones = useRef<Set<number>>(new Set());
 
   const handleOpen = () => {
-    trackVideoEvent("video_play");
+    trackVideoEvent("video_play", "Omnixys Vorschau");
     setVideoOpen(true);
   };
 

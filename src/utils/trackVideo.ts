@@ -1,10 +1,10 @@
 // utils/trackVideo.ts
 export function trackVideoEvent(
     action: string,
-    label: string = "Omnixys Vorschau",
+    label: string,
     value?: number
-) {
-    if (typeof window !== "undefined" && window.gtag) {
+): void {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
         window.gtag("event", action, {
             event_category: "Video",
             event_label: label,

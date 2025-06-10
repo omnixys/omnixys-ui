@@ -18,6 +18,7 @@ import OrderChart from "./components/charts/OrderChart";
 import SupportChart from "./components/charts/SupportChart";
 import SystemHealthChart from "./components/charts/SystemHealthChart";
 import TransactionChart from "./components/charts/TransactionChart";
+import CustomTabPanel from "../../../components/CustomTabPanel";
 
 
 export default function AnalyticsProductPage() {
@@ -143,27 +144,5 @@ export default function AnalyticsProductPage() {
         </Grid>
       </CustomTabPanel>
     </Box>
-  );
-}
-
-export interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-export function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
   );
 }

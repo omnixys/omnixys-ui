@@ -16,6 +16,7 @@ import {
   AccordionSummary,
   Stack,
   LinearProgress,
+  Theme,
 } from "@mui/material";
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -251,7 +252,7 @@ const visuallyHidden: React.CSSProperties = {
   border: 0,
 };
 
-function getColor(value: string, theme: any): string {
+function getColor(value: string, theme: Theme): string {
   switch (value) {
     case "✅":
       return theme.palette.success.light;

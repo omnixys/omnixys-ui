@@ -7,7 +7,7 @@ import {
   CardContent,
 } from "@mui/material";
 import { Carousel } from "antd";
-import { ContactPerson } from "../../../types/person/person.type";
+import { ContactPerson } from "../../../types/person/contact.type";
 
 const generateAvatarInitials = (name: string = "") =>
   name
@@ -78,14 +78,14 @@ export default function ContactCarousel({
               <CardContent>
                 <Typography variant="body2" color="textSecondary">
                   Start:{" "}
-                  {contact.startDate?.$date
-                    ? new Date(contact.startDate.$date).toLocaleDateString()
+                  {contact.startDate
+                    ? new Date(contact.startDate).toLocaleDateString()
                     : "Nicht angegeben"}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Ende:{" "}
-                  {contact.endDate?.$date
-                    ? new Date(contact.endDate.$date).toLocaleDateString()
+                  {contact.endDate
+                    ? new Date(contact.endDate).toLocaleDateString()
                     : "Nicht angegeben"}
                 </Typography>
               </CardContent>

@@ -23,10 +23,12 @@ export const useProgressBar = () => {
 export function ProgressBarProvider({ children }: { children: ReactNode }) {
   const controls = useAnimationControls();
   const [visible, setVisible] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
 
   const start = () => {
-    clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     setVisible(true);
     controls.set({ width: "0%" });
     controls.start({ width: "70%", transition: { duration: 0.4 } });
@@ -36,7 +38,8 @@ export function ProgressBarProvider({ children }: { children: ReactNode }) {
   };
 
   const finish = () => {
-    clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     controls
       .start({ width: "100%", transition: { duration: 0.3 } })
       .then(() => {

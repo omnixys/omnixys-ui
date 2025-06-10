@@ -25,7 +25,8 @@ export default function PageTransitionOverlay() {
     const timeout = setTimeout(() => setIsTransitioning(false), 800);
     return () => clearTimeout(timeout);
     finish(); // ✅ Ladebalken beenden
-  }, [pathname]);
+    // ohne playSound, finish und start
+  }, [finish, pathname, playSound, start]);
     
 
   return (

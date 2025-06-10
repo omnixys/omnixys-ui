@@ -21,7 +21,19 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const data = {
+type EngagementPoint = {
+  date: string;
+  visitors: number;
+  views: number;
+};
+
+type EngagementData = {
+  daily: EngagementPoint[];
+  monthly: EngagementPoint[];
+  yearly: EngagementPoint[];
+};
+
+const data: EngagementData = {
   daily: [
     { date: "01", visitors: 300, views: 800 },
     { date: "02", visitors: 500, views: 1000 },
@@ -45,7 +57,7 @@ const data = {
 
 export default function EngagementChart() {
   const theme = useTheme();
-  const [range, setRange] = useState("monthly");
+  const [range, setRange] = useState<keyof EngagementData>("monthly");
   const [show, setShow] = useState<{ [key: string]: boolean }>({
     visitors: true,
     views: true,
@@ -54,7 +66,10 @@ export default function EngagementChart() {
   const visitorsMounted = useRef(true);
   const viewsMounted = useRef(true);
 
-  const handleRangeChange = (_: any, newRange: string) => {
+  const handleRangeChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newRange: "daily" | "monthly" | "yearly" | null
+  ) => {
     if (newRange) setRange(newRange);
   };
 

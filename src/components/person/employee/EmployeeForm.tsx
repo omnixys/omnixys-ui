@@ -13,13 +13,14 @@ import { useState } from "react";
 import { Person } from "../../../types/person/person.type";
 import { EmployeeFormData } from "../../../types/person/CustomerFormData";
 
+
 interface EmployeeFormProps {
   person: Person;
-  onSubmit?: (data: EmployeeFormData) => void;
+  onSubmit?: (data:  EmployeeFormData) => void;
 }
 
 export default function EmployeeForm({ person, onSubmit }: EmployeeFormProps) {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState< EmployeeFormData>({
     firstName: person.firstName || "",
     lastName: person.lastName || "",
     email: person.email || "",
@@ -32,9 +33,9 @@ export default function EmployeeForm({ person, onSubmit }: EmployeeFormProps) {
     salary: person.employee?.salary || 0,
   });
 
-    const handleChange = <K extends keyof EmployeeFormData>(
+    const handleChange = <K extends keyof  EmployeeFormData>(
       field: K,
-      value: EmployeeFormData[K]
+      value:  EmployeeFormData[K]
     ) => {
       setForm((prev) => ({ ...prev, [field]: value }));
     };
@@ -91,7 +92,7 @@ export default function EmployeeForm({ person, onSubmit }: EmployeeFormProps) {
             fullWidth
             value={form.role}
             onChange={(e) =>
-              handleChange("role", e.target.value as EmployeeFormData["role"])
+              handleChange("role", e.target.value as  EmployeeFormData["role"])
             }
           >
             <MenuItem value="ADMIN">Admin</MenuItem>

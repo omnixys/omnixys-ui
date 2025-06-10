@@ -49,7 +49,7 @@ export default function EventsSection() {
           </motion.div>
           <Grid container spacing={4}>
             {events.map((event, i) => (
-              <Grid item xs={12} md={4} key={i}>
+              <Grid sx={{ xs:12, md:4 }} key={i}>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}

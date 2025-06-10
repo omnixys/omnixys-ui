@@ -16,7 +16,8 @@ export default function NavigationProgress() {
     }, 500); // evtl. dynamisch anpassbar
 
     return () => clearTimeout(timer);
-  }, [pathname]);
+    // ohne finish und start
+  }, [finish, pathname, start]);
 
   return null;
 }

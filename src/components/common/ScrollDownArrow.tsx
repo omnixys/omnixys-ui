@@ -1,10 +1,9 @@
-// components/common/ScrollDownArrow.tsx
 "use client";
 
 import { IconButton } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { motion } from "framer-motion";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, Theme } from "@mui/material/styles";
 
 interface ScrollDownArrowProps {
   targetId?: string;
@@ -19,19 +18,30 @@ export default function ScrollDownArrow({
   size = 48,
   onClick,
 }: ScrollDownArrowProps) {
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
 
   const resolveColor = (key: string): string => {
-    if (key?.includes(".")) {
+    if (key.includes(".")) {
       return (
-        key.split(".").reduce((acc: any, k) => acc?.[k], theme.palette) ?? key
+        (key.split(".").reduce((acc: unknown, k: string) => {
+          if (typeof acc === "object" && acc !== null && k in acc) {
+            return (acc as Record<string, unknown>)[k];
+          }
+          return undefined;
+        }, theme.palette) as string | undefined) ?? key
       );
     }
-    return (
-      theme.palette?.[key as keyof typeof theme.palette]?.main ??
-      theme.palette?.common?.[key as keyof typeof theme.palette.common] ??
-      key
-    );
+
+    const solidColor = (
+      theme.palette[key as keyof typeof theme.palette] as {
+        main?: string;
+      }
+    )?.main;
+
+    const commonColor =
+      theme.palette.common?.[key as keyof typeof theme.palette.common];
+
+    return solidColor ?? commonColor ?? key;
   };
 
   const handleClick = () => {

@@ -5,7 +5,7 @@ import {
   Box,
   Container,
   Typography,
-  useTheme,
+  // useTheme,
 } from "@mui/material";
 import "keen-slider/keen-slider.min.css";
 import { useRef } from "react";
@@ -22,7 +22,7 @@ import ChatWidget from "../components/landing/ChatWidget";
 import MotionWrapper from "../components/common/MotionWrapper";
 import HeroSection from "../components/landing/HeroSection";
 import ModuleCarousel from "../components/landing/ModuleCarousel";
-import StickyNavbar from "../components/landing/StickyNavbar";
+// import StickyNavbar from "../components/landing/StickyNavbar";
 import ProgressBanner from "../components/landing/ProgressBanner";
 import TrustBadges from "../components/landing/TrustBadges";
 import BlogPreview from "../components/landing/BlogPreview";
@@ -46,7 +46,7 @@ const MODULES = [
 ];
 
 export default function LandingPage() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const { scrollY } = useScroll();
   const yHero = useTransform(scrollY, [0, 300], [0, -100]);
   const yModules = useTransform(scrollY, [100, 600], [0, -50]);

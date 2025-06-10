@@ -9,17 +9,18 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { REVENUE_KPIS_QUERY } from "@/graphql/queries";
-import { Card, CardContent } from "@/components/ui/card";
+import { GET_REVENUE_KPIS } from "../../../../graphql/analytics/query/transaction-kpis";
+import { Card, CardContent } from "@mui/material";
+import { RevenueKpi } from "../../../../types/analytics/kpi.type";
 
 export function RevenueChart() {
-  const { data, loading } = useQuery(REVENUE_KPIS_QUERY, {
+  const { data, loading } = useQuery(GET_REVENUE_KPIS, {
     variables: { filter: { year: 2025 } },
   });
 
   if (loading) return <div>Lade Umsatzdaten...</div>;
 
-  const chartData = data?.revenue_kpis.map((k: any) => ({
+  const chartData = data?.revenue_kpis.map((k: RevenueKpi) => ({
     name: `${k.month}.${k.year}`,
     total_revenue: k.total_revenue,
   }));

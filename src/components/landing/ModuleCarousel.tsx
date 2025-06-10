@@ -2,12 +2,28 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 import { useKeenSlider } from "keen-slider/react";
-import { useEffect, useRef } from "react";
+import { JSX, useEffect, useRef } from "react";
 import "keen-slider/keen-slider.min.css";
 
-export default function ModuleCarousel({ modules, yModules }) {
+// interface Module {
+//   name: string | undefined;
+//   year: string | undefined;
+//   icon: JSX.Element | undefined;
+//   description: string | undefined;
+//   image: string | undefined;
+//   video?: string | undefined;
+// }
+
+interface ModuleCarouselProps {
+  // modules: Module[];
+  modules: (string | JSX.Element)[];
+  yModules?: MotionValue<number>;
+}
+
+
+export default function ModuleCarousel({ modules, yModules }: ModuleCarouselProps) {
   const [sliderRef, slider] = useKeenSlider({
     loop: true,
     mode: "free-snap",
@@ -20,7 +36,7 @@ export default function ModuleCarousel({ modules, yModules }) {
     created(s) {
       s.moveToIdx(2, true, { duration: 0 });
     },
-    autoplay: true,
+    // autoplay: true,
   });
 
   useEffect(() => {

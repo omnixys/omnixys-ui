@@ -1,12 +1,12 @@
 // src/components/kpi-cards/TotalRevenue.tsx
 
 import React from "react";
-import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
+import { Avatar, Card, CardContent, Stack, SxProps, Theme, Typography } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 interface TotalRevenueProps {
   value: number;
-  sx?: any;
+  sx?: SxProps<Theme>;
 }
 
 export default function TotalRevenue({ value, sx }: TotalRevenueProps) {

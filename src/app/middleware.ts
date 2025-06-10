@@ -5,7 +5,9 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
     const token = await getToken({ req });
-    const roles = token?.roles || [];
+    const roles: string[] = Array.isArray(token?.roles) ? token.roles : [];
+
+
 
     if (!roles.includes("Admin") && !roles.includes("Manager")) {
         return NextResponse.redirect(new URL("/unauthorized", req.url));

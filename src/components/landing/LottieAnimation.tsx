@@ -2,11 +2,11 @@
 
 import { Box } from "@mui/material";
 import Lottie from "lottie-react";
-import { useTheme } from "@mui/material/styles";
-import type { LottieOptions } from "lottie-react";
+// import { useTheme } from "@mui/material/styles";
+// import type { LottieOptions } from "lottie-react";
 
 interface LottieAnimationProps {
-  animationData: any;
+  animationData: object; // ✅ statt any
   loop?: boolean;
   autoplay?: boolean;
   speed?: number;
@@ -19,18 +19,18 @@ export default function LottieAnimation({
   animationData,
   loop = true,
   autoplay = true,
-  speed = 1,
+  // speed = 1,
   width = "100%",
   height = "auto",
   className,
 }: LottieAnimationProps) {
-  const theme = useTheme();
+  // const theme = useTheme();
 
-  const options: LottieOptions = {
-    animationData,
-    loop,
-    autoplay,
-  };
+  // const options: LottieOptions = {
+  //   animationData,
+  //   loop,
+  //   autoplay,
+  // };
 
   return (
     <Box

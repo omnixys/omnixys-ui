@@ -11,7 +11,6 @@ import themeFactory from "../theme/theme";
 import { SidebarProvider } from "../context/SidebarContext";
 import SettingsGate from "./settings/SettingsGate";
 import { MotionProvider } from "../components/common/MotionProvider";
-import PageTransitionOverlay from "../components/common/PageTransitionOverlay";
 import MotionLayout from "../components/common/MotionLayout";
 import { ProgressBarProvider } from "../components/common/PageProgressBar";
 import NavigationProgress from "../components/common/NavigationProgress";
