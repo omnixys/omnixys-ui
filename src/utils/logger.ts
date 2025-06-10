@@ -1,10 +1,9 @@
 import fs from 'fs-extra';
 import { resolve } from 'path';
 import pino from 'pino';
-import pretty from 'pino-pretty';
 import { ENV } from './env';
 
-let loggerInstance: pino.Logger | undefined = undefined;
+let loggerInstance: pino.Logger | undefined;
 
 function initializeLogger(): pino.Logger {
   if (loggerInstance) return loggerInstance;
@@ -18,25 +17,12 @@ function initializeLogger(): pino.Logger {
   const isVercel = !!process.env.VERCEL;
 
   if (isVercel) {
-    // 🚫 Kein Dateisystem-Zugriff auf Vercel → nur stdout
-    loggerInstance = pino({
-      level: NEXT_PUBLIC_LOG_LEVEL,
-      transport: {
-        target: 'pino-pretty',
-        options: {
-          translateTime: 'SYS:standard',
-          singleLine: true,
-          colorize: true,
-          ignore: 'pid,hostname',
-          messageFormat: '{msg}',
-        },
-      },
-    });
-    loggerInstance.info('Logger läuft im Vercel-Mode (stdout only)');
+    // Kein Dateisystem, kein pretty-print auf Vercel
+    loggerInstance = pino({ level: NEXT_PUBLIC_LOG_LEVEL });
     return loggerInstance;
   }
 
-  // ✅ Lokaler Modus mit Dateien
+  // Lokales Logging (Pretty oder Datei)
   const logDir = resolve(process.cwd(), NEXT_PUBLIC_LOG_DIR);
   const logFile = resolve(logDir, 'server.log');
 
@@ -48,18 +34,27 @@ function initializeLogger(): pino.Logger {
     fs.renameSync(logFile, backupFile);
   }
 
-  const stream = NEXT_PUBLIC_PINO_PRETTY === 'true'
-    ? pretty({
-      translateTime: 'SYS:standard',
-      singleLine: true,
-      colorize: true,
-      ignore: 'pid,hostname',
-      messageFormat: '{msg}',
-    })
-    : fs.createWriteStream(logFile);
+  const destination =
+    NEXT_PUBLIC_PINO_PRETTY === 'true'
+      ? pino.transport({
+        target: 'pino-pretty',
+        options: {
+          translateTime: 'SYS:standard',
+          singleLine: true,
+          colorize: true,
+          ignore: 'pid,hostname',
+          messageFormat: '{msg}',
+        },
+      })
+      : pino.destination(logFile);
 
-  loggerInstance = pino({ level: NEXT_PUBLIC_LOG_LEVEL }, stream);
-  loggerInstance.info('Lokaler Logger erfolgreich initialisiert.', { logFile });
+  loggerInstance = pino(
+    {
+      level: NEXT_PUBLIC_LOG_LEVEL,
+    },
+    destination,
+  );
+
   return loggerInstance;
 }
 
