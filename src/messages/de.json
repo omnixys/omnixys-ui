@@ -1,0 +1,16 @@
+{
+  "timeline.title": "Feature-Timeline der OmnixysSphere",
+  "timeline.yearLabel": "{{year}} – Teil der modularen Plattform",
+  "timeline.more": "Mehr erfahren",
+  "timeline.modal.close": "Schließen",
+  "modules": {
+    "shop": {
+      "name": "Shop",
+      "description": "Unsere Shop-Plattform ermöglicht den einfachen Verkauf digitaler und physischer Produkte..."
+    },
+    "bank": {
+      "name": "Bank",
+      "description": "Das Banking-Modul deckt Giro-, Spar- und Kreditkonten ab..."
+    }
+  }
+}
