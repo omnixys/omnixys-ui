@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-${{ matrix.node-version }}
-          path: .next_copy
+          path: next_copy
           retention-days: 1
 
   analyze:
