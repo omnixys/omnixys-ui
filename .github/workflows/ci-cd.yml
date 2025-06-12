@@ -13,6 +13,15 @@ on:
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
+  NEXT_PUBLIC_BACKEND_SERVER_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_SERVER_URL }}
+  NEXT_PUBLIC_DEFAULT_ROUTE: ${{ secrets.NEXT_PUBLIC_DEFAULT_ROUTE }}
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ secrets.KC_SERVICE_CLIENT_ID }}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.KC_SERVICE_SECRET }}
+  NEXT_PUBLIC_KEYCLOAK_ISSUER: http://${{ secrets.KC_SERVICE_HOST }}:${{ secrets.KC_SERVICE_PORT }}/auth/realms/${{ secrets.KC_SERVICE_REALM }}
+
 
 jobs:
   build:
@@ -171,13 +180,14 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }} \
-            --build-arg NEXT_PUBLIC_BACKEND_SERVER_URL=https://gateway.omnixys.com/graphql \
-            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=camunda-identity \
-            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=toKm1Y60gwq55nowbC4bDfyk0HCa8U3X \
-            --build-arg NEXT_PUBLIC_KEYCLOAK_ISSUER=http://localhost:18080/auth/realms/camunda-platform \
-            --build-arg NEXT_PUBLIC_DEFAULT_ROUTE=/ \
-            --build-arg NEXTAUTH_URL=https://omnixys.com \
-            --build-arg NEXTAUTH_SECRET=dein-geheimes-token \
+            --build-arg NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }} \
+            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }} \
+            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }} \
+            --build-arg NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }} \
+            --build-arg NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }} \
+            --build-arg NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
+            --build-arg NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }} \
+  
 
 
       - name: Tag Docker Image
