@@ -21,7 +21,7 @@ jobs:
       CURRENT_DATE: ${{ steps.set_date.outputs.CURRENT_DATE }}
     strategy:
       matrix:
-        node-version: [23.x, 24.x]
+        node-version: [23.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -97,7 +97,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        node-version: [23.x, 24.x]
+        node-version: [23.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -128,7 +128,7 @@ jobs:
     needs: [build, analyze]
     strategy:
       matrix:
-        node-version: [23.x, 24.x]
+        node-version: [23.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
