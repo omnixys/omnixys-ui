@@ -1,13 +1,6 @@
 # syntax=docker/dockerfile:1.10.0
-
-# Definiere ARG für die Umgebungsvariablen
-ARG NODE_ENV
-ARG CLIENT_SECRET
-ARG SONAR_TOKEN
-ARG SNYK_TOKEN
-
-# "Build Argument"; alternativ: ENV = Umgebungsvariable im gebauten Image
 ARG NODE_VERSION=23.10.0
+
 # ---------------------------------------------------------------------------------------
 # S t a g e   d i s t
 # ---------------------------------------------------------------------------------------
@@ -18,7 +11,9 @@ set -eux
 apt-get update
 apt-get upgrade --yes
 
-# Installiere die neueste npm-Version
+# Installiere curl im Container
+apt-get install --no-install-recommends --yes curl
+
 npm i -g --no-audit --no-fund npm
 EOF
 
@@ -26,16 +21,14 @@ USER node
 
 WORKDIR /home/node
 
+COPY public ./public
 COPY src ./src
 
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=bind,source=nest-cli.json,target=nest-cli.json \
     --mount=type=bind,source=tsconfig.json,target=tsconfig.json \
-    --mount=type=bind,source=tsconfig.build.json,target=tsconfig.build.json \
     --mount=type=cache,target=/root/.npm <<EOF
 set -eux
-# ci (= clean install) mit package-lock.json  dependencies installieren
 npm ci --no-audit --no-fund
 npm run build
 EOF
@@ -61,8 +54,6 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm <<EOF
 set -eux
-# ci (= clean install) mit package-lock.json
-# --omit=dev: ohne devDependencies
 npm ci --no-audit --no-fund --omit=peer
 EOF
 
@@ -70,18 +61,11 @@ EOF
 # S t a g e   f i n a l
 # ------------------------------------------------------------------------------
 FROM node:${NODE_VERSION}-bookworm-slim AS final
-
-ENV NODE_ENV=${NODE_ENV} \
-    CLIENT_SECRET=${CLIENT_SECRET} \
-    SONAR_TOKEN=${SONAR_TOKEN} \
-    SNYK_TOKEN=${SNYK_TOKEN}
-
-# Anzeige bei "docker inspect ..."
 LABEL org.opencontainers.image.title="omnixys-ui" \
-    org.opencontainers.image.description="Backend für das dynamische Rollen- und Funktionsmanagement" \
-    org.opencontainers.image.version="2024.10.1" \
-    org.opencontainers.image.licenses="GPL-3.0-or-later" \
-    org.opencontainers.image.authors="Flowcraft AG"
+      org.opencontainers.image.description="OmnixysSphere Frontend (Next.js + MUI)" \
+      org.opencontainers.image.version="2025.06.12" \
+      org.opencontainers.image.licenses="GPL-3.0-or-later" \
+      org.opencontainers.image.authors="caleb.gyamfi@omnixys.com"
 
 RUN <<EOF
 set -eux
@@ -95,20 +79,19 @@ apt-get autoremove --yes
 apt-get clean --yes
 rm -rf /var/lib/apt/lists/*
 rm -rf /tmp/*
-# Bereinige npm Cache
-rm -rf /root/.npm
 EOF
 
 WORKDIR /opt/app
 
 USER node
 
-COPY --chown=node:node package.json .env ./
+COPY --chown=node:node package.json ./
 COPY --from=dependencies --chown=node:node /home/node/node_modules ./node_modules
-COPY --from=dist --chown=node:node /home/node/dist ./dist
-COPY --chown=node:node src/config/resources ./dist/config/resources
+COPY --from=dist --chown=node:node /home/node/public ./public
+COPY --from=dist --chown=node:node /home/node/.next ./.next
 
 EXPOSE 3000
 
 # Setze EntryPoint für den Container
-ENTRYPOINT ["dumb-init", "/usr/local/bin/node", "dist/main.js"]
+ENTRYPOINT ["dumb-init"]
+CMD ["npm", "start"]
