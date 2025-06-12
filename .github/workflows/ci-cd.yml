@@ -187,7 +187,8 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }} \
+          docker build . \
+            -t ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }} \
             --build-arg NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }} \
             --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }} \
             --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }} \
