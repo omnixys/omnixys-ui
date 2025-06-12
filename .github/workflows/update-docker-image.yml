@@ -5,20 +5,19 @@ on:
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
+  NEXT_PUBLIC_BACKEND_SERVER_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_SERVER_URL }}
+  NEXT_PUBLIC_DEFAULT_ROUTE: ${{ secrets.NEXT_PUBLIC_DEFAULT_ROUTE }}
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
 
-  ACTIVE_PROFILE: ${{ secrets.ACTIVE_PROFILE }}
-  HTTPS: ${{ secrets.HTTPS }}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ secrets.KC_SERVICE_CLIENT_ID }}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.KC_SERVICE_SECRET }}
+  NEXT_PUBLIC_KEYCLOAK_ISSUER: http://${{ secrets.KC_SERVICE_HOST }}:${{ secrets.KC_SERVICE_PORT }}/auth/realms/${{ secrets.KC_SERVICE_REALM }}
 
   NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-  KC_SERVICE_SECRET: ${{ secrets.KC_SERVICE_SECRET }}
-
-  KAFKA_HOST: ${{ secrets.KAFKA_HOST }}
-  TEMPO_HOST: ${{ secrets.TEMPO_HOST }}
-  KEYS_PATH: ${{ secrets.KEYS_PATH }}
 
 jobs:
   docker:
@@ -85,7 +84,14 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }} .
+          docker build -t ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }} \
+            --build-arg NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }} \
+            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }} \
+            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }} \
+            --build-arg NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }} \
+            --build-arg NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }} \
+            --build-arg NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
+            --build-arg NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }} \
 
 
       - name: Tag Docker Image

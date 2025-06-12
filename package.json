@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "depcheck": "depcheck",
+    "typedoc": "typedoc",
+    "eslint": "eslint src __tests__",
+    "prettier": "prettier --cache --write \"src/**/*.ts\""
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -36,6 +40,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
     "recharts": "^2.15.3",
+    "typedoc": "^0.28.5",
     "use-debounce": "^10.0.4"
   },
   "devDependencies": {

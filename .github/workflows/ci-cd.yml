@@ -22,6 +22,11 @@ env:
   NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.KC_SERVICE_SECRET }}
   NEXT_PUBLIC_KEYCLOAK_ISSUER: http://${{ secrets.KC_SERVICE_HOST }}:${{ secrets.KC_SERVICE_PORT }}/auth/realms/${{ secrets.KC_SERVICE_REALM }}
 
+  NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
 
 jobs:
   build:
