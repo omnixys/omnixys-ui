@@ -195,7 +195,7 @@ jobs:
             --build-arg NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }} \
             --build-arg NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }} \
             --build-arg NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
-            --build-arg NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }} \
+            --build-arg NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }}
   
 
 
