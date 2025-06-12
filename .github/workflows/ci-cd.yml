@@ -185,6 +185,14 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Set up Docker Cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: buildx-${{ github.sha }}
+          restore-keys: |
+            buildx-
+
       - name: Build and Push Docker image (multi-arch, cache)
         uses: docker/build-push-action@v5
         with:
@@ -203,14 +211,10 @@ jobs:
             NEXTAUTH_URL=${{ env.NEXTAUTH_URL }}
             NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }}
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      - name: Move new cache into place
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-          - name: Install Cosign
-          uses: sigstore/cosign-installer@v3
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
 
       - name: Sign Docker image with Cosign (keyless via GitHub OIDC)
         env:
