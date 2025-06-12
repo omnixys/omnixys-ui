@@ -99,11 +99,14 @@ jobs:
               echo "CURRENT_DATE ist bereits aktuell: $CURRENT_DATE"
             fi
 
+      - name: copy .next folder
+        run: cp -r .next next_copy
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-${{ matrix.node-version }}
-          path: .next
+          path: .next_copy
           retention-days: 1
 
   analyze:
