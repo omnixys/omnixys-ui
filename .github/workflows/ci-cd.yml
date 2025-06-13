@@ -173,6 +173,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Create .env file from secrets
+        run: |
+          echo "NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }}" >> .env
+          echo "NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}" >> .env
+          echo "NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}" >> .env
+          echo "NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }}" >> .env
+          echo "NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }}" >> .env
+          echo "NEXTAUTH_URL=${{ env.NEXTAUTH_URL }}" >> .env
+          echo "NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }}" >> .env
+      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
