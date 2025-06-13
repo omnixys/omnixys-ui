@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI/CD - Omnixys Sphere UI
 
 on:
   pull_request:
@@ -11,7 +11,12 @@ on:
     tags:
       - "v*" # Nur für Versionstags (z. B. v1.0.0)
 
+permissions:
+  contents: read
+  id-token: write # ← WICHTIG für Cosign ohne Schlüssel (keyless signing)
+
 env:
+  COSIGN_EXPERIMENTAL: "true"
   IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
   NEXT_PUBLIC_BACKEND_SERVER_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_SERVER_URL }}
   NEXT_PUBLIC_DEFAULT_ROUTE: ${{ secrets.NEXT_PUBLIC_DEFAULT_ROUTE }}
@@ -231,7 +236,8 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: |
-          # cosign sign ghcr.io/${{ github.repository }}:${{ env.CURRENT_DATE }}
-          # cosign sign ghcr.io/${{ github.repository }}:latest
           cosign sign --yes ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
           cosign sign --yes ${{ env.IMAGE_NAME }}:latest
+
+# cosign sign ghcr.io/${{ github.repository }}:${{ env.CURRENT_DATE }}
+# cosign sign ghcr.io/${{ github.repository }}:latest

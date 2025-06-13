@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { Person } from "../../../types/person/person.type";
 import { EmployeeFormData } from "../../../types/person/CustomerFormData";
+import { getLogger } from "../../../utils/logger";
 
 
 interface EmployeeFormProps {
@@ -20,6 +21,7 @@ interface EmployeeFormProps {
 }
 
 export default function EmployeeForm({ person, onSubmit }: EmployeeFormProps) {
+     const logger = getLogger(EmployeeForm.name);
   const [form, setForm] = useState< EmployeeFormData>({
     firstName: person.firstName || "",
     lastName: person.lastName || "",
@@ -46,7 +48,7 @@ export default function EmployeeForm({ person, onSubmit }: EmployeeFormProps) {
     if (onSubmit) {
       onSubmit(form);
     } else {
-      console.log("🧾 Mitarbeiter gespeichert:", form);
+      logger.debug("🧾 Mitarbeiter gespeichert:", form);
     }
   };
 

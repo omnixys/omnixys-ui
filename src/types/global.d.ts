@@ -1,13 +1,13 @@
-export { };
+export {};
 
 declare global {
-    interface Window {
-        gtag?: (type: "event", action: string, params: GtagEventParams) => void;
-    }
+  interface Window {
+    gtag?: (type: 'event', action: string, params: GtagEventParams) => void;
+  }
 
-    interface GtagEventParams {
-        event_category: string;
-        event_label: string;
-        value?: number;
-    }
+  interface GtagEventParams {
+    event_category: string;
+    event_label: string;
+    value?: number;
+  }
 }

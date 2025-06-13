@@ -63,6 +63,7 @@ import {
   isBinaryId,
 } from "../../../../types/person/contact.type";
 import { GET_CUSTOMER_BY_ID } from "../../../../graphql/customer/query/person";
+import { getLogger } from "../../../../utils/logger";
 
 // 🔤 Hilfsfunktion: Avatar-Initialen
 const generateAvatarInitials = (name: string = "") =>
@@ -155,6 +156,7 @@ const interestsMapping: Record<
 
 // 🧠 Hauptkomponente
 export default function CustomerInspect() {
+     const logger = getLogger(CustomerInspect.name);
   const { id } = useParams();
   const theme = useTheme();
   const { data: session } = useSession();
@@ -168,7 +170,7 @@ export default function CustomerInspect() {
   });
 
   const customer: Person = data?.customer;
-  console.log(customer);
+  logger.debug('customer=%o', customer);
 
   if (loading) return <LoadingSpinner />;
   if (error || !customer) return <ErrorCard message={error?.message} />;

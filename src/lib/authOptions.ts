@@ -5,13 +5,14 @@ import KeycloakProvider, {
   KeycloakProfile,
 } from 'next-auth/providers/keycloak';
 import { OAuthConfig } from 'next-auth/providers/oauth';
+import { GraphQLErrorEntry } from '../error/error';
 import { LOGIN, REFRESH_TOKEN } from '../graphql/auth/auth';
-import getApolloClient from './apolloClient';
 import { ENV, KEYCLOAK_ENV } from '../utils/env';
 import { getLogger } from '../utils/logger';
-import { GraphQLErrorEntry } from '../error/error';
+import getApolloClient from './apolloClient';
 
 const logger = getLogger('authOptions');
+
 const client = getApolloClient(undefined);
 
 export const authOptions: AuthOptions = {
@@ -51,15 +52,13 @@ export const authOptions: AuthOptions = {
             mutation: LOGIN,
             variables: { username, password },
           });
-          console.log('token: ' + data.login.access_token)
-          logger.debug('token: %o', data)
 
           return {
             ...data.login,
             username,
           };
         } catch (error) {
-          console.log('Login error:', (error as Error).message);
+          logger.error('Login error:', (error as Error).message);
           throw new Error('Invalid username or password');
         }
       },
@@ -74,7 +73,6 @@ export const authOptions: AuthOptions = {
      */
     async jwt({ token, user, account, trigger }) {
       const nowTimeStamp = Math.floor(Date.now() / 1000);
-      logger.debug('JWT: %o', token);
 
       if (user && account?.provider !== 'keycloak') {
         logger.trace('USER-LogIn');
@@ -138,10 +136,13 @@ export const authOptions: AuthOptions = {
           let graphqlErrors: GraphQLErrorEntry[] = [];
           let errorMessage = 'Unbekannter Fehler';
 
-          if (typeof error === 'object' && error !== null && 'message' in error) {
+          if (
+            typeof error === 'object' &&
+            error !== null &&
+            'message' in error
+          ) {
             errorMessage = String((error as { message: unknown }).message);
           }
-
 
           if (
             typeof error === 'object' &&
@@ -163,11 +164,12 @@ export const authOptions: AuthOptions = {
               url: typedError.networkError?.response?.url ?? null,
             };
             statusCode = typedError.networkError?.statusCode ?? null;
-            graphqlErrors = typedError.graphQLErrors?.map((e) => ({
-              message: e.message,
-              path: e.path,
-              extensions: e.extensions,
-            })) ?? [];
+            graphqlErrors =
+              typedError.graphQLErrors?.map((e) => ({
+                message: e.message,
+                path: e.path,
+                extensions: e.extensions,
+              })) ?? [];
           }
 
           const logEntry = {
@@ -178,10 +180,9 @@ export const authOptions: AuthOptions = {
             graphqlErrors,
             networkError,
             errorMessage,
-          //   stack: typeof error === 'object' && error !== null && 'stack' in error
-          //     ? (error as { stack: string }).stack
-          //     : null,
-
+            //   stack: typeof error === 'object' && error !== null && 'stack' in error
+            //     ? (error as { stack: string }).stack
+            //     : null,
           };
 
           console.error('[TOKEN REFRESH ERROR]', logEntry);
@@ -201,7 +202,7 @@ export const authOptions: AuthOptions = {
      * Ergänzt die Session-Daten um Benutzer- und Token-Informationen.
      */
     async session({ session, token }) {
-      logger.debug('Session Token: %o', token);
+      logger.debug('Session Token:', token);
 
       session.user = token.user || {
         name: token.name as string,
@@ -277,14 +278,6 @@ const logPayload = (
     } = payload;
 
     const roles = realm_access?.roles || [];
-    logger.debug(
-      'logPayload: name=%s, preferred_username=%s, given_name=%s, family_name=%s, email=%s',
-      name,
-      preferred_username,
-      given_name,
-      family_name,
-      email,
-    );
 
     logger.debug('logPayload: Rollen: %o', roles);
 

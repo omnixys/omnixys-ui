@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const GET_REVENUE_KPIS = gql`
   query RevenueKpis($filter: KpiFilter, $sort: Boolean, $limit: Int) {
@@ -8,7 +8,7 @@ export const GET_REVENUE_KPIS = gql`
       total_revenue
     }
   }
-`
+`;
 
 export const GET_ORDER_KPIS = gql`
   query OrderKpis($filter: KpiFilter, $sort: Boolean, $limit: Int) {
@@ -18,7 +18,7 @@ export const GET_ORDER_KPIS = gql`
       order_value_sum
     }
   }
-`
+`;
 
 export const GET_TRANSACTION_KPIS = gql`
   query TransactionKpis($filter: KpiFilter, $sort: Boolean, $limit: Int) {
@@ -28,4 +28,4 @@ export const GET_TRANSACTION_KPIS = gql`
       transaction_volume
     }
   }
-`
+`;

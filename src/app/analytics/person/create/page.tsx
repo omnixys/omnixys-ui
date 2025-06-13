@@ -24,6 +24,7 @@ import { useMutation } from "@apollo/client";
 import getApolloClient from "../../../../lib/apolloClient";
 import { CREATE_CUSTOMER } from "../../../../graphql/customer/mutation/create";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { getLogger } from "../../../../utils/logger";
 
 // Optionen für Auswahlfelder und Mehrfachauswahlen
 const tierLevelOptions = [
@@ -73,6 +74,7 @@ const interestOptions = [
  * @returns {JSX.Element} Die Benutzeroberfläche zur Erstellung eines neuen Kunden.
  */
 export default function CreateCustomerPage() {
+  const logger = getLogger(CreateCustomerPage.name);
   const router = useRouter();
   const client = getApolloClient(undefined);
 
@@ -148,7 +150,7 @@ export default function CreateCustomerPage() {
         },
       });
 
-      console.log("✅ Kunde erfolgreich erstellt:", data.createCustomer);
+      logger.debug("✅ Kunde erfolgreich erstellt:", data.createCustomer);
       alert("Kunde erfolgreich erstellt!");
       if (data && data.createCustomer && data.createCustomer.id) {
         router.push(`/analytics/customers/${data.createCustomer.id}`);

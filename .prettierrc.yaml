@@ -1,0 +1,33 @@
+singleQuote: true
+tabWidth: 2
+trailingComma: all
+semi: true
+printWidth: 80
+bracketSpacing: true
+arrowParens: always
+endOfLine: lf
+quoteProps: as-needed
+
+overrides:
+  - files:
+      - "*.ts"
+      - "*.tsx"
+      - "*.mts"
+      - "*.js"
+      - "*.mjs"
+      - "*.cjs"
+    options:
+      tabWidth: 2
+      trailingComma: all
+      semi: true
+
+  - files:
+      - "*.json"
+      - "*.yaml"
+      - "*.yml"
+    options:
+      tabWidth: 2
+      trailingComma: none
+
+plugins:
+  - prettier-plugin-organize-imports

@@ -49,6 +49,7 @@ import { JSX, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ENV } from "../../utils/env";
+import { getLogger } from "../../utils/logger";
 
 const { DEFAULT_ROUTE } = ENV;
 
@@ -96,6 +97,7 @@ const handleLogin = async (
   provider: AuthProvider,
   formData?: FormData
 ): Promise<AuthResponse> => {
+  const logger = getLogger(handleLogin.name);
   if (provider.id === "credentials") {
     return new Promise(async (resolve) => {
       try {
@@ -108,7 +110,7 @@ const handleLogin = async (
           redirect: false,
         });
 
-        console.log('result: '+ result?.ok)
+        logger.debug('result: '+ result?.ok)
 
         if (!result) {
           return resolve({
@@ -161,7 +163,7 @@ const handleLogin = async (
 
   return new Promise<AuthResponse>((resolve) => {
     setTimeout(() => {
-      console.log(`Sign in with ${provider.id}`);
+      logger.debug(`Sign in with ${provider.id}`);
       alert(`Signing in with "${provider.name}"`);
       resolve({
         type: "CredentialsSignin",

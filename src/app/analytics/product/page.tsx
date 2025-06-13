@@ -18,14 +18,16 @@ import { GET_PRODUCTS } from "../../../graphql/product/query/products";
 import { ProductType } from "../../../types/product/product.type";
 import { useSession } from "next-auth/react";
 import getApolloClient from "../../../lib/apolloClient";
+import { getLogger } from "../../../utils/logger";
 
 export default function ProductAnalyticsPage() {
+    const logger = getLogger(ProductAnalyticsPage.name);
   const { data: session } = useSession();
   const client = getApolloClient(session?.access_token);
   const { data, loading } = useQuery(GET_PRODUCTS, { client });
   const products: ProductType[] = data?.products?.content || [];
 
-  console.log('produkte: %o', data)
+  logger.debug('produkte: %o', data)
   const theme = useTheme();
 
   const handleExport = () => {

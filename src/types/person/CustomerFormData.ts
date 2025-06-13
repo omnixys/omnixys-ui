@@ -1,20 +1,19 @@
-import { Address } from "./address.type";
-import { MaritalStatus } from "./enums";
+import { Address } from './address.type';
+import { MaritalStatus } from './enums';
 
 export interface CustomerFormState {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    tierLevel: number;
-    subscribed: boolean;
-    maritalStatus: MaritalStatus;
-    address: Address;
-    contactOptions: string[];
-    interests: string[];
-    version: string;
-  }
-  
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  tierLevel: number;
+  subscribed: boolean;
+  maritalStatus: MaritalStatus;
+  address: Address;
+  contactOptions: string[];
+  interests: string[];
+  version: string;
+}
 
 export type CustomerFormData = {
   firstName: string;
@@ -23,34 +22,33 @@ export type CustomerFormData = {
   phoneNumber: string;
   tierLevel: number;
   subscribed: boolean;
-  maritalStatus: "SINGLE" | "MARRIED" | "DIVORCED" | "WIDOWED";
+  maritalStatus: 'SINGLE' | 'MARRIED' | 'DIVORCED' | 'WIDOWED';
   contactOptions: string[];
 };
-  
 
 export interface EmployeeFormState {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    role: "ADMIN" | "MANAGER" | "STAFF";
-    position: string;
-    department: string;
-    isExternal: boolean;
-    hireDate: string; // ISO-Format: "YYYY-MM-DD"
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  role: 'ADMIN' | 'MANAGER' | 'STAFF';
+  position: string;
+  department: string;
+  isExternal: boolean;
+  hireDate: string; // ISO-Format: "YYYY-MM-DD"
   salary: number;
   jobTitle: string;
   active: boolean;
   address: Address;
   version: string;
 }
-  
+
 export type EmployeeFormData = {
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  role: "ADMIN" | "MANAGER" | "STAFF";
+  role: 'ADMIN' | 'MANAGER' | 'STAFF';
   position: string;
   department: string;
   isExternal: boolean;

@@ -8,12 +8,12 @@ export default function Testimonials() {
     {
       text: "Omnixys hat unser gesamtes Buchungssystem revolutioniert – besonders für unsere Reiseabwicklung.",
       user: "Lisa Müller, TravelPro GmbH",
-      avatar: "/user1.jpg",
+      avatar: "/user/user1.png",
     },
     {
       text: "Unsere Plattform für Immobilienverkäufe konnte dank Omnixys um 40 % schneller skalieren.",
       user: "Mark Seitz, ImmoRocket AG",
-      avatar: "/user2.jpg",
+      avatar: "/user/user2.png",
     },
   ];
 

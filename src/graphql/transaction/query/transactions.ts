@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const GET_TRANSACTIONS = gql`
   query GetTransactions($input: TransactionSearchCriteria) {
@@ -12,4 +12,4 @@ export const GET_TRANSACTIONS = gql`
       created
     }
   }
-`
+`;

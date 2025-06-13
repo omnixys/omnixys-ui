@@ -16,19 +16,18 @@ export const LOGIN = gql`
 `;
 
 export const REFRESH_TOKEN = gql`
-  mutation Refresh ($refreshToken: String!) {
+  mutation Refresh($refreshToken: String!) {
     refresh(refresh_token: $refreshToken) {
-        access_token
-        expires_in
-        refresh_token
-        refresh_expires_in
-        roles
-        id_token
-        scope
+      access_token
+      expires_in
+      refresh_token
+      refresh_expires_in
+      roles
+      id_token
+      scope
     }
-}
-
+  }
 `;
 
-// console.error('Token refresh failed:', JSON.stringify(error, null, 2)); 
+// console.error('Token refresh failed:', JSON.stringify(error, null, 2));
 // mutation RefreshToken($refreshToken: String!) {

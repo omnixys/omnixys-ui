@@ -5,6 +5,7 @@ import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
 import { useQuery, gql } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import getApolloClient from "../../../../../lib/apolloClient";
+import { getLogger } from "../../../../../utils/logger";
 
 const SUPPORT_KPI_QUERY = gql`
   query SupportKpis($filter: KpiFilter!) {
@@ -25,6 +26,7 @@ interface SupportKpi {
 }
 
 export default function SupportChart() {
+  const logger = getLogger(SupportChart.name);
   const theme = useTheme();
   const currentYear = new Date().getFullYear();
 
@@ -38,7 +40,7 @@ export default function SupportChart() {
     },
   });
 
-  console.log("data: %o", data)
+  logger.debug(data)
   if (loading) return <CircularProgress />;
   if (error || !data)
     return <Typography color="error">Fehler beim Laden der Daten</Typography>;

@@ -1,66 +1,117 @@
-import fs from 'fs-extra';
-import { resolve } from 'path';
-import pino from 'pino';
-import { ENV } from './env';
+// lib/logger.ts
+import chalk from 'chalk';
+import { createConsola, type LogObject, type LogType } from 'consola';
 
-let loggerInstance: pino.Logger | undefined;
+const isProd = process.env.NODE_ENV === 'production';
 
-function initializeLogger(): pino.Logger {
-  if (loggerInstance) return loggerInstance;
-
-  const {
-    NEXT_PUBLIC_LOG_LEVEL = 'info',
-    NEXT_PUBLIC_LOG_DIR = 'logs',
-    NEXT_PUBLIC_PINO_PRETTY = 'true',
-  } = ENV;
-
-  const isVercel = !!process.env.VERCEL;
-
-  if (isVercel) {
-    // Kein Dateisystem, kein pretty-print auf Vercel
-    loggerInstance = pino({ level: NEXT_PUBLIC_LOG_LEVEL });
-    return loggerInstance;
-  }
-
-  // Lokales Logging (Pretty oder Datei)
-  const logDir = resolve(process.cwd(), NEXT_PUBLIC_LOG_DIR);
-  const logFile = resolve(logDir, 'server.log');
-
-  fs.ensureDirSync(logDir);
-  if (fs.existsSync(logFile)) {
-    const backupDir = resolve(logDir, new Date().toISOString().split('T')[0]);
-    fs.ensureDirSync(backupDir);
-    const backupFile = resolve(backupDir, `log-${Date.now()}.log`);
-    fs.renameSync(logFile, backupFile);
-  }
-
-  const destination =
-    NEXT_PUBLIC_PINO_PRETTY === 'true'
-      ? pino.transport({
-        target: 'pino-pretty',
-        options: {
-          translateTime: 'SYS:standard',
-          singleLine: true,
-          colorize: true,
-          ignore: 'pid,hostname',
-          messageFormat: '{msg}',
-        },
-      })
-      : pino.destination(logFile);
-
-  loggerInstance = pino(
-    {
-      level: NEXT_PUBLIC_LOG_LEVEL,
-    },
-    destination,
-  );
-
-  return loggerInstance;
-}
-
-export const getLogger = (context: string): pino.Logger => {
-  if (!loggerInstance) initializeLogger();
-  return loggerInstance!.child({ context });
+const icons: Record<LogType, string> = {
+  info: 'ℹ️',
+  success: '✅',
+  warn: '⚠️',
+  error: '❌',
+  fatal: '💀',
+  debug: '🐞',
+  trace: '🔍',
+  log: '📝',
+  box: '📦',
+  start: '🚀',
+  ready: '✅',
+  silent: '',
+  fail: '❌',
+  verbose: '🔊',
 };
 
-initializeLogger();
+const colors: Record<LogType, (text: string) => string> = {
+  info: chalk.blue,
+  success: chalk.green,
+  warn: chalk.yellow,
+  error: chalk.red,
+  fatal: chalk.bgRed.white.bold,
+  debug: chalk.magenta,
+  trace: chalk.cyan,
+  log: chalk.gray,
+  box: chalk.white,
+  start: chalk.cyanBright,
+  ready: chalk.greenBright,
+  silent: chalk.dim,
+  fail: chalk.redBright,
+  verbose: chalk.blueBright,
+};
+
+const colorfulReporter = {
+  log(logObj: LogObject) {
+    const icon = icons[logObj.type] ?? '';
+    const color = colors[logObj.type] ?? chalk.white;
+    const now = new Date();
+    const time = chalk.gray(
+      `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()} ${now.toTimeString().split(' ')[0]}`,
+    );
+
+    const tag = chalk.bold(`[${logObj.tag}]`);
+    const message = logObj.args
+      .map((arg) => {
+        if (typeof arg === 'object') {
+          return JSON.stringify(arg, null, 2);
+        }
+        return String(arg);
+      })
+      .join(' ');
+
+    console.log(`${icon} ${time} ${tag} ${color(message)}`);
+  },
+
+  // {
+  //     const { type, tag, args } = logObj;
+  //     const time = new Date().toISOString();
+  //     const color =
+  //       type === 'error'
+  //         ? chalk.red
+  //         : type === 'warn'
+  //           ? chalk.yellow
+  //           : type === 'info'
+  //             ? chalk.cyan
+  //             : type === 'debug'
+  //               ? chalk.magenta
+  //               : chalk.gray;
+
+  //     console.log(
+  //       `${chalk.gray(`[${time}]`)} ${color(`[${type.toUpperCase()}]`)} ${chalk.green(`[${tag}]`)}`,
+  //       ...args,
+  //     );
+  // },
+};
+
+const consola = createConsola({
+  level: isProd ? 2 : 4, // 2 = info, 4 = debug
+  reporters: isProd ? [jsonReporter()] : [colorfulReporter],
+  defaults: {
+    tag: 'omnixys',
+  },
+});
+
+// JSON-Reporter für Prod
+function jsonReporter() {
+  return {
+    log(logObj: LogObject) {
+      const { type, tag, args, level } = logObj;
+      console.log(
+        JSON.stringify({
+          date: new Date().toISOString(),
+          type,
+          tag,
+          level,
+          args,
+        }),
+      );
+    },
+  };
+}
+
+export const logger = consola;
+
+export const getLogger = (context: string | { name?: string }) => {
+  const name =
+    typeof context === 'string' ? context : context?.name || 'unknown';
+  const tag = name;
+  return logger.withTag(tag);
+};

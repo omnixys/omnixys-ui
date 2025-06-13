@@ -9,6 +9,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_PROFILE } from "@/graphql/profile/mutation/update";
 import { MY_PROFILE } from "@/graphql/profile/query/profile";
 import getApolloClient from "@/lib/apolloClient";
+import { getLogger } from "../utils/logger";
 
 export type Settings = {
   language: string;
@@ -45,11 +46,12 @@ export function useSettings() {
 }
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
+     const logger = getLogger(SettingsProvider.name);
   const { data: session } = useSession();
   const client = getApolloClient(session?.access_token);
 
   const { data, loading } = useQuery(MY_PROFILE, { client });
-  console.log("SettingsContext.tsx: data: %o", data);
+  logger.debug(data);
 
   const [updateProfile] = useMutation(UPDATE_PROFILE, { client });
 

@@ -1,9 +1,14 @@
-name: Update Docker Image Tag
+name: Update Docker Image Tag - Omnixys Sphere UI
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write # ← WICHTIG für Cosign ohne Schlüssel (keyless signing)
+
 env:
+  COSIGN_EXPERIMENTAL: "true"
   IMAGE_NAME: ${{ secrets.DOCKER_USER }}/${{ secrets.SERVICE }}
   NEXT_PUBLIC_BACKEND_SERVER_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_SERVER_URL }}
   NEXT_PUBLIC_DEFAULT_ROUTE: ${{ secrets.NEXT_PUBLIC_DEFAULT_ROUTE }}
@@ -18,6 +23,7 @@ env:
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  CURRENT_DATE: ${{ vars.CURRENT_DATE }}
 
 jobs:
   docker:
@@ -37,44 +43,22 @@ jobs:
       - name: Print tag
         run: echo "The tag is ${{ github.ref_name }}"
 
-      - name: Set CURRENT_DATE
-        id: set_date
-        run: |
-          DATE=$(date +'%Y-%m-%d')
-          echo "CURRENT_DATE=$DATE" >> $GITHUB_OUTPUT
-
-
-      - name: Aktualisiere CURRENT_DATE in Organisations-Variable (sicher)
-        run: |
-            CURRENT_DATE="${{ steps.set_date.outputs.CURRENT_DATE }}"
-
-            if [ -z "$CURRENT_DATE" ]; then
-              echo "Fehler: CURRENT_DATE ist leer!"
-              exit 1
-            fi
-
-            ORG_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f1)
-
-            EXISTING=$(curl -s \
-              -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
-              -H "Accept: application/vnd.github+json" \
-              https://api.github.com/orgs/${ORG_NAME}/actions/variables/CURRENT_DATE \
-              | jq -r '.value')
-
-            echo "Updating org-level CURRENT_DATE from $EXISTING to $CURRENT_DATE"
-
-            if [ "$EXISTING" != "$CURRENT_DATE" ]; then
-              curl -X PATCH \
-                -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
-                -H "Accept: application/vnd.github+json" \
-                https://api.github.com/orgs/${ORG_NAME}/actions/variables/CURRENT_DATE \
-                -d "{\"value\": \"${CURRENT_DATE}\"}"
-            else
-              echo "CURRENT_DATE ist bereits aktuell: $CURRENT_DATE"
-            fi
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+          driver-opts: image=moby/buildkit:latest
+
+      - name: Create .env file from secrets
+        run: |
+          echo "NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }}" >> .env
+          echo "NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}" >> .env
+          echo "NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}" >> .env
+          echo "NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }}" >> .env
+          echo "NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }}" >> .env
+          echo "NEXTAUTH_URL=${{ env.NEXTAUTH_URL }}" >> .env
+          echo "NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }}" >> .env
+        
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -82,24 +66,31 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker Image
+      - name: Set up Docker Cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: buildx-${{ github.sha }}
+          restore-keys: |
+            buildx-
+  
+      - name: Build and Push Docker image (multi-arch, cache)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
+            ${{ env.IMAGE_NAME }}:latest
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+  
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+  
+      - name: Sign Docker image with Cosign (keyless via GitHub OIDC)
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }} \
-            --build-arg NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }} \
-            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }} \
-            --build-arg NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }} \
-            --build-arg NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }} \
-            --build-arg NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }} \
-            --build-arg NEXTAUTH_URL=${{ env.NEXTAUTH_URL }} \
-            --build-arg NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }} \
-
-
-      - name: Tag Docker Image
-        run: |
-          docker tag ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }} ${{ env.IMAGE_NAME }}:latest
-          docker tag ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }} ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }}
-
-      - name: Push Docker Image
-        run: |
-          docker push ${{ env.IMAGE_NAME }}:${{ steps.set_date.outputs.CURRENT_DATE }}
-          docker push ${{ env.IMAGE_NAME }}:latest
+          cosign sign --yes ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
+          cosign sign --yes ${{ env.IMAGE_NAME }}:latest
+  
