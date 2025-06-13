@@ -202,17 +202,17 @@ jobs:
             ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
             ${{ env.IMAGE_NAME }}:latest
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }}
-            NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
-            NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
-            NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }}
-            NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }}
-            NEXTAUTH_URL=${{ env.NEXTAUTH_URL }}
-            NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }}
+          # build-args: |
+          #   NEXT_PUBLIC_BACKEND_SERVER_URL=${{ env.NEXT_PUBLIC_BACKEND_SERVER_URL }}
+          #   NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
+          #   NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET=${{ env.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
+          #   NEXT_PUBLIC_KEYCLOAK_ISSUER=${{ env.NEXT_PUBLIC_KEYCLOAK_ISSUER }}
+          #   NEXT_PUBLIC_DEFAULT_ROUTE=${{ env.NEXT_PUBLIC_DEFAULT_ROUTE }}
+          #   NEXTAUTH_URL=${{ env.NEXTAUTH_URL }}
+          #   NEXTAUTH_SECRET=${{ env.NEXTAUTH_SECRET }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          
+
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3
 
