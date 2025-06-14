@@ -233,8 +233,6 @@ jobs:
         uses: sigstore/cosign-installer@v3
 
       - name: Sign Docker image with Cosign (keyless via GitHub OIDC)
-        env:
-          COSIGN_EXPERIMENTAL: "true"
         run: |
           cosign sign --yes ${{ env.IMAGE_NAME }}:${{ env.CURRENT_DATE }}
           cosign sign --yes ${{ env.IMAGE_NAME }}:latest
