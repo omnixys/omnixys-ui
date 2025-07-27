@@ -1,21 +1,21 @@
-// src/app/profile/page.tsx
-"use client";
+'use client';
 
-import { Box, Typography } from "@mui/material";
-import { useSession } from "next-auth/react";
+import { Box, Container } from '@mui/material';
+import NavigationBar from './components/NavigationBar';
+import ProfileHeader from './components/ProfileHeader';
+import ProfileTabs from './components/ProfileTabs';
 
 export default function ProfilePage() {
-    const { data: session } = useSession();
-
   return (
-      <Box p={4}>
-        <Typography variant="h4" gutterBottom>
-          Profil
-        </Typography>
-        <Typography variant="body1">
-          Benutzer: {session?.user.username}
-        </Typography>
-        <Typography variant="body1">E-Mail: {session?.user.email}</Typography>
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <NavigationBar />
+      {/* Profil Header */}
+      <ProfileHeader />
+
+      {/* Tabs für Inhalte */}
+      <Box sx={{ mt: 4 }}>
+        <ProfileTabs />
       </Box>
+    </Container>
   );
 }

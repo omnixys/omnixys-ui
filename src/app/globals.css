@@ -40,3 +40,17 @@ a {
     color-scheme: dark;
   }
 }
+
+
+/* slick carousel styles */
+.slick-slider {
+  position: relative;
+}
+.slick-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.slick-prev, .slick-next {
+  z-index: 100;
+}

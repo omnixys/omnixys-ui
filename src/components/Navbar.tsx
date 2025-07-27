@@ -87,7 +87,7 @@ export default function Navbar() {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => setDrawerOpen((prev) => !prev);
-  
+
   const open = Boolean(anchorEl);
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -130,7 +130,7 @@ export default function Navbar() {
         }}
       >
         {/* <Divider sx={{ color: theme.palette.primary.light }} /> */}
-        <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box display="flex" alignItems="center">
             <Link href="/">
               <Image
@@ -145,14 +145,14 @@ export default function Navbar() {
               component={Link}
               href="/"
               color="inherit"
-              sx={{ ml: 1, textDecoration: "none" }}
+              sx={{ ml: 1, textDecoration: 'none' }}
             >
               Omnixys
             </Typography>
           </Box>
 
           {/* RESPONSIVE */}
-          {useMediaQuery(theme.breakpoints.down("sm")) ? (
+          {useMediaQuery(theme.breakpoints.down('sm')) ? (
             <>
               <IconButton color="inherit" onClick={toggleDrawer}>
                 <MenuIcon />
@@ -162,6 +162,9 @@ export default function Navbar() {
                   <List>
                     <ListItemButton component={Link} href="/">
                       <ListItemText primary="Home" />
+                    </ListItemButton>
+                    <ListItemButton component={Link} href="/shop">
+                      <ListItemText primary="shop" />
                     </ListItemButton>
                     {isLoggedIn && (
                       <ListItemButton component={Link} href="/dashboard">
@@ -181,7 +184,7 @@ export default function Navbar() {
                     <Divider />
                     <ListItemButton onClick={toggleColorMode}>
                       <ListItemIcon>
-                        {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
+                        {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
                       </ListItemIcon>
                       <ListItemText primary="Theme wechseln" />
                     </ListItemButton>
@@ -218,7 +221,7 @@ export default function Navbar() {
                               </ListItemIcon>
                               <ListItemText primary={label} />
                             </ListItemButton>
-                          )
+                          ),
                         )}
                         <Divider />
                         <ListItem>
@@ -241,6 +244,20 @@ export default function Navbar() {
               <Button color="inherit" component={Link} href="/">
                 Home
               </Button>
+              <Button
+                color="inherit"
+                component={Link}
+                href="/profile/feed"
+              >
+                Feed
+              </Button>
+              <Button color="inherit" component={Link} href="/shop">
+                shop
+              </Button>
+              <Button color="inherit" component={Link} href="/entertainment">
+                Entertainment
+              </Button>
+              {/* auktion, reise */}
               {isLoggedIn && (
                 <Button color="inherit" component={Link} href="/dashboard">
                   Dashboard
@@ -258,18 +275,18 @@ export default function Navbar() {
               )}
 
               <Tooltip
-                title={mode === "dark" ? "Helles Design" : "Dunkles Design"}
+                title={mode === 'dark' ? 'Helles Design' : 'Dunkles Design'}
                 arrow
                 placement="bottom"
               >
                 <IconButton color="inherit" onClick={toggleColorMode}>
-                  {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
+                  {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
                 </IconButton>
               </Tooltip>
 
               {isLoggedIn ? (
                 <>
-                  <Tooltip title={session?.user.username || "Profil"}>
+                  <Tooltip title={session?.user.username || 'Profil'}>
                     <IconButton
                       onClick={handleAvatarClick}
                       size="small"
@@ -295,7 +312,7 @@ export default function Navbar() {
                   >
                     <MenuItem disabled>
                       <Typography variant="body2" color="text.secondary">
-                        {session?.user.email || "Nutzer"}
+                        {session?.user.email || 'Nutzer'}
                       </Typography>
                     </MenuItem>
                     <Divider />
@@ -304,8 +321,8 @@ export default function Navbar() {
                       href="/profile"
                       sx={{
                         borderRadius: 1,
-                        transition: "background-color 0.2s ease",
-                        "&:hover": {
+                        transition: 'background-color 0.2s ease',
+                        '&:hover': {
                           backgroundColor: theme.palette.action.hover,
                         },
                       }}
@@ -316,15 +333,15 @@ export default function Navbar() {
                     <MenuItem
                       sx={{
                         borderRadius: 1,
-                        transition: "background-color 0.2s ease",
-                        "&:hover": {
+                        transition: 'background-color 0.2s ease',
+                        '&:hover': {
                           backgroundColor: theme.palette.action.hover,
                         },
                       }}
                     >
                       <Timer sx={{ mr: 1 }} />
-                      Token:{" "}
-                      {remainingTime ? formatTime(remainingTime) : "Abgelaufen"}
+                      Token:{' '}
+                      {remainingTime ? formatTime(remainingTime) : 'Abgelaufen'}
                     </MenuItem>
                     <MenuItem onClick={handleRefreshToken}>
                       <Refresh sx={{ mr: 1 }} />
@@ -344,14 +361,14 @@ export default function Navbar() {
                         }
                         sx={{
                           transition:
-                            "background-color 0.2s ease, transform 0.3s ease",
-                          "&.Mui-selected": {
+                            'background-color 0.2s ease, transform 0.3s ease',
+                          '&.Mui-selected': {
                             backgroundColor: theme.palette.action.selected,
-                            transform: "scale(1.05)",
+                            transform: 'scale(1.05)',
                           },
-                          "&:hover": {
+                          '&:hover': {
                             backgroundColor: theme.palette.action.hover,
-                            transform: "scale(1.03)",
+                            transform: 'scale(1.03)',
                           },
                         }}
                       >
