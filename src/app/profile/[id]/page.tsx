@@ -15,9 +15,9 @@ export default function UserProfilePage({
     <>
       <NavigationBar />
       <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <ProfileHeader isOwnProfile={false} userId={params.id} />
+        <ProfileHeader isOwnProfile={false} profileId={params.id} />
         <Box sx={{ mt: 4 }}>
-          <ProfileTabs userId={params.id} />
+          <ProfileTabs profileId={params.id} />
         </Box>
       </Container>
     </>

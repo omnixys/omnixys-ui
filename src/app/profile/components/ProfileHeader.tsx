@@ -1,6 +1,5 @@
 'use client';
 
-import { useQuery } from '@apollo/client';
 import {
   Avatar,
   Box,
@@ -12,45 +11,33 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-import { useSession } from 'next-auth/react';
-import {
-  GET_PROFILE_BY_USER_ID,
-  MY_PROFILE,
-} from '../../../graphql/profile/query/profile';
-import getApolloClient from '../../../lib/apolloClient';
+import { getLogger } from '../../../utils/logger';
+import { FullProfile } from '../../../types/profile/profile.type';
 
 interface ProfileHeaderProps {
-  userId?: string;
+  data?: FullProfile;
+  email: string | undefined;
   isOwnProfile?: boolean;
 }
 
-export default function ProfileHeader({
-  userId,
-  isOwnProfile = true,
-}: ProfileHeaderProps) {
+export default function ProfileHeader({ data, email, isOwnProfile=true}: ProfileHeaderProps) {
+  const logger = getLogger(ProfileHeader.name);
+  logger.debug('data:', { data });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { data: session } = useSession();
 
-  const client = getApolloClient(session?.access_token);
 
-  const { loading, error, data } = useQuery(
-    isOwnProfile ? MY_PROFILE : GET_PROFILE_BY_USER_ID,
-    {
-      client,
-      variables: isOwnProfile ? {} : { userId },
-      skip: !isOwnProfile && !userId,
-    },
-  );
 
-  if (loading) return <Typography>Lädt...</Typography>;
-  if (error) return <Typography>Fehler: {error.message}</Typography>;
+  if (!data || !data.profile) {
+    return <Typography>Profil nicht gefunden.</Typography>;
+  }
 
-  const profile = isOwnProfile ? data?.myProfile : data?.getProfileByUserId;
+  const profile = data?.profile;
+  const followers = data?.followCount.followers || 0;
+  const following = data?.followCount.following || 0;
+  const friends = data?.friendships || 0;
 
-  const followers = profile?.followersCount || 0;
-  const following = profile?.followingCount || 0;
-  const friends = profile?.friendsCount || 0;
+
 
   return (
     <Box
@@ -107,11 +94,12 @@ export default function ProfileHeader({
           {profile?.username || 'Unbekannt'}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {session?.user?.email || ''}
+          {email}
         </Typography>
 
         <Typography variant="body2" sx={{ mt: 1, color: 'text.secondary' }}>
-          {profile?.info?.headline || 'Keine Bio angegeben'}
+          {/* profile?.info?.headline || */}
+          {'Keine Bio angegeben'}
         </Typography>
 
         {/* Stats Section */}

@@ -1,38 +1,90 @@
-"use client";
+'use client';
 
-import { Box, Tabs, Tab } from "@mui/material";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import PostCard from "./PostCard";
+import { useQuery } from '@apollo/client';
+import { Box, CircularProgress, Tab, Tabs, Typography } from '@mui/material';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { GET_POST_BY_ID } from '../../../graphql/profile/query/post';
+import getApolloClient from '../../../lib/apolloClient';
+import { getLogger } from '../../../utils/logger';
+import PostCard from './PostCard';
 
-const tabContent = [
-  {
-    label: "Beiträge",
-    content: (
-      <>
-        <PostCard
-          title="Neues Feature in OmnixysSphere"
-          content="Wir haben gerade die Analytics-Integration veröffentlicht! 🚀"
-          image="/images/post1.jpg"
-        />
-        <PostCard
-          title="GraphQL rocks!"
-          content="API-First Entwicklung mit GraphQL ist ein Game-Changer."
-        />
-      </>
-    ),
-  },
-  { label: "Über mich", content: <Box>Über mich Inhalt...</Box> },
-  { label: "Projekte", content: <Box>Projektliste...</Box> },
-  { label: "Netzwerk", content: <Box>Netzwerk anzeigen...</Box> },
-];
+interface ProfileTabsProps {
+  profileId?: string;
+}
 
-export default function ProfileTabs() {
+export default function ProfileTabs({ profileId }: ProfileTabsProps) {
+  const logger = getLogger(ProfileTabs.name);
+  logger.debug('profileId:', profileId);
+
   const [tab, setTab] = useState(0);
+
+  const { data: session } = useSession();
+
+  const client = getApolloClient(session?.access_token);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
+
+  const { data, loading, error } = useQuery(GET_POST_BY_ID, {
+    client,
+    variables: { id: profileId },
+    skip: !profileId,
+  });
+
+  const posts = data?.getPostsByProfile || [];
+
+  logger.debug('query data:', { data });
+
+  if (error) {
+    logger.error('query error:', { error });
+    return <Typography>Fehler: {error.message}</Typography>;
+  }
+
+  const tabContent = [
+    {
+      label: 'Beiträge',
+      content: (
+        <>
+          {loading && (
+            <Box textAlign="center" mt={4}>
+              <CircularProgress />
+              <Typography>Lade Beiträge...</Typography>
+            </Box>
+          )}
+          {error && (
+            <Typography color="error" mt={2}>
+              Fehler beim Laden: {error.message}
+            </Typography>
+          )}
+          {!loading && posts.length === 0 && (
+            <Typography mt={2}>Keine Beiträge vorhanden.</Typography>
+          )}
+          {!loading &&
+            posts.map((post: any) => (
+              <PostCard
+                key={post.id}
+                title={post.title || 'Beitrag'}
+                content={post.content}
+                image={post.media?.[0] || undefined}
+                createdAt={post.createdAt}
+                isSupremeUser={true}
+                user={{
+                  id: post.profileId,
+                  name: post.authorName || 'Unbekannt', // falls verfügbar
+                  avatar: post.authorAvatar || '/images/default-avatar.png',
+                }}
+              />
+            ))}
+        </>
+      ),
+    },
+    { label: 'Über mich', content: <Box>Über mich Inhalt...</Box> },
+    { label: 'Projekte', content: <Box>Projektliste...</Box> },
+    { label: 'Netzwerk', content: <Box>Netzwerk anzeigen...</Box> },
+  ];
 
   return (
     <Box>

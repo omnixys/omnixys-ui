@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 // import { useEffect, useState } from "react";
 // import { useProgressBar } from "../../components/common/PageProgressBar";
 // import { Box } from "@mui/material";
@@ -37,19 +37,28 @@
 // }
 
 import { Box } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 export default function FetchUserCard() {
+  const { data: session } = useSession();
+
   return (
     <Box
       sx={{
         background:
-          "linear-gradient(180deg, #F8F8FC, #6A4BBC, #4E3792, #6A4BBC, #F8F8FC,)",
-        height: "1000px",
+          'linear-gradient(180deg, #F8F8FC, #6A4BBC, #4E3792, #6A4BBC, #F8F8FC,)',
+        height: '1000px',
       }}
     >
       <div>
         <h2>Logs Page</h2>
         <p>Under Construction</p>
+        {/* <p>Session: {JSON.stringify(session)}</p> */}
+        <p> username: {JSON.stringify(session?.user.username)}</p>
+        <p>email: {JSON.stringify(session?.user.email)}</p>
+        <p>roles: {JSON.stringify(session?.user.roles)}</p>
+        <p>userID: {JSON.stringify(session?.user.id)}</p>
+        <p>profileID: {JSON.stringify(session?.user.profileId)}</p>
       </div>
     </Box>
   );

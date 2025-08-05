@@ -76,8 +76,14 @@ export const authOptions: AuthOptions = {
 
       if (user && account?.provider !== 'keycloak') {
         logger.trace('USER-LogIn');
-        logger.trace('USER: %o', user);
-        const userData = logPayload(user.access_token || '');
+        logger.trace('USER: ', user);
+
+        // Loggen des Payloads des Access-Tokens
+        const userData: TokenPayload | null = logPayload(
+          user.access_token || '',
+        );
+        logger.debug('USER-Data: %o', userData);
+
         token = {
           ...token,
           access_token: user.access_token,
@@ -87,6 +93,8 @@ export const authOptions: AuthOptions = {
           refresh_expires_in: user.refresh_expires_in + nowTimeStamp,
           refresh_token: user.refresh_token,
           user: {
+            id: userData?.user_id || 'N/A',
+              profileId: userData?.profile_id || 'N/A',
             name: userData?.name || user.name,
             email: userData?.email || user.email,
             username: userData?.preferred_username || user.username,
@@ -205,6 +213,8 @@ export const authOptions: AuthOptions = {
       logger.debug('Session Token:', token);
 
       session.user = token.user || {
+        id: token.id as string,
+        profileId: token.profileId as string,
         name: token.name as string,
         email: token.email as string,
         username: token.name as string,
@@ -240,12 +250,27 @@ export const authOptions: AuthOptions = {
 };
 
 /**
+ * Typdefinition für das Payload eines JWT-Access-Tokens.
+ * Enthält die wichtigsten Informationen über den Benutzer.
+ */
+export type TokenPayload = {
+  name?: string;
+  preferred_username?: string;
+  given_name?: string;
+  family_name?: string;
+  email?: string;
+  roles?: string[];
+  user_id?: string;
+  profile_id?: string;
+};
+
+/**
  * Decodiert und loggt den Payload eines JWT-Access-Tokens.
  *
  * @param {string} access_token - Der JWT-Access-Token.
  * @returns {object} Ein Objekt mit Payload-Daten wie Name, Benutzername und E-Mail.
  */
-const logPayload = (
+const logPayload: (access_token: string) => TokenPayload | null = (
   access_token: string,
 ): {
   name?: string;
@@ -254,6 +279,8 @@ const logPayload = (
   family_name?: string;
   email?: string;
   roles?: string[];
+  user_id?: string;
+  profile_id?: string;
 } | null => {
   try {
     const [, payloadString] = access_token.split('.');
@@ -275,13 +302,25 @@ const logPayload = (
       family_name,
       email,
       realm_access,
+      user_id,
+      profile_id,
     } = payload;
 
     const roles = realm_access?.roles || [];
 
     logger.debug('logPayload: Rollen: %o', roles);
+    logger.debug('logPayload: Benutzer-ID: %s', user_id);
 
-    return { name, preferred_username, given_name, family_name, email, roles };
+    return {
+      name,
+      preferred_username,
+      given_name,
+      family_name,
+      email,
+      roles,
+      user_id,
+      profile_id,
+    };
   } catch (error) {
     logger.error('Fehler beim Decodieren des Access-Tokens:', error);
     return null;
