@@ -1,25 +1,25 @@
 // app/analytics/transaction/page.tsx
 
-"use client";
+'use client';
 
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
-  Typography,
-  Grid,
+  Button,
   Card,
   CardContent,
   Chip,
   CircularProgress,
-  Button,
+  Grid,
+  Typography,
   useTheme,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import DownloadIcon from "@mui/icons-material/Download";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../lib/apolloClient";
-import { GET_TRANSACTIONS } from "../../../graphql/transaction/query/transactions";
-import { Transaction } from "../../../types/transaction/transaction.type";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { GET_TRANSACTIONS } from '../../../graphql/transaction/query/transactions';
+import getApolloClient from '../../../lib/apolloClient';
+import { Transaction } from '../../../types/transaction/transaction.type';
 
 export default function TransactionAnalyticsPage() {
   const { data: session } = useSession();
@@ -29,7 +29,7 @@ export default function TransactionAnalyticsPage() {
   const theme = useTheme();
 
   const handleExport = () => {
-    window.open("/export/transactions/report.xlsx", "_blank");
+    window.open('/export/transactions/report.xlsx', '_blank');
   };
 
   return (

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 type SidebarContextType = {
   isOpen: boolean;
@@ -13,7 +13,7 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export function useSidebar(): SidebarContextType {
   const ctx = useContext(SidebarContext);
-  if (!ctx) throw new Error("useSidebar must be used within SidebarProvider");
+  if (!ctx) throw new Error('useSidebar must be used within SidebarProvider');
   return ctx;
 }
 

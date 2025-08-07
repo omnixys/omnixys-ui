@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
 import {
+  Box,
   Button,
-  Grid,
-  TextField,
-  Typography,
-  MenuItem,
   Checkbox,
   FormControlLabel,
   FormGroup,
-  Box,
-} from "@mui/material";
-import { useState } from "react";
-import { Person } from "../../../types/person/person.type";
-import { CustomerFormData } from "../../../types/person/CustomerFormData";
-import OmnixysCard from "../../OmnixysCard";
+  Grid,
+  MenuItem,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useState } from 'react';
+import { CustomerFormData } from '../../../types/person/CustomerFormData';
+import { Person } from '../../../types/person/person.type';
+import OmnixysCard from '../../OmnixysCard';
 
 const contactOptionLabels: Record<string, string> = {
-  EMAIL: "E-Mail",
-  PHONE: "Telefon",
-  LETTER: "Brief",
-  SMS: "SMS",
+  EMAIL: 'E-Mail',
+  PHONE: 'Telefon',
+  LETTER: 'Brief',
+  SMS: 'SMS',
 };
 
 interface CustomerFormProps {
@@ -30,19 +30,19 @@ interface CustomerFormProps {
 
 export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
   const [form, setForm] = useState<CustomerFormData>({
-    firstName: person.firstName || "",
-    lastName: person.lastName || "",
-    email: person.email || "",
-    phoneNumber: person.phoneNumber || "",
+    firstName: person.firstName || '',
+    lastName: person.lastName || '',
+    email: person.email || '',
+    phoneNumber: person.phoneNumber || '',
     tierLevel: person.customer?.tierLevel || 1,
     subscribed: person.customer?.subscribed || false,
-    maritalStatus: person.customer?.maritalStatus || "SINGLE",
+    maritalStatus: person.customer?.maritalStatus || 'SINGLE',
     contactOptions: person.customer?.contactOptions || [],
   });
 
   const handleChange = <K extends keyof CustomerFormData>(
     field: K,
-    value: CustomerFormData[K]
+    value: CustomerFormData[K],
   ) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
@@ -61,12 +61,12 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
     e.preventDefault();
 
     if (!form.firstName.trim() || !form.lastName.trim()) {
-      alert("Vor- und Nachname sind erforderlich.");
+      alert('Vor- und Nachname sind erforderlich.');
       return;
     }
 
-    if (!form.email.includes("@")) {
-      alert("Bitte eine gültige E-Mail-Adresse eingeben.");
+    if (!form.email.includes('@')) {
+      alert('Bitte eine gültige E-Mail-Adresse eingeben.');
       return;
     }
 
@@ -82,7 +82,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             label="Vorname"
             fullWidth
             value={form.firstName}
-            onChange={(e) => handleChange("firstName", e.target.value)}
+            onChange={(e) => handleChange('firstName', e.target.value)}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
@@ -91,7 +91,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             label="Nachname"
             fullWidth
             value={form.lastName}
-            onChange={(e) => handleChange("lastName", e.target.value)}
+            onChange={(e) => handleChange('lastName', e.target.value)}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
@@ -100,7 +100,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             label="E-Mail"
             fullWidth
             value={form.email}
-            onChange={(e) => handleChange("email", e.target.value)}
+            onChange={(e) => handleChange('email', e.target.value)}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
@@ -109,7 +109,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             label="Telefonnummer"
             fullWidth
             value={form.phoneNumber}
-            onChange={(e) => handleChange("phoneNumber", e.target.value)}
+            onChange={(e) => handleChange('phoneNumber', e.target.value)}
           />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
@@ -119,7 +119,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             fullWidth
             select
             value={form.tierLevel}
-            onChange={(e) => handleChange("tierLevel", Number(e.target.value))}
+            onChange={(e) => handleChange('tierLevel', Number(e.target.value))}
           >
             <MenuItem value={1}>Bronze (1)</MenuItem>
             <MenuItem value={2}>Silber (2)</MenuItem>
@@ -135,8 +135,8 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             value={form.maritalStatus}
             onChange={(e) =>
               handleChange(
-                "maritalStatus",
-                e.target.value as CustomerFormData["maritalStatus"]
+                'maritalStatus',
+                e.target.value as CustomerFormData['maritalStatus'],
               )
             }
           >
@@ -156,7 +156,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
                 key={opt}
                 control={
                   <Checkbox
-                    inputProps={{ "aria-label": label }}
+                    inputProps={{ 'aria-label': label }}
                     checked={form.contactOptions.includes(opt)}
                     onChange={() => handleCheckboxChange(opt)}
                   />
@@ -172,7 +172,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
               control={
                 <Checkbox
                   checked={form.subscribed}
-                  onChange={(e) => handleChange("subscribed", e.target.checked)}
+                  onChange={(e) => handleChange('subscribed', e.target.checked)}
                 />
               }
               label="Newsletter abonniert"
@@ -186,7 +186,7 @@ export default function CustomerForm({ person, onSubmit }: CustomerFormProps) {
             sx={{
               mt: 2,
               backgroundColor: (theme) => theme.palette.primary.main,
-              ":hover": {
+              ':hover': {
                 backgroundColor: (theme) => theme.palette.secondary.main,
               },
             }}

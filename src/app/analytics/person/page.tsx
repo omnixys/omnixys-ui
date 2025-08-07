@@ -1,21 +1,29 @@
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { Tabs, Tab, Box, Typography, Alert, Breadcrumbs, Button } from "@mui/material";
-import PersonList from "./PersonList";
-import { Home } from "@mui/icons-material";
-import Link from "next/link";
-import ResponsiveLayout from "../../../components/layout/ResponsiveLayout";
+import { Home } from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Breadcrumbs,
+  Button,
+  Tab,
+  Tabs,
+  Typography,
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useState } from 'react';
+import ResponsiveLayout from '../../../components/layout/ResponsiveLayout';
+import PersonList from './PersonList';
 
 export default function PersonManagementPage() {
   const { data: session, status } = useSession();
   const [tab, setTab] = useState(0);
 
   const roles = session?.user?.roles || [];
-  const isAdminOrManager = roles.includes("Admin") || roles.includes("Manager");
+  const isAdminOrManager = roles.includes('Admin') || roles.includes('Manager');
 
-  if (status === "loading") return <Typography>Lade Session...</Typography>;
+  if (status === 'loading') return <Typography>Lade Session...</Typography>;
   if (!session) return <Alert severity="warning">Nicht eingeloggt</Alert>;
   if (!isAdminOrManager)
     return <Alert severity="error">Zugriff verweigert</Alert>;
@@ -43,7 +51,7 @@ export default function PersonManagementPage() {
           Personenverwaltung
         </Typography>
         <Typography variant="subtitle1" color="text.secondary">
-          Rollen: {roles.join(", ")}
+          Rollen: {roles.join(', ')}
         </Typography>
 
         <Tabs
@@ -53,8 +61,8 @@ export default function PersonManagementPage() {
           indicatorColor="primary"
           sx={{
             my: 2,
-            ".MuiTab-root": {
-              textTransform: "none",
+            '.MuiTab-root': {
+              textTransform: 'none',
               fontWeight: 500,
             },
           }}

@@ -1,51 +1,55 @@
 // app/analytics/analytics/page.tsx
 
-"use client";
+'use client';
 
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
-  Typography,
-  Grid,
+  Button,
   Card,
   CardContent,
   Chip,
   CircularProgress,
-  Button,
-  Tabs,
-  Tab,
-  useTheme,
+  FormControl,
+  Grid,
+  InputLabel,
   MenuItem,
   Select,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import DownloadIcon from "@mui/icons-material/Download";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../lib/apolloClient";
+  Tab,
+  Tabs,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 import {
-  RevenueKpi,
-  OrderKpi,
-  TransactionKpi,
-} from "../../../types/analytics/kpi.type";
-import {
-  LineChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
-import { GET_ORDER_KPIS, GET_REVENUE_KPIS, GET_TRANSACTION_KPIS } from "../../../graphql/analytics/query/transaction-kpis";
+} from 'recharts';
+import {
+  GET_ORDER_KPIS,
+  GET_REVENUE_KPIS,
+  GET_TRANSACTION_KPIS,
+} from '../../../graphql/analytics/query/transaction-kpis';
+import getApolloClient from '../../../lib/apolloClient';
+import {
+  OrderKpi,
+  RevenueKpi,
+  TransactionKpi,
+} from '../../../types/analytics/kpi.type';
 
 export default function AnalyticsOverviewPage() {
   const theme = useTheme();
   const [tabIndex, setTabIndex] = useState<0 | 1 | 2>(0);
-  const [year, setYear] = useState<number | "">("");
+  const [year, setYear] = useState<number | ''>('');
   const { data: session } = useSession();
   const client = getApolloClient(session?.access_token);
 
@@ -56,7 +60,7 @@ export default function AnalyticsOverviewPage() {
     {
       client,
       variables: { filter, sort: true, limit: 12 },
-    }
+    },
   );
   const revenueKpis: RevenueKpi[] = revenueData?.revenue_kpis || [];
 
@@ -71,14 +75,14 @@ export default function AnalyticsOverviewPage() {
     {
       client,
       variables: { filter, sort: true, limit: 12 },
-    }
+    },
   );
   const transactionKpis: TransactionKpi[] =
     transactionData?.transaction_kpis || [];
 
-  const handleExport = (format: "csv" | "excel") => {
+  const handleExport = (format: 'csv' | 'excel') => {
     const url = `/export/kpis/report.${format}`;
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   };
 
   const chartData = [revenueKpis, orderKpis, transactionKpis][tabIndex].map(
@@ -90,17 +94,17 @@ export default function AnalyticsOverviewPage() {
             ? (kpi as OrderKpi).order_value_sum
             : (kpi as TransactionKpi).transaction_volume;
       return {
-        name: `${kpi.year}/${kpi.month.toString().padStart(2, "0")}`,
+        name: `${kpi.year}/${kpi.month.toString().padStart(2, '0')}`,
         Wert: value,
       };
-    }
+    },
   );
 
   const currentData = [revenueKpis, orderKpis, transactionKpis][tabIndex];
   const currentLoading = [loadingRevenue, loadingOrder, loadingTransaction][
     tabIndex
   ];
-  const currentUnit = "€";
+  const currentUnit = '€';
 
   const average =
     currentData.length > 0
@@ -133,13 +137,13 @@ export default function AnalyticsOverviewPage() {
           Analytics Dashboard
         </Typography>
         <Box display="flex" gap={1}>
-          <Button variant="outlined" onClick={() => handleExport("csv")}>
+          <Button variant="outlined" onClick={() => handleExport('csv')}>
             CSV Export
           </Button>
           <Button
             variant="contained"
             startIcon={<DownloadIcon />}
-            onClick={() => handleExport("excel")}
+            onClick={() => handleExport('excel')}
           >
             Excel Export
           </Button>
@@ -152,7 +156,7 @@ export default function AnalyticsOverviewPage() {
           <Select
             value={year}
             label="Jahr"
-            onChange={(e) => setYear(e.target.value as number | "")}
+            onChange={(e) => setYear(e.target.value as number | '')}
             sx={{ minWidth: 120 }}
           >
             <MenuItem value="">Alle</MenuItem>
@@ -172,7 +176,7 @@ export default function AnalyticsOverviewPage() {
         indicatorColor="primary"
         sx={{ mb: 3 }}
       >
-        {["Umsatz", "Bestellungen", "Transaktionen"].map((label, idx) => (
+        {['Umsatz', 'Bestellungen', 'Transaktionen'].map((label, idx) => (
           <Tab key={idx} label={label} />
         ))}
       </Tabs>
@@ -229,7 +233,7 @@ export default function AnalyticsOverviewPage() {
                           fontWeight="bold"
                           color={theme.palette.text.primary}
                         >
-                          {kpi.year} / {kpi.month.toString().padStart(2, "0")}
+                          {kpi.year} / {kpi.month.toString().padStart(2, '0')}
                         </Typography>
                         <Box mt={2}>
                           <Chip

@@ -1,8 +1,15 @@
 // src/components/kpi-cards/TotalRevenue.tsx
 
-import React from "react";
-import { Avatar, Card, CardContent, Stack, SxProps, Theme, Typography } from "@mui/material";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Stack,
+  SxProps,
+  Theme,
+  Typography,
+} from '@mui/material';
 
 interface TotalRevenueProps {
   value: number;
@@ -19,15 +26,15 @@ export default function TotalRevenue({ value, sx }: TotalRevenueProps) {
               Gesamtumsatz
             </Typography>
             <Typography variant="h4">
-              {value.toLocaleString("de-DE", {
-                style: "currency",
-                currency: "EUR",
+              {value.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: 'EUR',
               })}
             </Typography>
           </Stack>
           <Avatar
             sx={{
-              backgroundColor: "var(--mui-palette-primary-main)",
+              backgroundColor: 'var(--mui-palette-primary-main)',
               height: 56,
               width: 56,
             }}

@@ -1,6 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
+import NorthIcon from '@mui/icons-material/North';
+import PeopleIcon from '@mui/icons-material/People';
+import SouthIcon from '@mui/icons-material/South';
 import {
   Avatar,
   Card,
@@ -8,27 +10,24 @@ import {
   Stack,
   Typography,
   useTheme,
-} from "@mui/material";
-import PeopleIcon from "@mui/icons-material/People";
-import NorthIcon from "@mui/icons-material/North";
-import SouthIcon from "@mui/icons-material/South";
-import type { SxProps } from "@mui/material/styles";
+} from '@mui/material';
+import type { SxProps } from '@mui/material/styles';
 
 export interface CustomerProps {
   diff?: number;
-  trend: "up" | "down";
+  trend: 'up' | 'down';
   total: number;
   sx?: SxProps;
 }
 
 export function CustomerCard({ diff, trend, total, sx }: CustomerProps) {
   const theme = useTheme();
-  const TrendIcon = trend === "up" ? NorthIcon : SouthIcon;
+  const TrendIcon = trend === 'up' ? NorthIcon : SouthIcon;
   const trendColor =
-    trend === "up" ? theme.palette.success.main : theme.palette.error.main;
+    trend === 'up' ? theme.palette.success.main : theme.palette.error.main;
 
   return (
-    <Card sx={{ width: "100%", maxWidth: 340, height: 180, ...sx }}>
+    <Card sx={{ width: '100%', maxWidth: 340, height: 180, ...sx }}>
       <CardContent>
         <Stack spacing={3} justifyContent="center">
           <Stack
@@ -42,7 +41,7 @@ export function CustomerCard({ diff, trend, total, sx }: CustomerProps) {
                 Total Customers
               </Typography>
               <Typography variant="h4">
-                {total.toLocaleString("de-DE")}
+                {total.toLocaleString('de-DE')}
               </Typography>
             </Stack>
             <Avatar

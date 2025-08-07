@@ -1,9 +1,9 @@
 // components/common/NavigationProgress.tsx
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useProgressBar } from "./PageProgressBar";
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+import { useProgressBar } from './PageProgressBar';
 
 export default function NavigationProgress() {
   const { start, finish } = useProgressBar();

@@ -1,23 +1,23 @@
-import { Box, List, ListItemButton, ListItemText } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, List, ListItemButton, ListItemText } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const sections = [
-  { id: "hero", label: "Start" },
-  { id: "USPGrid", label: "Vorteile" },
-  { id: "video", label: "Video" },
-  { id: "kpis", label: "KPIs" },
-  { id: "progress", label: "Fortschritt" },
-  { id: "badges", label: "Badges" },
-  { id: "progress", label: "Fortschritt" },
-  { id: "timeline", label: "Features" },
-  { id: "vergleich", label: "Vergleich" },
-  { id: "newsletter", label: "Newsletter" },
-  { id: "blog", label: "Blog" },
-  { id: "testimony", label: "Zeugnid" },
+  { id: 'hero', label: 'Start' },
+  { id: 'USPGrid', label: 'Vorteile' },
+  { id: 'video', label: 'Video' },
+  { id: 'kpis', label: 'KPIs' },
+  { id: 'progress', label: 'Fortschritt' },
+  { id: 'badges', label: 'Badges' },
+  { id: 'progress', label: 'Fortschritt' },
+  { id: 'timeline', label: 'Features' },
+  { id: 'vergleich', label: 'Vergleich' },
+  { id: 'newsletter', label: 'Newsletter' },
+  { id: 'blog', label: 'Blog' },
+  { id: 'testimony', label: 'Zeugnid' },
 ];
 
 export default function ScrollSpyNavigation() {
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,21 +33,21 @@ export default function ScrollSpyNavigation() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <Box
       sx={{
-        position: "fixed",
-        top: "50%",
+        position: 'fixed',
+        top: '50%',
         right: 16,
-        transform: "translateY(-50%)",
-        backgroundColor: "rgba(0,0,0,0.3)",
+        transform: 'translateY(-50%)',
+        backgroundColor: 'rgba(0,0,0,0.3)',
         borderRadius: 2,
         zIndex: 1200,
-        backdropFilter: "blur(8px)",
+        backdropFilter: 'blur(8px)',
         p: 1,
       }}
     >
@@ -58,7 +58,7 @@ export default function ScrollSpyNavigation() {
             onClick={() =>
               document
                 .getElementById(section.id)
-                ?.scrollIntoView({ behavior: "smooth" })
+                ?.scrollIntoView({ behavior: 'smooth' })
             }
             selected={activeId === section.id}
             sx={{ borderRadius: 1 }}
@@ -66,9 +66,9 @@ export default function ScrollSpyNavigation() {
             <ListItemText
               primary={section.label}
               primaryTypographyProps={{
-                fontSize: "0.75rem",
-                color: activeId === section.id ? "primary.main" : "white",
-                textAlign: "center",
+                fontSize: '0.75rem',
+                color: activeId === section.id ? 'primary.main' : 'white',
+                textAlign: 'center',
               }}
             />
           </ListItemButton>

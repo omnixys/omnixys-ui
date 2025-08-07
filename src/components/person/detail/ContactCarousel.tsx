@@ -1,25 +1,25 @@
 import {
-  Box,
   Avatar,
-  Typography,
+  Box,
   Card,
-  CardHeader,
   CardContent,
-} from "@mui/material";
-import { Carousel } from "antd";
-import { ContactPerson } from "../../../types/person/contact.type";
+  CardHeader,
+  Typography,
+} from '@mui/material';
+import { Carousel } from 'antd';
+import { ContactPerson } from '../../../types/person/contact.type';
 
-const generateAvatarInitials = (name: string = "") =>
+const generateAvatarInitials = (name: string = '') =>
   name
-    .split(" ")
+    .split(' ')
     .map((n) => n[0])
     .slice(0, 2)
-    .join("")
-    .toUpperCase() || "U";
+    .join('')
+    .toUpperCase() || 'U';
 
 // 🔑 sicheres Extrahieren der ID
-const getContactKey = (id: ContactPerson["_id"]): string =>
-  typeof id === "string" ? id : id?.$binary?.base64 || "unknown-id";
+const getContactKey = (id: ContactPerson['_id']): string =>
+  typeof id === 'string' ? id : id?.$binary?.base64 || 'unknown-id';
 
 export default function ContactCarousel({
   contacts,
@@ -51,20 +51,20 @@ export default function ContactCarousel({
     >
       {contacts.map((contact) => (
         <div key={getContactKey(contact._id)}>
-          <Box sx={{ p: 2, display: "flex", justifyContent: "center" }}>
+          <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
             <Card sx={{ borderRadius: 3, boxShadow: 3, maxWidth: 250 }}>
               <CardHeader
                 avatar={
-                  <Avatar sx={{ bgcolor: "#4E3792", color: "#fff" }}>
+                  <Avatar sx={{ bgcolor: '#4E3792', color: '#fff' }}>
                     {generateAvatarInitials(
-                      `${contact.firstName} ${contact.lastName}`
+                      `${contact.firstName} ${contact.lastName}`,
                     )}
                   </Avatar>
                 }
                 title={
                   <Typography
                     variant="subtitle1"
-                    sx={{ fontWeight: "bold", color: "#4E3792" }}
+                    sx={{ fontWeight: 'bold', color: '#4E3792' }}
                   >
                     {contact.firstName} {contact.lastName}
                   </Typography>
@@ -72,21 +72,21 @@ export default function ContactCarousel({
                 subheader={
                   contact.relationship
                     ? `Beziehung: ${contact.relationship}`
-                    : ""
+                    : ''
                 }
               />
               <CardContent>
                 <Typography variant="body2" color="textSecondary">
-                  Start:{" "}
+                  Start:{' '}
                   {contact.startDate
                     ? new Date(contact.startDate).toLocaleDateString()
-                    : "Nicht angegeben"}
+                    : 'Nicht angegeben'}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Ende:{" "}
+                  Ende:{' '}
                   {contact.endDate
                     ? new Date(contact.endDate).toLocaleDateString()
-                    : "Nicht angegeben"}
+                    : 'Nicht angegeben'}
                 </Typography>
               </CardContent>
             </Card>

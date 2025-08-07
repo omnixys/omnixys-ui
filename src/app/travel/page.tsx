@@ -38,7 +38,6 @@ export const dummyOffers = [
   },
 ];
 
-
 export default function TravelPage() {
   return (
     <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh' }}>

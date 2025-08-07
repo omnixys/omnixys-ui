@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { LineChart } from "@mui/x-charts";
-import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
-import { useQuery, gql } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../../../lib/apolloClient";
+import { gql, useQuery } from '@apollo/client';
+import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
+import { LineChart } from '@mui/x-charts';
+import { useSession } from 'next-auth/react';
+import getApolloClient from '../../../../../lib/apolloClient';
 
 const TRANSACTION_KPI_QUERY = gql`
   query TransactionKpis($filter: KpiFilter!) {
@@ -52,16 +52,16 @@ export default function TransactionChart() {
         Transaktionsvolumen {currentYear}
       </Typography>
       <LineChart
-        xAxis={[{ data: months, scaleType: "point" }]}
+        xAxis={[{ data: months, scaleType: 'point' }]}
         series={[
           {
             data: volumes,
-            label: "Volumen",
+            label: 'Volumen',
             color: theme.palette.primary.main,
           },
           {
             data: failed,
-            label: "Fehlgeschlagen",
+            label: 'Fehlgeschlagen',
             color: theme.palette.error.main,
           },
         ]}

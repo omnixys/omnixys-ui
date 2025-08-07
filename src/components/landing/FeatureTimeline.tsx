@@ -1,55 +1,58 @@
-"use client";
+'use client';
 
-import { Box, Button, Typography, useTheme } from "@mui/material";
-import { motion } from "framer-motion";
-import StoreIcon from "@mui/icons-material/Store";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import HomeWorkIcon from "@mui/icons-material/HomeWork";
-import GavelIcon from "@mui/icons-material/Gavel";
-import TravelExploreIcon from "@mui/icons-material/TravelExplore";
-import MovieIcon from "@mui/icons-material/Movie";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import LocalActivityIcon from "@mui/icons-material/LocalActivity";
-import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import GavelIcon from '@mui/icons-material/Gavel';
+import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import MovieIcon from '@mui/icons-material/Movie';
+import StoreIcon from '@mui/icons-material/Store';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import {
+  Box,
+  Button,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
-} from "@mui/material";
-import { useState } from "react";
-import Image from "next/image";
+  DialogContent,
+  DialogTitle,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
 
 // Timeline-Daten
 const MODULE_DETAILS = [
   {
-    name: "Shop",
-    year: "2023",
+    name: 'Shop',
+    year: '2023',
     icon: <StoreIcon />,
     description:
-      "Unsere Shop-Plattform ermöglicht den einfachen Verkauf digitaler und physischer Produkte – modular, skalierbar und 100 % via GraphQL steuerbar.",
-    image: "/shop.png", // im public-Ordner
+      'Unsere Shop-Plattform ermöglicht den einfachen Verkauf digitaler und physischer Produkte – modular, skalierbar und 100 % via GraphQL steuerbar.',
+    image: '/shop.png', // im public-Ordner
   },
   {
-    name: "Bank",
-    year: "2023",
+    name: 'Bank',
+    year: '2023',
     icon: <AccountBalanceIcon />,
     description:
-      "Das Omnixys-Banking-Modul deckt Giro-, Spar- und Kreditkonten ab und integriert sich nahtlos mit dem Payment- und Transaction-Service.",
-    image: "/shop.png", // im public-Ordner
+      'Das Omnixys-Banking-Modul deckt Giro-, Spar- und Kreditkonten ab und integriert sich nahtlos mit dem Payment- und Transaction-Service.',
+    image: '/shop.png', // im public-Ordner
   },
   {
-    name: "Immobilien",
-    year: "2023",
+    name: 'Immobilien',
+    year: '2023',
     icon: <HomeWorkIcon />,
-    video: "/modules/bank.mp4",
+    video: '/modules/bank.mp4',
   },
-  { name: "Auktion", year: "2024", icon: <GavelIcon /> },
-  { name: "Reisen", year: "2024", icon: <TravelExploreIcon /> },
-  { name: "Kino", year: "2024", icon: <MovieIcon /> },
-  { name: "Auto", year: "2025", icon: <DirectionsCarIcon /> },
-  { name: "Aktivitäten", year: "2025", icon: <LocalActivityIcon /> },
-  { name: "Social Feed", year: "2025", icon: <DynamicFeedIcon /> },
+  { name: 'Auktion', year: '2024', icon: <GavelIcon /> },
+  { name: 'Reisen', year: '2024', icon: <TravelExploreIcon /> },
+  { name: 'Kino', year: '2024', icon: <MovieIcon /> },
+  { name: 'Auto', year: '2025', icon: <DirectionsCarIcon /> },
+  { name: 'Aktivitäten', year: '2025', icon: <LocalActivityIcon /> },
+  { name: 'Social Feed', year: '2025', icon: <DynamicFeedIcon /> },
 ];
 
 export default function FeatureTimeline() {
@@ -74,20 +77,20 @@ export default function FeatureTimeline() {
       <Typography
         variant="h4"
         color="text.primary"
-        sx={{ fontWeight: "bold", mb: 6, textAlign: "center" }}
+        sx={{ fontWeight: 'bold', mb: 6, textAlign: 'center' }}
       >
         Feature-Timeline der OmnixysSphere
       </Typography>
       <Box
         sx={{
-          position: "relative",
-          "::before": {
+          position: 'relative',
+          '::before': {
             content: '""',
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             bottom: 0,
-            left: { xs: "calc(50% - 1px)", md: "calc(50% - 1px)" },
-            width: "2px",
+            left: { xs: 'calc(50% - 1px)', md: 'calc(50% - 1px)' },
+            width: '2px',
             backgroundColor: theme.palette.primary.main,
           },
         }}
@@ -100,37 +103,37 @@ export default function FeatureTimeline() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              position: "relative",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative',
               marginBottom: 60,
             }}
           >
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 flexDirection: {
-                  xs: "column",
-                  md: index % 2 === 0 ? "row-reverse" : "row",
+                  xs: 'column',
+                  md: index % 2 === 0 ? 'row-reverse' : 'row',
                 },
-                alignItems: "center",
+                alignItems: 'center',
                 gap: 3,
-                width: "100%",
-                justifyContent: "space-between",
+                width: '100%',
+                justifyContent: 'space-between',
                 maxWidth: 900,
               }}
             >
               <Box
                 sx={{
-                  width: { xs: "100%", md: "45%" },
-                  backgroundColor: "rgba(255,255,255,0.1)",
-                  backdropFilter: "blur(6px)",
+                  width: { xs: '100%', md: '45%' },
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(6px)',
                   p: 3,
                   borderRadius: 2,
                   boxShadow: 2,
-                  textAlign: "left",
-                  color: "#fff",
+                  textAlign: 'left',
+                  color: '#fff',
                 }}
               >
                 {/* Icon-Kreis */}
@@ -139,11 +142,11 @@ export default function FeatureTimeline() {
                     width: 48,
                     height: 48,
                     backgroundColor: theme.palette.secondary.main,
-                    color: "#fff",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    color: '#fff',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     boxShadow: 3,
                     zIndex: 2,
                   }}
@@ -177,8 +180,8 @@ export default function FeatureTimeline() {
               variant="caption"
               sx={{
                 mt: 2,
-                color: "rgba(255,255,255,0.6)",
-                display: { md: "none" },
+                color: 'rgba(255,255,255,0.6)',
+                display: { md: 'none' },
               }}
             >
               {item.year}
@@ -186,15 +189,15 @@ export default function FeatureTimeline() {
             {/* Punkt auf Linie */}
             <Box
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: "calc(50% - 8px)",
-                transform: "translateY(-50%)",
+                position: 'absolute',
+                top: '50%',
+                left: 'calc(50% - 8px)',
+                transform: 'translateY(-50%)',
                 width: 16,
                 height: 16,
-                borderRadius: "50%",
-                backgroundColor: "secondary.main",
-                border: "3px solid white",
+                borderRadius: '50%',
+                backgroundColor: 'secondary.main',
+                border: '3px solid white',
                 zIndex: 1,
               }}
             />
@@ -208,9 +211,9 @@ export default function FeatureTimeline() {
         fullWidth
         PaperProps={{
           sx: {
-            backgroundColor: "rgba(0,0,0,0.85)",
-            color: "#fff",
-            backdropFilter: "blur(8px)",
+            backgroundColor: 'rgba(0,0,0,0.85)',
+            color: '#fff',
+            backdropFilter: 'blur(8px)',
           },
         }}
       >
@@ -220,10 +223,10 @@ export default function FeatureTimeline() {
             <Box
               sx={{
                 mb: 2,
-                textAlign: "center",
-                "& img": { borderRadius: 2, maxWidth: "100%" },
-                position: "relative",
-                width: "100%",
+                textAlign: 'center',
+                '& img': { borderRadius: 2, maxWidth: '100%' },
+                position: 'relative',
+                width: '100%',
                 height: 400,
               }}
             >
@@ -231,20 +234,20 @@ export default function FeatureTimeline() {
                 src={selectedModule.image}
                 alt={selectedModule.name}
                 fill
-                style={{ objectFit: "cover", borderRadius: 8 }}
+                style={{ objectFit: 'cover', borderRadius: 8 }}
               />
             </Box>
           )}
 
           {selectedModule?.video && (
-            <Box sx={{ mb: 2, textAlign: "center" }}>
+            <Box sx={{ mb: 2, textAlign: 'center' }}>
               <video
                 src={selectedModule.video}
                 autoPlay
                 muted
                 loop
                 playsInline
-                style={{ maxWidth: "100%", borderRadius: 12 }}
+                style={{ maxWidth: '100%', borderRadius: 12 }}
               />
             </Box>
           )}

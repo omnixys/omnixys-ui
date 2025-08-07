@@ -1,19 +1,19 @@
 // components/landing/Testimonials.jsx
-"use client";
+'use client';
 
-import { Box, Container, Typography, Grid, Avatar } from "@mui/material";
+import { Avatar, Box, Container, Grid, Typography } from '@mui/material';
 
 export default function Testimonials() {
   const feedback = [
     {
-      text: "Omnixys hat unser gesamtes Buchungssystem revolutioniert – besonders für unsere Reiseabwicklung.",
-      user: "Lisa Müller, TravelPro GmbH",
-      avatar: "/user/user1.png",
+      text: 'Omnixys hat unser gesamtes Buchungssystem revolutioniert – besonders für unsere Reiseabwicklung.',
+      user: 'Lisa Müller, TravelPro GmbH',
+      avatar: '/user/user1.png',
     },
     {
-      text: "Unsere Plattform für Immobilienverkäufe konnte dank Omnixys um 40 % schneller skalieren.",
-      user: "Mark Seitz, ImmoRocket AG",
-      avatar: "/user/user2.png",
+      text: 'Unsere Plattform für Immobilienverkäufe konnte dank Omnixys um 40 % schneller skalieren.',
+      user: 'Mark Seitz, ImmoRocket AG',
+      avatar: '/user/user2.png',
     },
   ];
 
@@ -24,7 +24,7 @@ export default function Testimonials() {
       </Typography>
       <Grid container spacing={4} justifyContent="center">
         {feedback.map((item, i) => (
-          <Grid sx={{ xs:12, md:6 }} key={i}>
+          <Grid sx={{ xs: 12, md: 6 }} key={i}>
             <Box
               sx={{
                 // backgroundColor: "rgba(255,255,255,0.08)",
@@ -35,11 +35,11 @@ export default function Testimonials() {
               <Typography
                 color="text.primary"
                 variant="body1"
-                sx={{ color: "#EEE" }}
+                sx={{ color: '#EEE' }}
               >
                 „{item.text}“
               </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                 <Avatar
                   src={item.avatar}
                   alt={item.user}
@@ -48,7 +48,7 @@ export default function Testimonials() {
                 <Typography
                   color="text.primary"
                   variant="body2"
-                  sx={{ color: "#CCC" }}
+                  sx={{ color: '#CCC' }}
                 >
                   {item.user}
                 </Typography>

@@ -1,23 +1,23 @@
 // Pfad: src/app/components/account/AccountList.tsx
 
-"use client";
+'use client';
 
+import { useQuery } from '@apollo/client';
 import {
+  CircularProgress,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  CircularProgress,
   Typography,
-} from "@mui/material";
-import { useSession } from "next-auth/react";
-import { useQuery } from "@apollo/client";
-import { ACCOUNTS_QUERY } from "../../graphql/account/query/account";
-import getApolloClient from "../../lib/apolloClient";
-import { Account } from "../../types/account.type";
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import { ACCOUNTS_QUERY } from '../../graphql/account/query/account';
+import getApolloClient from '../../lib/apolloClient';
+import { Account } from '../../types/account.type';
 
 const AccountList = ({ type }: { type: string }) => {
   const { data: session } = useSession();
@@ -25,7 +25,7 @@ const AccountList = ({ type }: { type: string }) => {
 
   const { data, loading, error } = useQuery<{ accounts: Account[] }>(
     ACCOUNTS_QUERY,
-    { client }
+    { client },
   );
 
   if (loading) return <CircularProgress />;
@@ -33,7 +33,7 @@ const AccountList = ({ type }: { type: string }) => {
     return <Typography color="error">Fehler beim Laden der Konten</Typography>;
 
   const filtered = data?.accounts?.filter(
-    (acc) => acc.category?.toLowerCase() === type.toLowerCase()
+    (acc) => acc.category?.toLowerCase() === type.toLowerCase(),
   );
 
   if (!filtered?.length) {
@@ -57,7 +57,7 @@ const AccountList = ({ type }: { type: string }) => {
               <TableCell>{account.id}</TableCell>
               <TableCell>{account.balance.toFixed(2)} €</TableCell>
               <TableCell>{account.state}</TableCell>
-              <TableCell>{account.username ?? "—"}</TableCell>
+              <TableCell>{account.username ?? '—'}</TableCell>
             </TableRow>
           ))}
         </TableBody>

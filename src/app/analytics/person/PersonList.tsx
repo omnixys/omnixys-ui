@@ -1,19 +1,19 @@
 // src/components/PersonList.tsx
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
-import { CircularProgress, Box } from "@mui/material";
-import CustomerDataGrid from "../../../components/person/customer/CustomerDataGrid";
-import EmployeeDataGrid from "../../../components/person/employee/EmployeeDataGrid";
+import { Box, CircularProgress } from '@mui/material';
+import { useSession } from 'next-auth/react';
+import CustomerDataGrid from '../../../components/person/customer/CustomerDataGrid';
+import EmployeeDataGrid from '../../../components/person/employee/EmployeeDataGrid';
 
 interface PersonListProps {
-  type: "CUSTOMER" | "EMPLOYEE";
+  type: 'CUSTOMER' | 'EMPLOYEE';
 }
 
 export default function PersonList({ type }: PersonListProps) {
   const { data: session, status } = useSession();
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Box textAlign="center" py={4}>
         <CircularProgress color="primary" />
@@ -25,14 +25,14 @@ export default function PersonList({ type }: PersonListProps) {
     return <Box py={4}>Kein Token verfügbar.</Box>;
   }
 
-   return (
-     <>
-       <Box hidden={type !== "CUSTOMER"}>
-         <CustomerDataGrid token={session.access_token} />
-       </Box>
-       <Box hidden={type !== "EMPLOYEE"}>
-         <EmployeeDataGrid token={session.access_token} />
-       </Box>
-     </>
-   );
+  return (
+    <>
+      <Box hidden={type !== 'CUSTOMER'}>
+        <CustomerDataGrid token={session.access_token} />
+      </Box>
+      <Box hidden={type !== 'EMPLOYEE'}>
+        <EmployeeDataGrid token={session.access_token} />
+      </Box>
+    </>
+  );
 }

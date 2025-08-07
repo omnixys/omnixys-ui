@@ -1,4 +1,4 @@
-"use client";
+'use client';
 // import { useEffect, useState } from "react";
 // import { useProgressBar } from "../../components/common/PageProgressBar";
 // import { Box } from "@mui/material";
@@ -36,8 +36,8 @@
 //   );
 // }
 
-import { Box } from "@mui/material";
-import { useSession } from "next-auth/react";
+import { Box } from '@mui/material';
+import { useSession } from 'next-auth/react';
 
 export default function FetchUserCard() {
   const { data: session } = useSession();

@@ -1,5 +1,7 @@
-"use client";
+'use client';
 
+import { useMutation, useQuery } from '@apollo/client';
+import { Add } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -14,19 +16,17 @@ import {
   TextField,
   Typography,
   useTheme,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDebounce } from "use-debounce";
-import { useQuery, useMutation } from "@apollo/client";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import getApolloClient from "../../../lib/apolloClient";
-import { GET_EMPLOYEES } from "../../../graphql/customer/query/persons";
-import { Person } from "../../../types/person/person.type";
-import { DELETE_EMPLOYEE_BY_ID } from "../../../graphql/customer/mutation/delete";
-import { createEmployeeColumns } from "./employeeColumns";
-import EnhancedDataGrid from "../../EnhancedDataGrid";
-import { Add } from "@mui/icons-material";
+} from '@mui/material';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
+import { DELETE_EMPLOYEE_BY_ID } from '../../../graphql/customer/mutation/delete';
+import { GET_EMPLOYEES } from '../../../graphql/customer/query/persons';
+import getApolloClient from '../../../lib/apolloClient';
+import { Person } from '../../../types/person/person.type';
+import EnhancedDataGrid from '../../EnhancedDataGrid';
+import { createEmployeeColumns } from './employeeColumns';
 
 interface EmployeeDataGridProps {
   token: string;
@@ -50,7 +50,7 @@ interface DeleteDialogState {
 export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
   const router = useRouter();
   const client = getApolloClient(token);
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>('');
   const [debouncedSearch] = useDebounce(search, 500);
   const [employees, setEmployees] = useState<EmployeeListItem[]>([]);
   const [deleteDialog, setDeleteDialog] = useState<DeleteDialogState>({
@@ -64,10 +64,13 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
     {
       client,
       variables: {
-        filterInput: 
-          { field: "username", operator: "LIKE", value: debouncedSearch },
+        filterInput: {
+          field: 'username',
+          operator: 'LIKE',
+          value: debouncedSearch,
+        },
       },
-    }
+    },
   );
 
   const [deleteEmployee] = useMutation(DELETE_EMPLOYEE_BY_ID, { client });
@@ -79,8 +82,8 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
         username: e.username,
         email: e.email,
         version: e.version,
-        department: e.employee?.department ?? "Unbekannt",
-        jobTitle: e.employee?.jobTitle ?? "Unbekannt",
+        department: e.employee?.department ?? 'Unbekannt',
+        jobTitle: e.employee?.jobTitle ?? 'Unbekannt',
       }));
       setEmployees(transformed);
     }
@@ -92,7 +95,6 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
   const handleEdit = (id: string | number) =>
     router.push(`/analytics/person/${id}/edit?type=EMPLOYEE`);
 
-
   const handleDeleteConfirm = async () => {
     if (!deleteDialog.id || deleteDialog.version === null) return;
     try {
@@ -101,16 +103,14 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
       });
       await refetch();
     } catch (err) {
-      console.error("Löschfehler:", err);
+      console.error('Löschfehler:', err);
     } finally {
       setDeleteDialog({ open: false, id: null, version: null });
     }
   };
 
   const theme = useTheme();
-  const columns = createEmployeeColumns(
-    theme,
-    {
+  const columns = createEmployeeColumns(theme, {
     onInspect: handleInspect,
     onEdit: handleEdit,
     onDelete: (id: string | number, version: number) => {
@@ -133,8 +133,8 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
           sx={{
             p: 2,
             mb: 3,
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             boxShadow: 2,
           }}
         >
@@ -158,7 +158,7 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
             variant="contained"
             sx={{
               backgroundColor: (theme) => theme.palette.primary.main,
-              "&:hover": {
+              '&:hover': {
                 backgroundColor: (theme) => theme.palette.secondary.main,
               },
             }}
@@ -173,13 +173,13 @@ export default function EmployeeDataGrid({ token }: EmployeeDataGridProps) {
           variant="body2"
           sx={{ mt: 1, ml: 1, color: (theme) => theme.palette.secondary.main }}
         >
-          {employees.length}{" "}
-          {employees.length === 1 ? "Ergebnis" : "Ergebnisse"} gefunden
+          {employees.length}{' '}
+          {employees.length === 1 ? 'Ergebnis' : 'Ergebnisse'} gefunden
         </Typography>
 
         <Paper>
           {loading ? (
-            <Box sx={{ textAlign: "center", p: 4 }}>
+            <Box sx={{ textAlign: 'center', p: 4 }}>
               <CircularProgress color="primary" />
             </Box>
           ) : (

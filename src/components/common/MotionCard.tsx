@@ -1,9 +1,9 @@
 // components/common/MotionCard.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
-import { zoomIn } from "@/lib/animation/motionVariants";
+import { zoomIn } from '@/lib/animation/motionVariants';
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 type MotionCardProps = {
   children: ReactNode;
@@ -20,7 +20,7 @@ export default function MotionCard({
     <motion.div
       {...zoomIn(delay, duration)}
       whileHover={{ scale: 1.03 }}
-      transition={{ type: "spring", stiffness: 120 }}
+      transition={{ type: 'spring', stiffness: 120 }}
     >
       {children}
     </motion.div>

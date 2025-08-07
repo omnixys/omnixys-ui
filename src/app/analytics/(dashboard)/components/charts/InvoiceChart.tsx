@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { BarChart } from "@mui/x-charts";
-import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
-import { useQuery, gql } from "@apollo/client";
-import getApolloClient from "../../../../../lib/apolloClient";
-import { useSession } from "next-auth/react";
+import { gql, useQuery } from '@apollo/client';
+import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
+import { BarChart } from '@mui/x-charts';
+import { useSession } from 'next-auth/react';
+import getApolloClient from '../../../../../lib/apolloClient';
 
 const INVOICE_KPI_QUERY = gql`
   query InvoiceKpis($filter: KpiFilter!) {
@@ -50,16 +50,16 @@ export default function InvoiceChart() {
         Rechnungen {currentYear}
       </Typography>
       <BarChart
-        xAxis={[{ data: months, scaleType: "band" }]}
+        xAxis={[{ data: months, scaleType: 'band' }]}
         series={[
           {
             data: kpis.map((kpi) => kpi.invoicesIssued),
-            label: "Erstellt",
+            label: 'Erstellt',
             color: theme.palette.info.main,
           },
           {
             data: kpis.map((kpi) => kpi.overdueInvoices),
-            label: "Überfällig",
+            label: 'Überfällig',
             color: theme.palette.error.main,
           },
         ]}

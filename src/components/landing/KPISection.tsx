@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Box, Typography, useTheme } from "@mui/material";
-import CountUp from "react-countup";
-import { motion } from "framer-motion";
+import { Box, Typography, useTheme } from '@mui/material';
+import { motion } from 'framer-motion';
+import CountUp from 'react-countup';
 
 const KPIS = [
-  { label: "Deployments", value: 100, suffix: "+", emoji: "🚀" },
-  { label: "Systemverfügbarkeit", value: 99.99, suffix: "%", emoji: "📈" },
-  { label: "Kafka-Events/Min", value: 1200, suffix: "", emoji: "🔄" },
-  { label: "aktive Länder", value: 24, suffix: "", emoji: "🌍" },
+  { label: 'Deployments', value: 100, suffix: '+', emoji: '🚀' },
+  { label: 'Systemverfügbarkeit', value: 99.99, suffix: '%', emoji: '📈' },
+  { label: 'Kafka-Events/Min', value: 1200, suffix: '', emoji: '🔄' },
+  { label: 'aktive Länder', value: 24, suffix: '', emoji: '🌍' },
 ];
 
 export default function KPISection() {
@@ -19,16 +19,16 @@ export default function KPISection() {
       sx={{
         py: 10,
         // backgroundColor: "rgba(255, 255, 255, 0.125)",
-        backdropFilter: "blur(6px)",
+        backdropFilter: 'blur(6px)',
       }}
     >
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" },
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(4, 1fr)' },
           gap: 4,
           maxWidth: 1000,
-          mx: "auto",
+          mx: 'auto',
           px: 2,
         }}
       >
@@ -40,7 +40,7 @@ export default function KPISection() {
             transition={{ duration: 0.5, delay: i * 0.1 }}
             viewport={{ once: true }}
           >
-            <Box sx={{ textAlign: "center" }}>
+            <Box sx={{ textAlign: 'center' }}>
               <Typography
                 variant="h4"
                 fontWeight={700}

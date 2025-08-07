@@ -1,25 +1,32 @@
 // src/app/analytics/product/page.tsx
 //TODO mit echten daten noch
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
-import { Box, Typography, Alert, useTheme, Tabs, Tab, Grid } from "@mui/material";
-import { useState } from "react";
-import { BudgetCard } from "./components/budget";
-import { CustomerCard } from "./components/total-customers";
-import { TasksProgressCard } from "./components/tasks-progress";
-import { ProfitCard } from "./components/total-profit";
-import { AnalysisChart } from "./components/charts/AnalysisChart";
-import EngagementChart from "./components/charts/EngagementChart";
-import CustomerGrowthChart from "./components/charts/CustomerGrowthChart";
-import RevenueChart from "./components/charts/RevenueChart";
-import InvoiceChart from "./components/charts/InvoiceChart";
-import OrderChart from "./components/charts/OrderChart";
-import SupportChart from "./components/charts/SupportChart";
-import SystemHealthChart from "./components/charts/SystemHealthChart";
-import TransactionChart from "./components/charts/TransactionChart";
-import CustomTabPanel from "../../../components/CustomTabPanel";
-
+import {
+  Alert,
+  Box,
+  Grid,
+  Tab,
+  Tabs,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import CustomTabPanel from '../../../components/CustomTabPanel';
+import { BudgetCard } from './components/budget';
+import { AnalysisChart } from './components/charts/AnalysisChart';
+import CustomerGrowthChart from './components/charts/CustomerGrowthChart';
+import EngagementChart from './components/charts/EngagementChart';
+import InvoiceChart from './components/charts/InvoiceChart';
+import OrderChart from './components/charts/OrderChart';
+import RevenueChart from './components/charts/RevenueChart';
+import SupportChart from './components/charts/SupportChart';
+import SystemHealthChart from './components/charts/SystemHealthChart';
+import TransactionChart from './components/charts/TransactionChart';
+import { TasksProgressCard } from './components/tasks-progress';
+import { CustomerCard } from './components/total-customers';
+import { ProfitCard } from './components/total-profit';
 
 export default function AnalyticsProductPage() {
   const { data: session, status } = useSession();
@@ -30,10 +37,10 @@ export default function AnalyticsProductPage() {
     setValue(newValue);
   };
 
-  if (status === "loading") return <Typography>Lade...</Typography>;
+  if (status === 'loading') return <Typography>Lade...</Typography>;
   if (!session) return <Alert severity="warning">Nicht eingeloggt</Alert>;
 
-  const isAdmin = session.user?.roles?.includes("Admin");
+  const isAdmin = session.user?.roles?.includes('Admin');
 
   if (!isAdmin) {
     return <Alert severity="error">Zugriff nur für Administratoren</Alert>;
@@ -47,10 +54,10 @@ export default function AnalyticsProductPage() {
         color: theme.palette.text.primary,
         borderRadius: 2,
         boxShadow: 2,
-        width: "100%",
+        width: '100%',
       }}
     >
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -59,12 +66,12 @@ export default function AnalyticsProductPage() {
           centered
           sx={{
             marginBottom: 3,
-            "& .MuiTabs-flexContainer": {
-              justifyContent: "start",
+            '& .MuiTabs-flexContainer': {
+              justifyContent: 'start',
             },
-            "& .MuiTab-root": {
-              fontWeight: "bold",
-              textTransform: "none",
+            '& .MuiTab-root': {
+              fontWeight: 'bold',
+              textTransform: 'none',
             },
           }}
         >
@@ -86,7 +93,7 @@ export default function AnalyticsProductPage() {
             <BudgetCard
               diff={12}
               trend="up"
-              sx={{ height: "100%" }}
+              sx={{ height: '100%' }}
               value={240}
             />
           </Grid>
@@ -95,17 +102,17 @@ export default function AnalyticsProductPage() {
             <CustomerCard
               diff={16}
               trend="down"
-              sx={{ height: "100%" }}
+              sx={{ height: '100%' }}
               total={1600}
             />
           </Grid>
 
           <Grid sx={{ xs: 12, sm: 6, lg: 3 }}>
-            <TasksProgressCard sx={{ height: "100%" }} value={75.5} />
+            <TasksProgressCard sx={{ height: '100%' }} value={75.5} />
           </Grid>
 
           <Grid sx={{ xs: 12, sm: 6, lg: 3 }}>
-            <ProfitCard sx={{ height: "100%" }} value={15} />
+            <ProfitCard sx={{ height: '100%' }} value={15} />
           </Grid>
         </Grid>
         <AnalysisChart />

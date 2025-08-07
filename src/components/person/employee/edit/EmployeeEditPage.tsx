@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { useParams, useRouter } from "next/navigation";
+import { useMutation, useQuery } from '@apollo/client';
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
@@ -9,21 +10,20 @@ import {
   Container,
   FormControlLabel,
   Grid,
+  MenuItem,
   Paper,
   TextField,
   Typography,
-  Alert,
-  MenuItem,
-} from "@mui/material";
-import { useQuery, useMutation } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
-import getApolloClient from "../../../../lib/apolloClient";
-import AddressForm from "../../edit/AddressForm";
-import { GET_EMPLOYEE_BY_ID } from "../../../../graphql/customer/query/person";
-import { UPDATE_EMPLOYEE } from "../../../../graphql/customer/mutation/update";
-import { EmployeeFormState } from "../../../../types/person/CustomerFormData";
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
+import { UPDATE_EMPLOYEE } from '../../../../graphql/customer/mutation/update';
+import { GET_EMPLOYEE_BY_ID } from '../../../../graphql/customer/query/person';
+import getApolloClient from '../../../../lib/apolloClient';
+import { EmployeeFormState } from '../../../../types/person/CustomerFormData';
+import AddressForm from '../../edit/AddressForm';
 
 export default function EmployeeEditPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +31,7 @@ export default function EmployeeEditPage() {
   const { data: session } = useSession();
   const client = useMemo(
     () => getApolloClient(session?.access_token),
-    [session?.access_token]
+    [session?.access_token],
   );
 
   const { loading, error, data } = useQuery(GET_EMPLOYEE_BY_ID, {
@@ -43,46 +43,46 @@ export default function EmployeeEditPage() {
     useMutation(UPDATE_EMPLOYEE, { client });
 
   const [formState, setFormState] = useState<EmployeeFormState>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    role: "STAFF",
-    position: "",
-    department: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    role: 'STAFF',
+    position: '',
+    department: '',
     isExternal: false,
-    hireDate: "",
+    hireDate: '',
     salary: 0,
-    jobTitle: "",
+    jobTitle: '',
     active: true,
     address: {
-      street: "",
-      houseNumber: "",
-      zipCode: "",
-      city: "",
-      state: "",
-      country: "",
+      street: '',
+      houseNumber: '',
+      zipCode: '',
+      city: '',
+      state: '',
+      country: '',
     },
-    version: "",
+    version: '',
   });
 
   useEffect(() => {
     if (!data?.employee) return;
     const {
-      firstName = "",
-      lastName = "",
-      email = "",
-      phoneNumber = "",
-      role = "STAFF",
-      position = "",
-      department = "",
+      firstName = '',
+      lastName = '',
+      email = '',
+      phoneNumber = '',
+      role = 'STAFF',
+      position = '',
+      department = '',
       isExternal = false,
-      hireDate = "",
+      hireDate = '',
       salary = 0,
-      jobTitle = "",
+      jobTitle = '',
       active = true,
       address = {},
-      version = "",
+      version = '',
     } = data.employee;
 
     setFormState({
@@ -99,12 +99,12 @@ export default function EmployeeEditPage() {
       jobTitle,
       active,
       address: {
-        street: address.street ?? "",
-        houseNumber: address.houseNumber ?? "",
-        zipCode: address.zipCode ?? "",
-        city: address.city ?? "",
-        state: address.state ?? "",
-        country: address.country ?? "",
+        street: address.street ?? '',
+        houseNumber: address.houseNumber ?? '',
+        zipCode: address.zipCode ?? '',
+        city: address.city ?? '',
+        state: address.state ?? '',
+        country: address.country ?? '',
       },
       version,
     });
@@ -128,7 +128,7 @@ export default function EmployeeEditPage() {
       await updateEmployee({ variables: { id, input, version } });
       router.push(`/analytics/person/${id}`);
     } catch (err) {
-      console.error("Update fehlgeschlagen:", err);
+      console.error('Update fehlgeschlagen:', err);
     }
   };
 
@@ -136,13 +136,13 @@ export default function EmployeeEditPage() {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          minHeight: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <CircularProgress sx={{ color: "#6A4BBC" }} />
+        <CircularProgress sx={{ color: '#6A4BBC' }} />
       </Box>
     );
   }
@@ -151,9 +151,9 @@ export default function EmployeeEditPage() {
     return (
       <Container maxWidth="sm" sx={{ mt: 4 }}>
         <Paper
-          sx={{ p: 5, textAlign: "center", borderRadius: 3, boxShadow: 4 }}
+          sx={{ p: 5, textAlign: 'center', borderRadius: 3, boxShadow: 4 }}
         >
-          <Typography variant="h5" color="error" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" color="error" sx={{ fontWeight: 'bold' }}>
             Fehler beim Laden der Mitarbeiterdaten
           </Typography>
           <Typography variant="body1" sx={{ mt: 2 }}>
@@ -173,16 +173,16 @@ export default function EmployeeEditPage() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", backgroundColor: "#f4f6f8" }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#f4f6f8' }}>
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Paper sx={{ p: 4, borderRadius: 2, boxShadow: 3 }}>
           <Typography
             variant="h4"
             sx={{
-              fontWeight: "bold",
+              fontWeight: 'bold',
               mb: 3,
-              textAlign: "center",
-              color: "#1c2b39",
+              textAlign: 'center',
+              color: '#1c2b39',
             }}
           >
             Mitarbeiter bearbeiten
@@ -268,7 +268,7 @@ export default function EmployeeEditPage() {
                   onChange={(e) =>
                     setFormState({
                       ...formState,
-                      role: e.target.value as EmployeeFormState["role"],
+                      role: e.target.value as EmployeeFormState['role'],
                     })
                   }
                   fullWidth
@@ -349,8 +349,8 @@ export default function EmployeeEditPage() {
                 </Grid>
               )}
 
-              <Grid size={{ xs: 12 }} sx={{ textAlign: "center", mt: 2 }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Grid size={{ xs: 12 }} sx={{ textAlign: 'center', mt: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Button
                     component={Link}
                     href={`/analytics/person/${id}?type=EMPLOYEE`}
@@ -362,17 +362,17 @@ export default function EmployeeEditPage() {
                     type="submit"
                     variant="contained"
                     sx={{
-                      backgroundColor: "#1c2b39",
-                      "&:hover": { backgroundColor: "#162029" },
+                      backgroundColor: '#1c2b39',
+                      '&:hover': { backgroundColor: '#162029' },
                       px: 4,
                       py: 1.5,
                     }}
                     disabled={updateLoading}
                   >
                     {updateLoading ? (
-                      <CircularProgress size={24} sx={{ color: "#ffffff" }} />
+                      <CircularProgress size={24} sx={{ color: '#ffffff' }} />
                     ) : (
-                      "Speichern"
+                      'Speichern'
                     )}
                   </Button>
                 </Box>

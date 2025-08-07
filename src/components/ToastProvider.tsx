@@ -1,6 +1,6 @@
 // components/ToastProvider.tsx
-"use client";
-import { SnackbarProvider } from "notistack";
+'use client';
+import { SnackbarProvider } from 'notistack';
 
 export default function ToastProvider({
   children,

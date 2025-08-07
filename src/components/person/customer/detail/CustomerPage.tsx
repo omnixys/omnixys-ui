@@ -1,168 +1,168 @@
-"use client";
+'use client';
 
-import { JSX, useMemo } from "react";
-import { useParams } from "next/navigation";
-import { Carousel } from "antd";
+import { useQuery } from '@apollo/client';
 import {
-  Container,
-  Paper,
-  Typography,
+  ArrowBack,
+  Business,
+  Cake,
+  Call,
+  Chat,
+  CheckCircle,
+  Close,
+  CorporateFare,
+  Drafts,
+  Edit,
+  Email,
+  Favorite,
+  FavoriteBorder,
+  Female,
+  Home,
+  MailOutline,
+  Male,
+  People,
+  Phone,
+  PriorityHighRounded,
+  Savings,
+  School,
+  Sms,
+  Star,
+  Transgender,
+  TravelExplore,
+  VerifiedUser,
+} from '@mui/icons-material';
+import {
+  Avatar,
   Box,
   Button,
-  Divider,
-  Avatar,
-  Grid,
-  Stack,
-  Chip,
   Card,
   CardContent,
   CardHeader,
+  Chip,
   ChipProps,
+  Container,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
   useTheme,
-} from "@mui/material";
-import {
-  Edit,
-  ArrowBack,
-  Home,
-  Cake,
-  CheckCircle,
-  Close,
-  Email,
-  Phone,
-  Star,
-  VerifiedUser,
-  Male,
-  Female,
-  Transgender,
-  People,
-  Favorite,
-  FavoriteBorder,
-  MailOutline,
-  Call,
-  Chat,
-  Sms,
-  Drafts,
-  Business,
-  CorporateFare,
-  Savings,
-  School,
-  TravelExplore,
-  PriorityHighRounded,
-} from "@mui/icons-material";
-import { useQuery } from "@apollo/client";
-import Link from "next/link";
-import getApolloClient from "../../../../lib/apolloClient";
-import { useSession } from "next-auth/react";
-import InfoItem from "../../detail/InfoItem";
-import LoadingSpinner from "../../detail/LoadingSpinner";
-import ErrorCard from "../../detail/ErrorCard";
-import { Person } from "../../../../types/person/person.type";
-import { CustomerState, Interest } from "../../../../types/person/enums";
+} from '@mui/material';
+import { Carousel } from 'antd';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { JSX, useMemo } from 'react';
+import { GET_CUSTOMER_BY_ID } from '../../../../graphql/customer/query/person';
+import getApolloClient from '../../../../lib/apolloClient';
 import {
   ContactPerson,
   isBinaryId,
-} from "../../../../types/person/contact.type";
-import { GET_CUSTOMER_BY_ID } from "../../../../graphql/customer/query/person";
-import { getLogger } from "../../../../utils/logger";
+} from '../../../../types/person/contact.type';
+import { CustomerState, Interest } from '../../../../types/person/enums';
+import { Person } from '../../../../types/person/person.type';
+import { getLogger } from '../../../../utils/logger';
+import ErrorCard from '../../detail/ErrorCard';
+import InfoItem from '../../detail/InfoItem';
+import LoadingSpinner from '../../detail/LoadingSpinner';
 
 // 🔤 Hilfsfunktion: Avatar-Initialen
-const generateAvatarInitials = (name: string = "") =>
+const generateAvatarInitials = (name: string = '') =>
   name
-    .split(" ")
+    .split(' ')
     .map((n) => n[0])
     .slice(0, 2)
-    .join("")
-    .toUpperCase() || "U";
+    .join('')
+    .toUpperCase() || 'U';
 
 function formatDate(dateString?: string | null): string {
-  if (!dateString) return "Nicht angegeben";
+  if (!dateString) return 'Nicht angegeben';
 
-  return new Intl.DateTimeFormat("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
+  return new Intl.DateTimeFormat('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
   }).format(new Date(dateString));
 }
 
 const contactOptionsMapping = {
-  EMAIL: { label: "E-Mail", icon: <MailOutline /> },
-  PHONE: { label: "Telefon", icon: <Call /> },
-  CHAT: { label: "Live-Chat", icon: <Chat /> },
-  SMS: { label: "SMS", icon: <Sms /> },
-  LETTER: { label: "Brief", icon: <Drafts /> },
+  EMAIL: { label: 'E-Mail', icon: <MailOutline /> },
+  PHONE: { label: 'Telefon', icon: <Call /> },
+  CHAT: { label: 'Live-Chat', icon: <Chat /> },
+  SMS: { label: 'SMS', icon: <Sms /> },
+  LETTER: { label: 'Brief', icon: <Drafts /> },
 };
 
 const tierLevels = {
-  "1": { label: "Basic", icon: "🥉" },
-  "2": { label: "Elite", icon: "🥈" },
-  "3": { label: "Supreme", icon: "🥇" },
+  '1': { label: 'Basic', icon: '🥉' },
+  '2': { label: 'Elite', icon: '🥈' },
+  '3': { label: 'Supreme', icon: '🥇' },
 };
 
 const customerStates: Record<
   CustomerState,
-  { label: string; color: ChipProps["color"] }
+  { label: string; color: ChipProps['color'] }
 > = {
-  ACTIVE: { label: "🟢 Aktiv", color: "success" },
-  BLOCKED: { label: "🔴 Blockiert", color: "error" },
-  INACTIVE: { label: "🟠 Inaktiv", color: "warning" },
-  CLOSED: { label: "⚪ Geschlossen", color: "default" },
-  PENDING: { label: "🔵 Ausstehend", color: "info" },
-  SUSPENDED: { label: "🟣 Suspendiert", color: "secondary" },
+  ACTIVE: { label: '🟢 Aktiv', color: 'success' },
+  BLOCKED: { label: '🔴 Blockiert', color: 'error' },
+  INACTIVE: { label: '🟠 Inaktiv', color: 'warning' },
+  CLOSED: { label: '⚪ Geschlossen', color: 'default' },
+  PENDING: { label: '🔵 Ausstehend', color: 'info' },
+  SUSPENDED: { label: '🟣 Suspendiert', color: 'secondary' },
 };
 
 const interestsMapping: Record<
   Interest,
-  { label: string; icon: JSX.Element; color: ChipProps["color"] }
+  { label: string; icon: JSX.Element; color: ChipProps['color'] }
 > = {
-  INVESTMENTS: { label: "Investitionen", icon: <Savings />, color: "success" },
+  INVESTMENTS: { label: 'Investitionen', icon: <Savings />, color: 'success' },
   SAVING_AND_FINANCE: {
-    label: "Sparen & Finanzen",
+    label: 'Sparen & Finanzen',
     icon: <CorporateFare />,
-    color: "warning",
+    color: 'warning',
   },
   CREDIT_AND_DEBT: {
-    label: "Kredit & Schulden",
+    label: 'Kredit & Schulden',
     icon: <Business />,
-    color: "error",
+    color: 'error',
   },
   BANK_PRODUCTS_AND_SERVICES: {
-    label: "Bankprodukte",
+    label: 'Bankprodukte',
     icon: <CorporateFare />,
-    color: "info",
+    color: 'info',
   },
   FINANCIAL_EDUCATION_AND_COUNSELING: {
-    label: "Finanzbildung",
+    label: 'Finanzbildung',
     icon: <School />,
-    color: "primary",
+    color: 'primary',
   },
-  REAL_ESTATE: { label: "Immobilien", icon: <Home />, color: "success" },
+  REAL_ESTATE: { label: 'Immobilien', icon: <Home />, color: 'success' },
   INSURANCE: {
-    label: "Versicherungen",
+    label: 'Versicherungen',
     icon: <VerifiedUser />,
-    color: "secondary",
+    color: 'secondary',
   },
   SUSTAINABLE_FINANCE: {
-    label: "Nachhaltige Finanzen",
+    label: 'Nachhaltige Finanzen',
     icon: <TravelExplore />,
-    color: "info",
+    color: 'info',
   },
   TECHNOLOGY_AND_INNOVATION: {
-    label: "Technologie & Innovation",
+    label: 'Technologie & Innovation',
     icon: <TravelExplore />,
-    color: "warning",
+    color: 'warning',
   },
-  TRAVEL: { label: "Reisen", icon: <TravelExplore />, color: "success" },
+  TRAVEL: { label: 'Reisen', icon: <TravelExplore />, color: 'success' },
 };
 
 // 🧠 Hauptkomponente
 export default function CustomerInspect() {
-     const logger = getLogger(CustomerInspect.name);
+  const logger = getLogger(CustomerInspect.name);
   const { id } = useParams();
   const theme = useTheme();
   const { data: session } = useSession();
   const client = useMemo(
     () => getApolloClient(session?.access_token),
-    [session]
+    [session],
   );
   const { loading, error, data } = useQuery(GET_CUSTOMER_BY_ID, {
     client,
@@ -178,38 +178,38 @@ export default function CustomerInspect() {
   // 🎨 Mapping-Konstanten (könnten ausgelagert werden)
   const genderMapping = {
     MALE: {
-      label: "Männlich",
+      label: 'Männlich',
       icon: <Male sx={{ color: theme.palette.primary.main }} />,
     },
     FEMALE: {
-      label: "Weiblich",
+      label: 'Weiblich',
       icon: <Female sx={{ color: theme.palette.primary.main }} />,
     },
     NON_BINARY: {
-      label: "Nicht-binär",
+      label: 'Nicht-binär',
       icon: <Transgender sx={{ color: theme.palette.primary.main }} />,
     },
     OTHER: {
-      label: "Andere",
+      label: 'Andere',
       icon: <People sx={{ color: theme.palette.primary.main }} />,
     },
   };
 
   const maritalStatusMapping = {
     SINGLE: {
-      label: "Ledig",
+      label: 'Ledig',
       icon: <FavoriteBorder sx={{ color: theme.palette.primary.main }} />,
     },
     MARRIED: {
-      label: "Verheiratet",
+      label: 'Verheiratet',
       icon: <Favorite sx={{ color: theme.palette.primary.main }} />,
     },
     DIVORCED: {
-      label: "Geschieden",
+      label: 'Geschieden',
       icon: <Close sx={{ color: theme.palette.primary.main }} />,
     },
     WIDOWED: {
-      label: "Verwitwet",
+      label: 'Verwitwet',
       icon: <People sx={{ color: theme.palette.primary.main }} />,
     },
   };
@@ -228,8 +228,8 @@ export default function CustomerInspect() {
         {/* 👤 Header */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             mb: 4,
             p: 3,
             borderRadius: 2,
@@ -244,15 +244,15 @@ export default function CustomerInspect() {
               bgcolor: theme.palette.background.paper,
               color: theme.palette.secondary.main,
               mr: 3,
-              fontSize: "2rem",
+              fontSize: '2rem',
             }}
           >
             {generateAvatarInitials(
-              `${customer.firstName} ${customer.lastName}`
+              `${customer.firstName} ${customer.lastName}`,
             )}
           </Avatar>
           <Box>
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
               {customer.firstName} {customer.lastName}
             </Typography>
             <Typography variant="subtitle1">{customer.username}</Typography>
@@ -265,7 +265,7 @@ export default function CustomerInspect() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", color: theme.palette.secondary.main }}
+              sx={{ fontWeight: 'bold', color: theme.palette.secondary.main }}
             >
               Persönliche Informationen
             </Typography>
@@ -298,13 +298,13 @@ export default function CustomerInspect() {
               <InfoItem
                 icon={
                   customer.customer!.subscribed ? (
-                    <CheckCircle sx={{ color: "green" }} />
+                    <CheckCircle sx={{ color: 'green' }} />
                   ) : (
-                    <Close sx={{ color: "red" }} />
+                    <Close sx={{ color: 'red' }} />
                   )
                 }
                 label="Abonniert"
-                value={customer.customer!.subscribed ? "Ja" : "Nein"}
+                value={customer.customer!.subscribed ? 'Ja' : 'Nein'}
               />
               <Box display="flex" alignItems="center">
                 <VerifiedUser
@@ -325,7 +325,7 @@ export default function CustomerInspect() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", color: theme.palette.secondary.main }}
+              sx={{ fontWeight: 'bold', color: theme.palette.secondary.main }}
             >
               Kontaktinformationen
             </Typography>
@@ -348,7 +348,7 @@ export default function CustomerInspect() {
               <Typography variant="h6" sx={{ mt: 2 }}>
                 Kontaktoptionen
               </Typography>
-              <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
+              <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap' }}>
                 {customer.customer!.contactOptions?.length > 0 ? (
                   customer.customer!.contactOptions.map((option) => (
                     <Chip
@@ -371,7 +371,7 @@ export default function CustomerInspect() {
         <Divider sx={{ my: 3 }} />
         <Typography
           variant="h6"
-          sx={{ fontWeight: "bold", color: theme.palette.secondary.main }}
+          sx={{ fontWeight: 'bold', color: theme.palette.secondary.main }}
         >
           Interessen
         </Typography>
@@ -383,7 +383,7 @@ export default function CustomerInspect() {
                 <Chip
                   label={interestsMapping[interest]?.label || interest}
                   icon={interestsMapping[interest]?.icon}
-                  color={interestsMapping[interest]?.color || "default"}
+                  color={interestsMapping[interest]?.color || 'default'}
                 />
               </Grid>
             ))
@@ -399,7 +399,7 @@ export default function CustomerInspect() {
         <Typography
           variant="h6"
           sx={{
-            fontWeight: "bold",
+            fontWeight: 'bold',
             color: theme.palette.secondary.main,
             mb: 2,
           }}
@@ -429,7 +429,7 @@ export default function CustomerInspect() {
                     : contact._id
                 }
               >
-                <Box sx={{ p: 2, display: "flex", justifyContent: "center" }}>
+                <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
                   <Card
                     sx={{
                       borderRadius: 3,
@@ -437,7 +437,7 @@ export default function CustomerInspect() {
                       maxWidth: 250,
                       border: contact.emergencyContact
                         ? `2px solid ${theme.palette.background.default}` // Rot laut Omnixys-Farbpalette
-                        : "none",
+                        : 'none',
                       backgroundColor: contact.emergencyContact
                         ? theme.palette.background.default
                         : theme.palette.background.paper,
@@ -452,16 +452,16 @@ export default function CustomerInspect() {
                           }}
                         >
                           {generateAvatarInitials(
-                            `${contact.firstName} ${contact.lastName}`
+                            `${contact.firstName} ${contact.lastName}`,
                           )}
                         </Avatar>
                       }
                       title={
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
                           <Typography
                             variant="subtitle1"
                             sx={{
-                              fontWeight: "bold",
+                              fontWeight: 'bold',
                               color: theme.palette.secondary.main,
                             }}
                           >
@@ -479,7 +479,7 @@ export default function CustomerInspect() {
                       subheader={
                         contact.relationship
                           ? `Beziehung: ${contact.relationship}`
-                          : ""
+                          : ''
                       }
                     />
                     <CardContent>
@@ -503,7 +503,7 @@ export default function CustomerInspect() {
 
         {/* 🔧 Aktionen */}
         <Divider sx={{ my: 4 }} />
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button
             component={Link}
             href="/analytics/person"
@@ -523,7 +523,7 @@ export default function CustomerInspect() {
             startIcon={<Edit />}
             sx={{
               backgroundColor: (theme) => theme.palette.primary.main,
-              "&:hover": {
+              '&:hover': {
                 backgroundColor: (theme) => theme.palette.secondary.main,
               },
             }}

@@ -1,7 +1,7 @@
 // OmnixysCard.tsx
-"use client";
+'use client';
 
-import { Paper, PaperProps } from "@mui/material";
+import { Paper, PaperProps } from '@mui/material';
 
 export default function OmnixysCard({ children, sx, ...rest }: PaperProps) {
   return (
@@ -10,8 +10,8 @@ export default function OmnixysCard({ children, sx, ...rest }: PaperProps) {
       sx={{
         p: 3,
         borderRadius: 2,
-        backgroundColor: "#F8F8FC",
-        boxShadow: "0 4px 20px rgba(106, 75, 188, 0.1)",
+        backgroundColor: '#F8F8FC',
+        boxShadow: '0 4px 20px rgba(106, 75, 188, 0.1)',
         ...sx,
       }}
       {...rest}

@@ -1,52 +1,52 @@
 // File: app/analytics/person/[id]/edit/page.tsx
 
-"use client";
+'use client';
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useMutation, useQuery } from '@apollo/client';
 import {
-  Container,
-  Paper,
-  Typography,
+  Alert,
   Box,
   Button,
-  CircularProgress,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Checkbox,
+  CircularProgress,
+  Container,
+  FormControl,
   FormControlLabel,
   Grid,
-  Alert,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
   useTheme,
-} from "@mui/material";
-import { useQuery, useMutation } from "@apollo/client";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../../lib/apolloClient";
-import { GET_CUSTOMER_BY_ID } from "../../../../graphql/customer/query/person";
-import { UPDATE_CUSTOMER } from "../../../../graphql/customer/mutation/update";
-import CustomerHeaderPanel from "../../edit/CustomerHeaderPanel";
-import AddressForm from "../../edit/AddressForm";
-import ContactOptionsSelector from "../../edit/ContactOptionsSelector";
-import InterestSelector from "../../edit/InterestSelector";
-import { CustomerFormState } from "../../../../types/person/CustomerFormData";
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { UPDATE_CUSTOMER } from '../../../../graphql/customer/mutation/update';
+import { GET_CUSTOMER_BY_ID } from '../../../../graphql/customer/query/person';
+import getApolloClient from '../../../../lib/apolloClient';
+import { CustomerFormState } from '../../../../types/person/CustomerFormData';
+import AddressForm from '../../edit/AddressForm';
+import ContactOptionsSelector from '../../edit/ContactOptionsSelector';
+import CustomerHeaderPanel from '../../edit/CustomerHeaderPanel';
+import InterestSelector from '../../edit/InterestSelector';
 
-const maritalStatusOptions = ["SINGLE", "MARRIED", "DIVORCED", "WIDOWED"];
+const maritalStatusOptions = ['SINGLE', 'MARRIED', 'DIVORCED', 'WIDOWED'];
 const maritalStatusLabels = {
-  SINGLE: "Ledig",
-  MARRIED: "Verheiratet",
-  DIVORCED: "Geschieden",
-  WIDOWED: "Verwitwet",
+  SINGLE: 'Ledig',
+  MARRIED: 'Verheiratet',
+  DIVORCED: 'Geschieden',
+  WIDOWED: 'Verwitwet',
 };
 type MaritalStatus = keyof typeof maritalStatusLabels;
 
 const tierLevelOptions = [
-  { value: 1, label: "Basic" },
-  { value: 2, label: "Elite" },
-  { value: 3, label: "Supreme" },
+  { value: 1, label: 'Basic' },
+  { value: 2, label: 'Elite' },
+  { value: 3, label: 'Supreme' },
 ];
 
 export default function CustomerEditPage() {
@@ -57,7 +57,7 @@ export default function CustomerEditPage() {
 
   const client = useMemo(
     () => getApolloClient(session?.access_token),
-    [session?.access_token]
+    [session?.access_token],
   );
 
   const { loading, error, data } = useQuery(GET_CUSTOMER_BY_ID, {
@@ -69,40 +69,40 @@ export default function CustomerEditPage() {
     useMutation(UPDATE_CUSTOMER, { client });
 
   const [formState, setFormState] = useState<CustomerFormState>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
     tierLevel: 1,
     subscribed: false,
-    maritalStatus: "SINGLE", // Defaultwert vom Typ MaritalStatus
+    maritalStatus: 'SINGLE', // Defaultwert vom Typ MaritalStatus
     address: {
-      street: "",
-      houseNumber: "",
-      zipCode: "",
-      city: "",
-      state: "",
-      country: "",
+      street: '',
+      houseNumber: '',
+      zipCode: '',
+      city: '',
+      state: '',
+      country: '',
     },
     contactOptions: [],
     interests: [],
-    version: "",
+    version: '',
   });
 
   useEffect(() => {
     if (!data?.customer) return;
     const {
-      firstName = "",
-      lastName = "",
-      email = "",
-      phoneNumber = "",
+      firstName = '',
+      lastName = '',
+      email = '',
+      phoneNumber = '',
       tierLevel = 1,
       subscribed = false,
-      maritalStatus = "",
+      maritalStatus = '',
       address = {},
       contactOptions = [],
       interests = [],
-      version = "",
+      version = '',
     } = data.customer;
 
     setFormState({
@@ -114,12 +114,12 @@ export default function CustomerEditPage() {
       subscribed,
       maritalStatus,
       address: {
-        street: address.street ?? "",
-        houseNumber: address.houseNumber ?? "",
-        zipCode: address.zipCode ?? "",
-        city: address.city ?? "",
-        state: address.state ?? "",
-        country: address.country ?? "",
+        street: address.street ?? '',
+        houseNumber: address.houseNumber ?? '',
+        zipCode: address.zipCode ?? '',
+        city: address.city ?? '',
+        state: address.state ?? '',
+        country: address.country ?? '',
       },
       contactOptions,
       interests,
@@ -138,7 +138,7 @@ export default function CustomerEditPage() {
         },
       }));
     },
-    []
+    [],
   );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -148,7 +148,7 @@ export default function CustomerEditPage() {
       await updateCustomer({ variables: { id, input, version } });
       router.push(`/analytics/person/${id}`);
     } catch (err) {
-      console.error("Update fehlgeschlagen:", err);
+      console.error('Update fehlgeschlagen:', err);
     }
   };
 
@@ -156,10 +156,10 @@ export default function CustomerEditPage() {
     return (
       <Box
         sx={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          minHeight: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           background: (theme) =>
             `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`,
         }}
@@ -175,16 +175,19 @@ export default function CustomerEditPage() {
         <Paper
           sx={{
             p: 5,
-            textAlign: "center",
+            textAlign: 'center',
             borderRadius: 3,
             boxShadow: 4,
             backgroundColor: theme.palette.background.paper,
           }}
         >
-          <Typography variant="h5" color="error" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" color="error" sx={{ fontWeight: 'bold' }}>
             Fehler beim Laden der Kundendaten
           </Typography>
-          <Typography variant="body1" sx={{ mt: 2, color: theme.palette.text.primary }}>
+          <Typography
+            variant="body1"
+            sx={{ mt: 2, color: theme.palette.text.primary }}
+          >
             Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
           </Typography>
           <Button
@@ -194,7 +197,7 @@ export default function CustomerEditPage() {
             sx={{
               mt: 3,
               backgroundColor: theme.palette.primary.main,
-              "&:hover": { backgroundColor: theme.palette.secondary.main },
+              '&:hover': { backgroundColor: theme.palette.secondary.main },
             }}
           >
             Zurück zur Kundenliste
@@ -207,7 +210,7 @@ export default function CustomerEditPage() {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: '100vh',
         backgroundColor: theme.palette.background.default,
       }}
     >
@@ -223,17 +226,17 @@ export default function CustomerEditPage() {
                 borderRadius: 2,
                 boxShadow: 3,
                 backgroundColor: theme.palette.background.paper,
-                transition: "box-shadow 0.3s ease",
-                "&:hover": { boxShadow: "0 8px 16px rgba(0,0,0,0.15)" },
+                transition: 'box-shadow 0.3s ease',
+                '&:hover': { boxShadow: '0 8px 16px rgba(0,0,0,0.15)' },
               }}
             >
               <Typography
                 variant="h4"
                 sx={{
-                  fontWeight: "bold",
+                  fontWeight: 'bold',
                   mb: 3,
                   color: theme.palette.primary.main,
-                  textAlign: "center",
+                  textAlign: 'center',
                 }}
               >
                 Kundendaten bearbeiten
@@ -379,12 +382,12 @@ export default function CustomerEditPage() {
                     </Grid>
                   )}
 
-                  <Grid size={{ xs: 12 }} sx={{ textAlign: "center", mt: 2 }}>
+                  <Grid size={{ xs: 12 }} sx={{ textAlign: 'center', mt: 2 }}>
                     <Box
                       sx={{
                         mt: 4,
-                        display: "flex",
-                        justifyContent: "space-between",
+                        display: 'flex',
+                        justifyContent: 'space-between',
                       }}
                     >
                       <Button
@@ -394,8 +397,8 @@ export default function CustomerEditPage() {
                         sx={{
                           borderColor: theme.palette.text.primary,
                           color: theme.palette.text.primary,
-                          transition: "all 0.3s ease",
-                          "&:hover": {
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
                             backgroundColor: theme.palette.action.hover,
                           },
                         }}
@@ -407,7 +410,7 @@ export default function CustomerEditPage() {
                         variant="contained"
                         sx={{
                           backgroundColor: theme.palette.primary.main,
-                          "&:hover": {
+                          '&:hover': {
                             backgroundColor: theme.palette.secondary.main,
                           },
                           px: 4,
@@ -418,10 +421,14 @@ export default function CustomerEditPage() {
                         {updateLoading ? (
                           <CircularProgress
                             size={24}
-                            sx={{ color: theme.palette.getContrastText(theme.palette.primary.main) }}
+                            sx={{
+                              color: theme.palette.getContrastText(
+                                theme.palette.primary.main,
+                              ),
+                            }}
                           />
                         ) : (
-                          "Speichern"
+                          'Speichern'
                         )}
                       </Button>
                     </Box>

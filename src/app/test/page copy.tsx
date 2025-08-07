@@ -11,7 +11,7 @@
 
 // export default async function PersonManagementPage() {
 //   const { animationsEnabled, toggleAnimations } = useMotion();
-  
+
 //   const session = await getServerSession(authOptions);
 
 //   if (!session || !session.access_token) return redirect("/login");
@@ -20,7 +20,6 @@
 //   const isAdminOrManager = roles.includes("Admin") || roles.includes("Manager");
 
 //   if (!isAdminOrManager) return redirect("/unauthorized");
-
 
 //   return (
 //     <Box>

@@ -1,15 +1,15 @@
 // app/person/PersonManagementClient.tsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Tabs, Tab, Box, Typography, Breadcrumbs, Button } from "@mui/material";
-import PersonList from "./PersonList";
-import { Home } from "@mui/icons-material";
-import Link from "next/link";
-import ResponsiveLayout from "../../components/layout/ResponsiveLayout";
-import { ApolloProvider } from "@apollo/client";
-import ToastProvider from "../../components/ToastProvider";
-import getApolloClient from "../../lib/apolloClient";
+import { ApolloProvider } from '@apollo/client';
+import { Home } from '@mui/icons-material';
+import { Box, Breadcrumbs, Button, Tab, Tabs, Typography } from '@mui/material';
+import Link from 'next/link';
+import { useState } from 'react';
+import ResponsiveLayout from '../../components/layout/ResponsiveLayout';
+import ToastProvider from '../../components/ToastProvider';
+import getApolloClient from '../../lib/apolloClient';
+import PersonList from './PersonList';
 
 interface Props {
   roles: string[];
@@ -21,12 +21,12 @@ export default function PersonManagementClient({ roles, token }: Props) {
   const client = getApolloClient(token);
 
   const tabs = [
-    { label: "Kunden", role: "CustomerViewer" },
-    { label: "Mitarbeiter", role: "EmployeeViewer" },
+    { label: 'Kunden', role: 'CustomerViewer' },
+    { label: 'Mitarbeiter', role: 'EmployeeViewer' },
   ].filter((t) => {
     return (
-      roles.includes("Admin") ||
-      roles.includes("Manager") ||
+      roles.includes('Admin') ||
+      roles.includes('Manager') ||
       roles.includes(t.role)
     );
   });
@@ -57,7 +57,7 @@ export default function PersonManagementClient({ roles, token }: Props) {
               Personenverwaltung
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
-              Rollen: {roles.join(", ")}
+              Rollen: {roles.join(', ')}
             </Typography>
 
             <Tabs
@@ -67,7 +67,7 @@ export default function PersonManagementClient({ roles, token }: Props) {
               indicatorColor="primary"
               sx={{
                 my: 2,
-                ".MuiTab-root": { textTransform: "none", fontWeight: 500 },
+                '.MuiTab-root': { textTransform: 'none', fontWeight: 500 },
               }}
             >
               {tabs.map((t, i) => (
@@ -75,10 +75,10 @@ export default function PersonManagementClient({ roles, token }: Props) {
               ))}
             </Tabs>
 
-            {tabs[tab]?.label === "Kunden" && (
+            {tabs[tab]?.label === 'Kunden' && (
               <PersonList type="CUSTOMER" token={token} />
             )}
-            {tabs[tab]?.label === "Mitarbeiter" && (
+            {tabs[tab]?.label === 'Mitarbeiter' && (
               <PersonList type="EMPLOYEE" token={token} />
             )}
           </Box>

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Box } from "@mui/material";
-import Lottie from "lottie-react";
+import { Box } from '@mui/material';
+import Lottie from 'lottie-react';
 // import { useTheme } from "@mui/material/styles";
 // import type { LottieOptions } from "lottie-react";
 
@@ -20,8 +20,8 @@ export default function LottieAnimation({
   loop = true,
   autoplay = true,
   // speed = 1,
-  width = "100%",
-  height = "auto",
+  width = '100%',
+  height = 'auto',
   className,
 }: LottieAnimationProps) {
   // const theme = useTheme();
@@ -38,15 +38,15 @@ export default function LottieAnimation({
       sx={{
         width,
         height,
-        maxWidth: "100%",
-        mx: "auto",
+        maxWidth: '100%',
+        mx: 'auto',
       }}
     >
       <Lottie
         animationData={animationData}
         loop={loop}
         autoplay={autoplay}
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
       />
     </Box>
   );

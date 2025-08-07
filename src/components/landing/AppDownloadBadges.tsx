@@ -1,14 +1,14 @@
 // components/landing/AppDownloadBadges.jsx
-"use client";
+'use client';
 
-import { Box, Container, Typography } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
+import { Box, Container, Typography } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AppDownloadBadges() {
   return (
     <Box sx={{ py: 6 }}>
-      <Container sx={{ textAlign: "center" }}>
+      <Container sx={{ textAlign: 'center' }}>
         <Typography variant="h5" fontWeight={600} gutterBottom>
           Jetzt herunterladen
         </Typography>
@@ -17,10 +17,10 @@ export default function AppDownloadBadges() {
         </Typography>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
+            display: 'flex',
+            justifyContent: 'center',
             gap: 2,
-            flexWrap: "wrap",
+            flexWrap: 'wrap',
           }}
         >
           <Link

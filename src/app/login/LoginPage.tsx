@@ -7,49 +7,49 @@
  * mit seriösem Look.
  */
 
-"use client";
+'use client';
 
-import * as React from "react";
-import { AppProvider } from "@toolpad/core/AppProvider";
 import {
-  AuthResponse,
-  SupportedAuthProvider,
-  type AuthProvider,
-} from "@toolpad/core/SignInPage";
+  AccountCircle,
+  Key,
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google'; // Alternativ: GTranslateIcon
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import {
+  Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormControl,
   FormControlLabel,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  TextField,
-  Box,
   Paper,
+  TextField,
   Typography,
   useTheme,
-  CircularProgress,
-} from "@mui/material";
+} from '@mui/material';
+import { AppProvider } from '@toolpad/core/AppProvider';
 import {
-  AccountCircle,
-  Key,
-  Visibility,
-  VisibilityOff,
-} from "@mui/icons-material";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google"; // Alternativ: GTranslateIcon
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Link from "next/link";
-import Image from "next/image";
-import { JSX, useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { ENV } from "../../utils/env";
-import { getLogger } from "../../utils/logger";
+  AuthResponse,
+  SupportedAuthProvider,
+  type AuthProvider,
+} from '@toolpad/core/SignInPage';
+import { signIn } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import * as React from 'react';
+import { JSX, useState } from 'react';
+import { ENV } from '../../utils/env';
+import { getLogger } from '../../utils/logger';
 
 const { DEFAULT_ROUTE } = ENV;
 
@@ -61,13 +61,13 @@ const providers: {
   name: string;
   icon?: JSX.Element;
 }[] = [
-  { id: "github", name: "GitHub", icon: <GitHubIcon /> },
-  { id: "google", name: "Google", icon: <GoogleIcon /> },
-  { id: "facebook", name: "Facebook", icon: <FacebookIcon /> },
-  { id: "twitter", name: "Twitter", icon: <TwitterIcon /> },
-  { id: "linkedin", name: "LinkedIn", icon: <LinkedInIcon /> },
-  { id: "keycloak", name: "Keycloak", icon: <Key /> },
-  { id: "credentials", name: "Username and Password" },
+  { id: 'github', name: 'GitHub', icon: <GitHubIcon /> },
+  { id: 'google', name: 'Google', icon: <GoogleIcon /> },
+  { id: 'facebook', name: 'Facebook', icon: <FacebookIcon /> },
+  { id: 'twitter', name: 'Twitter', icon: <TwitterIcon /> },
+  { id: 'linkedin', name: 'LinkedIn', icon: <LinkedInIcon /> },
+  { id: 'keycloak', name: 'Keycloak', icon: <Key /> },
+  { id: 'credentials', name: 'Username and Password' },
 ];
 
 /**
@@ -82,8 +82,8 @@ const BRANDING = {
       height={30}
     />
   ),
-  title: "Creative MUI",
-  tagline: "Innovativ. Modern. Inspirierend.",
+  title: 'Creative MUI',
+  tagline: 'Innovativ. Modern. Inspirierend.',
 };
 
 /**
@@ -95,80 +95,80 @@ const BRANDING = {
  */
 const handleLogin = async (
   provider: AuthProvider,
-  formData?: FormData
+  formData?: FormData,
 ): Promise<AuthResponse> => {
   const logger = getLogger(handleLogin.name);
-  if (provider.id === "credentials") {
+  if (provider.id === 'credentials') {
     return new Promise(async (resolve) => {
       try {
-        const username = formData?.get("username");
-        const password = formData?.get("password");
+        const username = formData?.get('username');
+        const password = formData?.get('password');
 
-        const result = await signIn("credentials", {
+        const result = await signIn('credentials', {
           username,
           password,
           redirect: false,
         });
 
-        logger.debug('result: '+ result?.ok)
+        logger.debug('result: ' + result?.ok);
 
         if (!result) {
           return resolve({
-            type: "CredentialsSignin",
-            error: "Keine Antwort vom Server",
+            type: 'CredentialsSignin',
+            error: 'Keine Antwort vom Server',
           });
         }
 
         resolve({
-          type: "CredentialsSignin",
+          type: 'CredentialsSignin',
           error: result.error ?? undefined,
-          success: result.ok ? "Login erfolgreich" : undefined,
+          success: result.ok ? 'Login erfolgreich' : undefined,
         });
       } catch (error) {
         resolve({
-          type: "CredentialsSignin",
+          type: 'CredentialsSignin',
           error: String(error),
         });
       }
     });
   }
 
-  if (provider.id === "keycloak") {
-  return new Promise<AuthResponse>(async (resolve) => {
-    try {
-      const result = await signIn("keycloak", {
-        callbackUrl: "/analytics/customers",
-      });
+  if (provider.id === 'keycloak') {
+    return new Promise<AuthResponse>(async (resolve) => {
+      try {
+        const result = await signIn('keycloak', {
+          callbackUrl: '/analytics/customers',
+        });
 
-      if (!result) {
-        return resolve({
-          type: "CredentialsSignin",
-          error: "Keine Antwort vom Auth-Provider",
+        if (!result) {
+          return resolve({
+            type: 'CredentialsSignin',
+            error: 'Keine Antwort vom Auth-Provider',
+          });
+        }
+
+        resolve({
+          type: 'CredentialsSignin',
+          error: result.error ?? undefined,
+          success: result.ok ? 'Erfolgreich angemeldet' : undefined,
+        });
+      } catch (error) {
+        resolve({
+          type: 'CredentialsSignin',
+          error: String(error),
         });
       }
-
-      resolve({
-        type: "CredentialsSignin",
-        error: result.error ?? undefined,
-        success: result.ok ? "Erfolgreich angemeldet" : undefined,
-      });
-    } catch (error) {
-      resolve({
-        type: "CredentialsSignin",
-        error: String(error),
-      });
-    }
-  });
-}
+    });
+  }
 
   return new Promise<AuthResponse>((resolve) => {
     setTimeout(() => {
       logger.debug(`Sign in with ${provider.id}`);
       alert(`Signing in with "${provider.name}"`);
       resolve({
-        type: "CredentialsSignin",
-        error: "Invalid credentials.",
-        success: "Check your username for a verification link.",
+        type: 'CredentialsSignin',
+        error: 'Invalid credentials.',
+        success: 'Check your username for a verification link.',
       });
     }, 500);
   });
@@ -183,7 +183,7 @@ export default function SignInPage(): JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   /**
    * Handler für den klassischen Anmelde-Submit (E-Mail/Passwort).
@@ -191,16 +191,16 @@ export default function SignInPage(): JSX.Element {
    * @param event - Das Submit-Ereignis des Formulars.
    */
   const handleCredentialsSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
+    event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     event.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
     const formData = new FormData(event.currentTarget);
-    const result = (await handleLogin(
-      providers.find((p) => p.id === "credentials") as AuthProvider,
-      formData
-    ))
+    const result = await handleLogin(
+      providers.find((p) => p.id === 'credentials') as AuthProvider,
+      formData,
+    );
     setLoading(false);
     if (result.success) {
       router.push(DEFAULT_ROUTE);
@@ -208,7 +208,7 @@ export default function SignInPage(): JSX.Element {
       // Zeige entweder die vom Backend gelieferte Fehlermeldung oder eine Standardmeldung
       setError(
         // result.error ||
-        "Ungültige Anmeldedaten. Bitte versuche es erneut."
+        'Ungültige Anmeldedaten. Bitte versuche es erneut.',
       );
     }
   };
@@ -217,21 +217,21 @@ export default function SignInPage(): JSX.Element {
     <AppProvider branding={BRANDING} theme={theme}>
       <Box
         sx={{
-          minHeight: "100vh",
+          minHeight: '100vh',
           background:
-            "linear-gradient(135deg, #F8F8FC, #6A4BBC, #4E3792, #000)",
+            'linear-gradient(135deg, #F8F8FC, #6A4BBC, #4E3792, #000)',
           //background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           p: 2,
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            width: "100%",
-            maxWidth: "1200px",
+            display: 'flex',
+            width: '100%',
+            maxWidth: '1200px',
             gap: 4,
           }}
         >
@@ -242,21 +242,21 @@ export default function SignInPage(): JSX.Element {
               flex: 1,
               p: 4,
               borderRadius: 3,
-              backgroundColor: "#ffffffee",
-              backdropFilter: "blur(5px)",
-              animation: "fadeIn 1s ease-in-out",
-              "@keyframes fadeIn": {
+              backgroundColor: '#ffffffee',
+              backdropFilter: 'blur(5px)',
+              animation: 'fadeIn 1s ease-in-out',
+              '@keyframes fadeIn': {
                 from: { opacity: 0 },
                 to: { opacity: 1 },
               },
             }}
           >
-            <Box sx={{ mb: 2, textAlign: "center" }}>
+            <Box sx={{ mb: 2, textAlign: 'center' }}>
               {BRANDING.logo}
-              <Typography variant="h4" sx={{ mt: 1, color: "#6A4BBC" }}>
+              <Typography variant="h4" sx={{ mt: 1, color: '#6A4BBC' }}>
                 {BRANDING.title}
               </Typography>
-              <Typography variant="subtitle1" sx={{ color: "#555" }}>
+              <Typography variant="subtitle1" sx={{ color: '#555' }}>
                 {BRANDING.tagline}
               </Typography>
             </Box>
@@ -272,7 +272,7 @@ export default function SignInPage(): JSX.Element {
               </Typography>
             )}
             <Box
-              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}
             >
               <SignUpLink />
               <ForgotPasswordLink />
@@ -285,22 +285,22 @@ export default function SignInPage(): JSX.Element {
               flex: 1,
               p: 4,
               borderRadius: 3,
-              backgroundColor: "#ffffffee",
-              backdropFilter: "blur(5px)",
-              animation: "fadeIn 1s ease-in-out",
-              "@keyframes fadeIn": {
+              backgroundColor: '#ffffffee',
+              backdropFilter: 'blur(5px)',
+              animation: 'fadeIn 1s ease-in-out',
+              '@keyframes fadeIn': {
                 from: { opacity: 0 },
                 to: { opacity: 1 },
               },
             }}
           >
-            <Box sx={{ mb: 2, textAlign: "center" }}>
-              <Typography variant="h5" sx={{ color: "#6A4BBC" }}>
+            <Box sx={{ mb: 2, textAlign: 'center' }}>
+              <Typography variant="h5" sx={{ color: '#6A4BBC' }}>
                 Anmelden mit
               </Typography>
             </Box>
             {providers
-              .filter((provider) => provider.id !== "credentials")
+              .filter((provider) => provider.id !== 'credentials')
               .map((provider) => (
                 <Button
                   key={provider.id}
@@ -309,13 +309,13 @@ export default function SignInPage(): JSX.Element {
                   fullWidth
                   sx={{
                     my: 1,
-                    borderColor: "#6A4BBC",
-                    color: "#6A4BBC",
-                    transition: "transform 0.3s",
-                    "&:hover": {
-                      transform: "scale(1.02)",
-                      borderColor: "#4E3792",
-                      color: "#4E3792",
+                    borderColor: '#6A4BBC',
+                    color: '#6A4BBC',
+                    transition: 'transform 0.3s',
+                    '&:hover': {
+                      transform: 'scale(1.02)',
+                      borderColor: '#4E3792',
+                      color: '#4E3792',
                     },
                   }}
                   onClick={() => handleLogin(provider)}
@@ -348,17 +348,17 @@ function CustomUsernameField(): JSX.Element {
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <AccountCircle fontSize="inherit" style={{ color: "#312E81" }} />
+            <AccountCircle fontSize="inherit" style={{ color: '#312E81' }} />
           </InputAdornment>
         ),
-        style: { backgroundColor: "#FFFFFF" }, // Weiß für Textfelder
+        style: { backgroundColor: '#FFFFFF' }, // Weiß für Textfelder
       }}
       variant="outlined"
       sx={{
         my: 1,
-        transition: "transform 0.3s",
-        "&:hover": {
-          transform: "scale(1.02)",
+        transition: 'transform 0.3s',
+        '&:hover': {
+          transform: 'scale(1.02)',
         },
       }}
     />
@@ -394,7 +394,7 @@ function CustomPasswordField(): JSX.Element {
       </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
-        type={showPassword ? "text" : "password"}
+        type={showPassword ? 'text' : 'password'}
         name="password"
         size="small"
         endAdornment={
@@ -406,17 +406,17 @@ function CustomPasswordField(): JSX.Element {
               edge="end"
               size="small"
               sx={{
-                transition: "transform 0.3s",
-                "&:hover": { transform: "rotate(20deg)" },
+                transition: 'transform 0.3s',
+                '&:hover': { transform: 'rotate(20deg)' },
               }}
             >
               {showPassword ? (
                 <VisibilityOff
                   fontSize="inherit"
-                  style={{ color: "#312E81" }}
+                  style={{ color: '#312E81' }}
                 />
               ) : (
-                <Visibility fontSize="inherit" style={{ color: "#312E81" }} />
+                <Visibility fontSize="inherit" style={{ color: '#312E81' }} />
               )}
             </IconButton>
           </InputAdornment>
@@ -449,16 +449,16 @@ function CustomButton({ loading }: CustomButtonProps): JSX.Element {
       fullWidth
       sx={{
         my: 2,
-        backgroundColor: "#6A4BBC", // Primärfarbe
-        color: "#FFFFFF", // Weißer Text
-        transition: "background-color 0.3s, transform 0.3s",
-        "&:hover": {
-          backgroundColor: "#4E3792", // Akzentfarbe für Hover
-          transform: "scale(1.03)",
+        backgroundColor: '#6A4BBC', // Primärfarbe
+        color: '#FFFFFF', // Weißer Text
+        transition: 'background-color 0.3s, transform 0.3s',
+        '&:hover': {
+          backgroundColor: '#4E3792', // Akzentfarbe für Hover
+          transform: 'scale(1.03)',
         },
       }}
     >
-      {loading ? <CircularProgress size={24} color="inherit" /> : "Log In"}
+      {loading ? <CircularProgress size={24} color="inherit" /> : 'Log In'}
     </Button>
   );
 }
@@ -477,22 +477,22 @@ function AgreeWithTerms(): JSX.Element {
           value="true"
           sx={{
             padding: 0.5,
-            color: "#6A4BBC",
-            "& .MuiSvgIcon-root": {
+            color: '#6A4BBC',
+            '& .MuiSvgIcon-root': {
               fontSize: 20,
-              transition: "color 0.3s",
+              transition: 'color 0.3s',
             },
-            "&:hover": {
-              color: "#6A4BBC",
+            '&:hover': {
+              color: '#6A4BBC',
             },
-            "&.Mui-checked": {
-              color: "#6A4BBC",
+            '&.Mui-checked': {
+              color: '#6A4BBC',
             },
           }}
         />
       }
       label="I agree with the T&C"
-      componentsProps={{ typography: { variant: "body2" } }}
+      componentsProps={{ typography: { variant: 'body2' } }}
     />
   );
 }
@@ -507,9 +507,9 @@ function SignUpLink(): JSX.Element {
     <Link
       href="/"
       style={{
-        textDecoration: "none",
-        color: "#312E81", // Dunkelblau für Links
-        fontWeight: "bold",
+        textDecoration: 'none',
+        color: '#312E81', // Dunkelblau für Links
+        fontWeight: 'bold',
       }}
     >
       Sign up
@@ -527,9 +527,9 @@ function ForgotPasswordLink(): JSX.Element {
     <Link
       href="/"
       style={{
-        textDecoration: "none",
-        color: "#312E81", // Dunkelblau für Links
-        fontWeight: "bold",
+        textDecoration: 'none',
+        color: '#312E81', // Dunkelblau für Links
+        fontWeight: 'bold',
       }}
     >
       Forgot password?

@@ -11,7 +11,8 @@
     "depcheck": "depcheck",
     "typedoc": "typedoc",
     "eslint": "eslint src",
-    "prettier": "prettier --cache --write \"src/**/*.ts\""
+    "prettier": "prettier --cache --write \"src/**/*.{ts,tsx}\""
+
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -22,17 +23,21 @@
     "@mui/x-charts": "^8.4.0",
     "@react-keycloak/web": "^3.4.0",
     "@react-spring/web": "^10.0.1",
+    "@tippyjs/react": "^4.2.6",
     "@toolpad/core": "^0.15.0",
     "antd": "^5.25.1",
     "apexcharts": "^4.7.0",
     "chalk": "^5.4.1",
     "consola": "^3.4.2",
+    "d3-scale": "^4.0.2",
     "dayjs": "^1.11.13",
     "depcheck": "^1.4.7",
     "framer-motion": "^12.23.6",
     "fs-extra": "^11.3.0",
     "keen-slider": "^6.8.6",
     "keycloak-js": "^26.2.0",
+    "leaflet": "^1.9.4",
+    "leaflet.heat": "^0.2.0",
     "lottie-react": "^2.4.1",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
@@ -44,21 +49,33 @@
     "react-apexcharts": "^1.7.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0",
+    "react-simple-maps": "^3.0.0",
     "react-slick": "^0.30.3",
+    "react-tooltip": "^5.29.1",
     "recharts": "^2.15.3",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.2.10",
     "typedoc": "^0.28.5",
     "use-debounce": "^10.0.4"
   },
+  "overrides": {
+    "react-simple-maps": {
+      "react": "^19.0.0",
+      "react-dom": "^19.0.0"
+    }
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@eslint/js": "^9.28.0",
     "@next/eslint-plugin-next": "^15.3.3",
     "@types/fs-extra": "^11.0.4",
+    "@types/leaflet": "^1.9.20",
+    "@types/leaflet.heat": "^0.2.4",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.1.9",
     "@types/react-dom": "^19",
+    "@types/react-simple-maps": "^3.0.6",
     "eslint": "^9.28.0",
     "eslint-config-next": "15.3.2",
     "eslint-config-prettier": "^10.1.5",

@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import React, { useRef, useState } from "react";
 import {
   Box,
   Card,
   CardContent,
   Stack,
-  Typography,
-  useTheme,
   ToggleButton,
   ToggleButtonGroup,
-} from "@mui/material";
+  Typography,
+  useTheme,
+} from '@mui/material';
+import React, { useRef, useState } from 'react';
 import {
-  AreaChart,
   Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
+} from 'recharts';
 
 type EngagementPoint = {
   date: string;
@@ -35,29 +35,29 @@ type EngagementData = {
 
 const data: EngagementData = {
   daily: [
-    { date: "01", visitors: 300, views: 800 },
-    { date: "02", visitors: 500, views: 1000 },
-    { date: "03", visitors: 400, views: 950 },
-    { date: "04", visitors: 600, views: 1200 },
-    { date: "05", visitors: 750, views: 1350 },
+    { date: '01', visitors: 300, views: 800 },
+    { date: '02', visitors: 500, views: 1000 },
+    { date: '03', visitors: 400, views: 950 },
+    { date: '04', visitors: 600, views: 1200 },
+    { date: '05', visitors: 750, views: 1350 },
   ],
   monthly: [
-    { date: "Jan", visitors: 3200, views: 10000 },
-    { date: "Feb", visitors: 2800, views: 9500 },
-    { date: "Mar", visitors: 3500, views: 11000 },
-    { date: "Apr", visitors: 4200, views: 12000 },
+    { date: 'Jan', visitors: 3200, views: 10000 },
+    { date: 'Feb', visitors: 2800, views: 9500 },
+    { date: 'Mar', visitors: 3500, views: 11000 },
+    { date: 'Apr', visitors: 4200, views: 12000 },
   ],
   yearly: [
-    { date: "2020", visitors: 25000, views: 76000 },
-    { date: "2021", visitors: 32000, views: 84000 },
-    { date: "2022", visitors: 37000, views: 94000 },
-    { date: "2023", visitors: 41000, views: 102000 },
+    { date: '2020', visitors: 25000, views: 76000 },
+    { date: '2021', visitors: 32000, views: 84000 },
+    { date: '2022', visitors: 37000, views: 94000 },
+    { date: '2023', visitors: 41000, views: 102000 },
   ],
 };
 
 export default function EngagementChart() {
   const theme = useTheme();
-  const [range, setRange] = useState<keyof EngagementData>("monthly");
+  const [range, setRange] = useState<keyof EngagementData>('monthly');
   const [show, setShow] = useState<{ [key: string]: boolean }>({
     visitors: true,
     views: true,
@@ -68,14 +68,14 @@ export default function EngagementChart() {
 
   const handleRangeChange = (
     event: React.MouseEvent<HTMLElement>,
-    newRange: "daily" | "monthly" | "yearly" | null
+    newRange: 'daily' | 'monthly' | 'yearly' | null,
   ) => {
     if (newRange) setRange(newRange);
   };
 
   const handleToggle = (key: string) => {
-    if (key === "visitors") visitorsMounted.current = false;
-    if (key === "views") viewsMounted.current = false;
+    if (key === 'visitors') visitorsMounted.current = false;
+    if (key === 'views') viewsMounted.current = false;
     setShow((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -107,15 +107,15 @@ export default function EngagementChart() {
 
           <Stack direction="row" spacing={2} alignItems="center">
             <Box
-              onClick={() => handleToggle("visitors")}
+              onClick={() => handleToggle('visitors')}
               sx={{
                 width: 12,
                 height: 12,
-                borderRadius: "50%",
+                borderRadius: '50%',
                 backgroundColor: show.visitors
                   ? theme.palette.primary.main
                   : theme.palette.grey[400],
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
             />
             <Typography variant="body2" color="text.secondary">
@@ -123,15 +123,15 @@ export default function EngagementChart() {
             </Typography>
 
             <Box
-              onClick={() => handleToggle("views")}
+              onClick={() => handleToggle('views')}
               sx={{
                 width: 12,
                 height: 12,
-                borderRadius: "50%",
+                borderRadius: '50%',
                 backgroundColor: show.views
                   ? theme.palette.success.main
                   : theme.palette.grey[400],
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
             />
             <Typography variant="body2" color="text.secondary">
@@ -217,10 +217,10 @@ export default function EngagementChart() {
               ) : (
                 <Box
                   sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100%',
                   }}
                 >
                   <Typography variant="body2" color="text.secondary">

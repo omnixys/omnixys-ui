@@ -1,13 +1,13 @@
-import { Box, Container, Typography } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
-import MotionWrapper from "../common/MotionWrapper";
+import { Box, Container, Typography } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import MotionWrapper from '../common/MotionWrapper';
 
 export default function AppDownloadSection() {
   return (
     <MotionWrapper delay={0.2}>
       <Box sx={{ py: 6 }}>
-        <Container sx={{ textAlign: "center" }}>
+        <Container sx={{ textAlign: 'center' }}>
           <Typography variant="h5" fontWeight={600} gutterBottom>
             Jetzt herunterladen
           </Typography>
@@ -16,10 +16,10 @@ export default function AppDownloadSection() {
           </Typography>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
+              display: 'flex',
+              justifyContent: 'center',
               gap: 2,
-              flexWrap: "wrap",
+              flexWrap: 'wrap',
             }}
           >
             <Link

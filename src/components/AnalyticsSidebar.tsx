@@ -1,19 +1,14 @@
-"use client";
+'use client';
 
-import {
-  Drawer,
-  useTheme,
-  useMediaQuery,
-  IconButton,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import SidebarContent from "./SidebarContent";
-import { useSidebar } from "../context/SidebarContext";
+import MenuIcon from '@mui/icons-material/Menu';
+import { Drawer, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { useSidebar } from '../context/SidebarContext';
+import SidebarContent from './SidebarContent';
 
 export default function AnalyticsSidebar() {
   const theme = useTheme();
 
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { isOpen, toggle, close } = useSidebar();
 
   return (
@@ -22,7 +17,7 @@ export default function AnalyticsSidebar() {
         <IconButton
           onClick={toggle}
           sx={{
-            position: "fixed",
+            position: 'fixed',
             top: 16,
             left: 16,
             zIndex: theme.zIndex.drawer + 1,
@@ -35,7 +30,7 @@ export default function AnalyticsSidebar() {
         </IconButton>
       )}
       <Drawer
-        variant={isMobile ? "temporary" : "permanent"}
+        variant={isMobile ? 'temporary' : 'permanent'}
         anchor="left"
         open={isMobile ? isOpen : true}
         onClose={close}
@@ -47,7 +42,7 @@ export default function AnalyticsSidebar() {
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
             width: 260,
-            boxSizing: "border-box",
+            boxSizing: 'border-box',
             backgroundColor: theme.palette.background.default,
             color: theme.palette.text.primary,
           },

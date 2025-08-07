@@ -1,16 +1,16 @@
 // src/components/ColorSchemeSelector.tsx
-"use client";
+'use client';
 
-import { MenuItem, ListItemIcon, ListItemText, Divider } from "@mui/material";
-import PaletteIcon from "@mui/icons-material/Palette";
-import { OmnixysColorScheme } from "@/theme/theme";
+import { OmnixysColorScheme } from '@/theme/theme';
+import PaletteIcon from '@mui/icons-material/Palette';
+import { Divider, ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 
 const availableSchemes: OmnixysColorScheme[] = [
-  "original",
-  "red",
-  "green",
-  "yellow",
-  "blue",
+  'original',
+  'red',
+  'green',
+  'yellow',
+  'blue',
 ];
 
 interface ColorSchemeSelectorProps {

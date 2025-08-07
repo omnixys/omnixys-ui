@@ -1,62 +1,62 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import CloseIcon from '@mui/icons-material/Close';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
+  Alert,
   Box,
-  IconButton,
-  Typography,
   Button,
   Collapse,
-  Paper,
+  IconButton,
   ListItemButton,
   ListItemText,
-  TextField,
+  Paper,
   Snackbar,
-  Alert,
-} from "@mui/material";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import CloseIcon from "@mui/icons-material/Close";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useState } from 'react';
 
 type ChatMessage = {
-  sender: "user" | "bot";
+  sender: 'user' | 'bot';
   text: string;
 };
 
 const faqs = [
   {
-    question: "Wie starte ich mit Omnixys?",
+    question: 'Wie starte ich mit Omnixys?',
     answer:
       "Klicke auf 'Loslegen' und registriere dich kostenlos im Dashboard.",
   },
   {
-    question: "Ist Omnixys DSGVO-konform?",
+    question: 'Ist Omnixys DSGVO-konform?',
     answer:
-      "Ja, alle Daten werden in sicheren Rechenzentren in der EU verarbeitet.",
+      'Ja, alle Daten werden in sicheren Rechenzentren in der EU verarbeitet.',
   },
   {
-    question: "Gibt es eine mobile App?",
-    answer: "Ja! Du findest sie im App Store und auf Google Play.",
+    question: 'Gibt es eine mobile App?',
+    answer: 'Ja! Du findest sie im App Store und auf Google Play.',
   },
 ];
 
 const smartPrompts = [
-  "🔐 Wie funktioniert die Authentifizierung?",
-  "📦 Was sind Module in Omnixys?",
-  "💡 Wie kann ich meine Daten importieren?",
+  '🔐 Wie funktioniert die Authentifizierung?',
+  '📦 Was sind Module in Omnixys?',
+  '💡 Wie kann ich meine Daten importieren?',
 ];
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [formState, setFormState] = useState({
-    email: "",
-    subject: "",
-    message: "",
+    email: '',
+    subject: '',
+    message: '',
   });
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -65,28 +65,28 @@ export default function ChatWidget() {
 
     setChatMessages((prev) => [
       ...prev,
-      { sender: "user", text: userInput.trim() },
+      { sender: 'user', text: userInput.trim() },
     ]);
-    setUserInput("");
+    setUserInput('');
     setIsTyping(true);
 
     setTimeout(() => {
       const reply = `OmniBot: Danke für deine Nachricht – wir melden uns bald!`;
-      setChatMessages((prev) => [...prev, { sender: "bot", text: reply }]);
+      setChatMessages((prev) => [...prev, { sender: 'bot', text: reply }]);
       setIsTyping(false);
     }, 1000);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState({ email: "", subject: "", message: "" });
+    setFormState({ email: '', subject: '', message: '' });
     setSubmitted(true);
   };
 
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: 'fixed',
         bottom: 16,
         right: 16,
         zIndex: 1300,
@@ -108,18 +108,18 @@ export default function ChatWidget() {
           sx={{
             width: 320,
             maxHeight: 520,
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             borderRadius: 2,
-            backgroundColor: "#fdfdfd",
+            backgroundColor: '#fdfdfd',
           }}
         >
           {/* Header */}
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               p: 2,
               pb: 1,
             }}
@@ -133,15 +133,15 @@ export default function ChatWidget() {
           </Box>
 
           {/* Scrollbarer Inhalt */}
-          <Box sx={{ flex: 1, overflowY: "auto", px: 2, pb: 2 }}>
+          <Box sx={{ flex: 1, overflowY: 'auto', px: 2, pb: 2 }}>
             {/* Smart Prompts */}
             <Typography variant="body2" fontWeight={600} gutterBottom>
               💡 Beliebte Themen
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
                 gap: 1,
                 mb: 2,
               }}
@@ -152,7 +152,7 @@ export default function ChatWidget() {
                   size="small"
                   variant="outlined"
                   fullWidth
-                  sx={{ justifyContent: "flex-start" }}
+                  sx={{ justifyContent: 'flex-start' }}
                 >
                   {prompt}
                 </Button>
@@ -196,32 +196,32 @@ export default function ChatWidget() {
             </Typography>
             <Box
               sx={{
-                backgroundColor: "#fff",
+                backgroundColor: '#fff',
                 borderRadius: 1,
                 p: 1,
                 mb: 1,
                 maxHeight: 100,
-                overflowY: "auto",
-                border: "1px solid #eee",
+                overflowY: 'auto',
+                border: '1px solid #eee',
               }}
             >
               {chatMessages.map((msg, idx) => (
                 <Box
                   key={idx}
                   sx={{
-                    textAlign: msg.sender === "user" ? "right" : "left",
+                    textAlign: msg.sender === 'user' ? 'right' : 'left',
                     my: 0.5,
                   }}
                 >
                   <Typography
                     variant="body2"
                     sx={{
-                      display: "inline-block",
+                      display: 'inline-block',
                       px: 1.5,
                       py: 0.5,
                       borderRadius: 1,
                       backgroundColor:
-                        msg.sender === "user" ? "primary.light" : "grey.100",
+                        msg.sender === 'user' ? 'primary.light' : 'grey.100',
                     }}
                   >
                     {msg.text}
@@ -235,7 +235,7 @@ export default function ChatWidget() {
               )}
             </Box>
 
-            <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+            <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
               <TextField
                 fullWidth
                 size="small"
@@ -255,7 +255,7 @@ export default function ChatWidget() {
             <Box
               component="form"
               onSubmit={handleFormSubmit}
-              sx={{ display: "flex", flexDirection: "column", gap: 1, mb: 2 }}
+              sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2 }}
             >
               <TextField
                 label="Deine E-Mail"
@@ -296,7 +296,7 @@ export default function ChatWidget() {
           </Box>
 
           {/* Footer Hinweis */}
-          <Box sx={{ px: 2, py: 1, borderTop: "1px solid #eee" }}>
+          <Box sx={{ px: 2, py: 1, borderTop: '1px solid #eee' }}>
             <Typography variant="caption" sx={{ opacity: 0.6 }}>
               Deine Nachricht wird vertraulich übermittelt.
             </Typography>
@@ -306,9 +306,9 @@ export default function ChatWidget() {
         <IconButton
           onClick={() => setOpen(true)}
           sx={{
-            backgroundColor: "primary.main",
-            color: "white",
-            "&:hover": { backgroundColor: "primary.dark" },
+            backgroundColor: 'primary.main',
+            color: 'white',
+            '&:hover': { backgroundColor: 'primary.dark' },
             boxShadow: 4,
           }}
         >

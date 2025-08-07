@@ -1,8 +1,8 @@
 // components/common/StickyCTA.jsx
-"use client";
+'use client';
 
-import { Box, Typography, Button } from "@mui/material";
-import Link from "next/link";
+import { Box, Button, Typography } from '@mui/material';
+import Link from 'next/link';
 
 export default function StickyCTA() {
   return (
@@ -10,30 +10,30 @@ export default function StickyCTA() {
       {/* Sticky Call-to-Action Banner nur auf Desktop */}
       <Box
         sx={{
-          position: "fixed",
+          position: 'fixed',
           bottom: 16,
           left: 0,
           right: 0,
-          display: { xs: "none", md: "flex" },
-          justifyContent: "center",
-          pointerEvents: "none",
+          display: { xs: 'none', md: 'flex' },
+          justifyContent: 'center',
+          pointerEvents: 'none',
           zIndex: 1300,
         }}
       >
         <Box
           sx={{
-            backgroundColor: "primary.main",
-            color: "white",
+            backgroundColor: 'primary.main',
+            color: 'white',
             borderRadius: 999,
             px: 4,
             py: 1.5,
             boxShadow: 3,
-            pointerEvents: "auto",
-            display: "flex",
-            alignItems: "center",
+            pointerEvents: 'auto',
+            display: 'flex',
+            alignItems: 'center',
             gap: 2,
-            transition: "all 0.3s ease",
-            "&:hover": { transform: "scale(1.05)" },
+            transition: 'all 0.3s ease',
+            '&:hover': { transform: 'scale(1.05)' },
           }}
         >
           <Typography variant="body1" sx={{ fontWeight: 600 }}>
@@ -50,30 +50,30 @@ export default function StickyCTA() {
       {/* Sticky Call-to-Action Banner nur auf Mobilgeräten */}
       <Box
         sx={{
-          position: "fixed",
+          position: 'fixed',
           bottom: 16,
           left: 0,
           right: 0,
-          display: { xs: "flex", md: "none" },
-          justifyContent: "center",
-          pointerEvents: "none",
+          display: { xs: 'flex', md: 'none' },
+          justifyContent: 'center',
+          pointerEvents: 'none',
           zIndex: 1300,
         }}
       >
         <Box
           sx={{
-            backgroundColor: "primary.main",
-            color: "white",
+            backgroundColor: 'primary.main',
+            color: 'white',
             borderRadius: 999,
             px: 4,
             py: 1.5,
             boxShadow: 3,
-            pointerEvents: "auto",
-            display: "flex",
-            alignItems: "center",
+            pointerEvents: 'auto',
+            display: 'flex',
+            alignItems: 'center',
             gap: 2,
-            transition: "all 0.3s ease",
-            "&:hover": { transform: "scale(1.05)" },
+            transition: 'all 0.3s ease',
+            '&:hover': { transform: 'scale(1.05)' },
           }}
         >
           <Typography variant="body1" sx={{ fontWeight: 600 }}>

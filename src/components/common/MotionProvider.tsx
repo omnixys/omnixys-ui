@@ -1,8 +1,8 @@
 // components/common/MotionProvider.tsx
-"use client";
+'use client';
 
-import { AnimatePresence } from "framer-motion";
-import { createContext, useContext, ReactNode, useState } from "react";
+import { AnimatePresence } from 'framer-motion';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 type MotionContextType = {
   animationsEnabled: boolean;
@@ -14,7 +14,7 @@ const MotionContext = createContext<MotionContextType | undefined>(undefined);
 export const useMotion = (): MotionContextType => {
   const context = useContext(MotionContext);
   if (!context) {
-    throw new Error("useMotion must be used within MotionProvider");
+    throw new Error('useMotion must be used within MotionProvider');
   }
   return context;
 };

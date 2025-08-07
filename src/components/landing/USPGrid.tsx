@@ -1,71 +1,77 @@
-"use client";
+'use client';
 
-import { Avatar, Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { motion } from "framer-motion";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
+import {
+  Avatar,
+  Box,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
 
-import ExtensionIcon from "@mui/icons-material/Extension";
-import LockPersonIcon from "@mui/icons-material/LockPerson";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
-import DataObjectIcon from "@mui/icons-material/DataObject";
-import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import PublicIcon from "@mui/icons-material/Public";
-import VerifiedIcon from "@mui/icons-material/Verified";
-import LockIcon from "@mui/icons-material/Lock";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import DataObjectIcon from '@mui/icons-material/DataObject';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import LockIcon from '@mui/icons-material/Lock';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
+import PublicIcon from '@mui/icons-material/Public';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 const USPs = [
   {
     icon: <ExtensionIcon fontSize="large" />,
-    title: "Modular & Erweiterbar",
-    text: "Jeder Service ist unabhängig einsetzbar und kombinierbar.",
+    title: 'Modular & Erweiterbar',
+    text: 'Jeder Service ist unabhängig einsetzbar und kombinierbar.',
   },
   {
     icon: <LockPersonIcon fontSize="large" />,
-    title: "Sichere Authentifizierung",
-    text: "Keycloak-Support für SSO, Rollen und Berechtigungen.",
+    title: 'Sichere Authentifizierung',
+    text: 'Keycloak-Support für SSO, Rollen und Berechtigungen.',
   },
   {
     icon: <RocketLaunchIcon fontSize="large" />,
-    title: "Schnell deploybar",
-    text: "GitHub Actions + Docker für jeden Microservice.",
+    title: 'Schnell deploybar',
+    text: 'GitHub Actions + Docker für jeden Microservice.',
   },
   {
     icon: <DataObjectIcon fontSize="large" />,
-    title: "Nur GraphQL",
-    text: "Typisierte Schnittstelle, kein REST.",
+    title: 'Nur GraphQL',
+    text: 'Typisierte Schnittstelle, kein REST.',
   },
   {
     icon: <QueryStatsIcon fontSize="large" />,
-    title: "Echtzeit-Daten",
-    text: "Dashboards mit Prometheus, Tempo und Grafana.",
+    title: 'Echtzeit-Daten',
+    text: 'Dashboards mit Prometheus, Tempo und Grafana.',
   },
   {
     icon: <PublicIcon fontSize="large" />,
-    title: "Open Source & Global",
-    text: "GPL-lizenziert, i18n-fähig, API-first.",
+    title: 'Open Source & Global',
+    text: 'GPL-lizenziert, i18n-fähig, API-first.',
   },
   {
-    icon: <VerifiedIcon sx={{ fontSize: 40, color: "success.light" }} />,
-    title: "Modular aufgebaut",
+    icon: <VerifiedIcon sx={{ fontSize: 40, color: 'success.light' }} />,
+    title: 'Modular aufgebaut',
   },
   {
-    icon: <LockIcon sx={{ fontSize: 40, color: "#90CAF9" }} />,
-    title: "Datenschutzkonform",
+    icon: <LockIcon sx={{ fontSize: 40, color: '#90CAF9' }} />,
+    title: 'Datenschutzkonform',
   },
   {
-    icon: <TrendingUpIcon sx={{ fontSize: 40, color: "#FFD54F" }} />,
-    title: "Skalierbar & performant",
+    icon: <TrendingUpIcon sx={{ fontSize: 40, color: '#FFD54F' }} />,
+    title: 'Skalierbar & performant',
   },
 ];
 
 export default function USPGrid() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
-    mode: "snap",
+    mode: 'snap',
     slides: { perView: 1.1, spacing: 12 },
   });
 
@@ -75,8 +81,8 @@ export default function USPGrid() {
         py: 10,
         px: 2,
         // backgroundColor: "rgba(255,255,255,0.125)",
-        backgroundColor: "rgba(168, 62, 180, 0.05)",
-        backdropFilter: "blur(8px)",
+        backgroundColor: 'rgba(168, 62, 180, 0.05)',
+        backdropFilter: 'blur(8px)',
       }}
     >
       <Typography
@@ -105,15 +111,15 @@ export default function USPGrid() {
                   p: 4,
                   m: 1,
                   borderRadius: 3,
-                  backgroundColor: "rgba(255,255,255,0.05)",
+                  backgroundColor: 'rgba(255,255,255,0.05)',
                   boxShadow: 2,
-                  display: "flex",
+                  display: 'flex',
                   gap: 2,
-                  alignItems: "flex-start",
+                  alignItems: 'flex-start',
                 }}
               >
                 <Box sx={{ color: theme.palette.primary.main, mt: 0.5 }}>
-                  <Avatar sx={{ bgcolor: "primary.main", mx: "auto", mb: 2 }}>
+                  <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 2 }}>
                     {usp.icon}
                   </Avatar>
                 </Box>
@@ -140,11 +146,11 @@ export default function USPGrid() {
       ) : (
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: { md: "1fr 1fr" },
+            display: 'grid',
+            gridTemplateColumns: { md: '1fr 1fr' },
             gap: 4,
             maxWidth: 1000,
-            mx: "auto",
+            mx: 'auto',
           }}
         >
           {USPs.map((usp, index) => (
@@ -159,15 +165,15 @@ export default function USPGrid() {
                 sx={{
                   p: 4,
                   borderRadius: 3,
-                  backgroundColor: "rgba(255,255,255,0.05)",
+                  backgroundColor: 'rgba(255,255,255,0.05)',
                   boxShadow: 2,
-                  display: "flex",
+                  display: 'flex',
                   gap: 2,
-                  alignItems: "flex-start",
+                  alignItems: 'flex-start',
                 }}
               >
                 <Box sx={{ color: theme.palette.primary.main, mt: 0.5 }}>
-                  <Avatar sx={{ bgcolor: "primary.main", mx: "auto", mb: 2 }}>
+                  <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 2 }}>
                     {usp.icon}
                   </Avatar>
                 </Box>

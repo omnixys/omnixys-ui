@@ -11,7 +11,11 @@ export default function NavigationBar() {
           OmnixysSocial
         </Typography>
         <Box>
-          <Button component={Link} href="/profile/feed" sx={{ textTransform: 'none' }}>
+          <Button
+            component={Link}
+            href="/profile/feed"
+            sx={{ textTransform: 'none' }}
+          >
             Feed
           </Button>
           <Button

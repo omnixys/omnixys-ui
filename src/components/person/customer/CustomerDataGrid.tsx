@@ -1,3 +1,5 @@
+import { useMutation, useQuery } from '@apollo/client';
+import { Add } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -12,20 +14,18 @@ import {
   TextField,
   Typography,
   useTheme,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDebounce } from "use-debounce";
-import { useQuery, useMutation } from "@apollo/client";
-import getApolloClient from "../../../lib/apolloClient";
-import { useRouter } from "next/navigation";
-import { GET_CUSTOMERS } from "../../../graphql/customer/query/persons";
-import { DELETE_CUSTOMER_BY_ID } from "../../../graphql/customer/mutation/delete";
-import Link from "next/link";
-import { Add } from "@mui/icons-material";
-import { CustomerListItem } from "../../../types/person/customer.type";
-import { Person } from "../../../types/person/person.type";
-import { createCustomerColumns } from "./CustomerColumns";
-import EnhancedDataGrid from "../../EnhancedDataGrid";
+} from '@mui/material';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
+import { DELETE_CUSTOMER_BY_ID } from '../../../graphql/customer/mutation/delete';
+import { GET_CUSTOMERS } from '../../../graphql/customer/query/persons';
+import getApolloClient from '../../../lib/apolloClient';
+import { CustomerListItem } from '../../../types/person/customer.type';
+import { Person } from '../../../types/person/person.type';
+import EnhancedDataGrid from '../../EnhancedDataGrid';
+import { createCustomerColumns } from './CustomerColumns';
 
 interface CustomerDataGridProps {
   token: string;
@@ -40,7 +40,7 @@ interface DeleteDialogState {
 export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
   const router = useRouter();
   const client = getApolloClient(token);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [debouncedSearch] = useDebounce(search, 500);
   const [customers, setCustomers] = useState<CustomerListItem[]>([]);
   const [deleteDialog, setDeleteDialog] = useState<DeleteDialogState>({
@@ -54,24 +54,29 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
     {
       client,
       variables: {
-        filterInput: 
-          { field: "username", operator: "LIKE", value: debouncedSearch },
+        filterInput: {
+          field: 'username',
+          operator: 'LIKE',
+          value: debouncedSearch,
+        },
       },
-    }
+    },
   );
 
   const [deleteCustomer] = useMutation(DELETE_CUSTOMER_BY_ID, { client });
 
   useEffect(() => {
     if (data?.customers) {
-      const transformed: CustomerListItem[] = data.customers.map((person: Person) => ({
-        id: person.id,
-        version: person.version,
-        username: person.username,
-        email: person.email,
-        tierLevel: person.customer?.tierLevel?.toString() ?? "0",
-        customerState: person.customer?.customerState ?? "UNKNOWN",
-      }));
+      const transformed: CustomerListItem[] = data.customers.map(
+        (person: Person) => ({
+          id: person.id,
+          version: person.version,
+          username: person.username,
+          email: person.email,
+          tierLevel: person.customer?.tierLevel?.toString() ?? '0',
+          customerState: person.customer?.customerState ?? 'UNKNOWN',
+        }),
+      );
       setCustomers(transformed);
     }
   }, [data]);
@@ -99,14 +104,14 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
       });
       await refetch();
     } catch (err) {
-      console.error("Löschfehler:", err);
+      console.error('Löschfehler:', err);
     } finally {
       setDeleteDialog({ open: false, id: null, version: null });
     }
   };
 
   const theme = useTheme();
-  const columns = createCustomerColumns(theme,{
+  const columns = createCustomerColumns(theme, {
     onInspect: handleInspect,
     onEdit: handleEdit,
     onDelete: handleDeleteClick,
@@ -115,7 +120,7 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
   if (error) {
     return (
       <Container maxWidth="lg">
-        <Paper sx={{ p: 3, mt: 3, textAlign: "center" }}>
+        <Paper sx={{ p: 3, mt: 3, textAlign: 'center' }}>
           <Typography variant="h6" color="error">
             Fehler beim Laden der Kunden
           </Typography>
@@ -147,8 +152,8 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
         >
           <Box
             sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
               gap: 2,
             }}
           >
@@ -177,7 +182,7 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
                 borderRadius: 2,
                 px: 3,
                 minHeight: 40,
-                "&:hover": {
+                '&:hover': {
                   backgroundColor: (theme) => theme.palette.secondary.main,
                 },
               }}
@@ -189,17 +194,17 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
 
         <Typography
           variant="body2"
-          textAlign={{ xs: "center", sm: "left" }}
+          textAlign={{ xs: 'center', sm: 'left' }}
           sx={{ mt: 1, ml: 1, color: (theme) => theme.palette.secondary.main }}
         >
-          {customers.length}{" "}
-          {customers.length === 1 ? "Ergebnis" : "Ergebnisse"} gefunden
+          {customers.length}{' '}
+          {customers.length === 1 ? 'Ergebnis' : 'Ergebnisse'} gefunden
         </Typography>
 
         <Paper>
           {loading ? (
-            <Box sx={{ textAlign: "center", p: 4 }}>
-              <CircularProgress sx={{ color: "primary.main" }} />
+            <Box sx={{ textAlign: 'center', p: 4 }}>
+              <CircularProgress sx={{ color: 'primary.main' }} />
             </Box>
           ) : (
             <EnhancedDataGrid<CustomerListItem>
@@ -225,7 +230,7 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
       >
         <DialogTitle
           sx={{
-            fontWeight: "bold",
+            fontWeight: 'bold',
             color: (theme) => theme.palette.secondary.main,
           }}
         >
@@ -248,7 +253,7 @@ export default function CustomerDataGrid({ token }: CustomerDataGridProps) {
             onClick={handleDeleteConfirm}
             color="error"
             variant="contained"
-            sx={{ fontWeight: "bold" }}
+            sx={{ fontWeight: 'bold' }}
           >
             Löschen
           </Button>

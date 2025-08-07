@@ -73,20 +73,15 @@
 //   );
 // }
 
-
-
-
-import { Box } from "@mui/material";
+import { Box } from '@mui/material';
 
 export default function FetchUserCard() {
-
-
   return (
     <Box
       sx={{
         background:
-          "linear-gradient(180deg, #F8F8FC, #6A4BBC, #4E3792, #6A4BBC, #F8F8FC,)",
-        height: "1000px",
+          'linear-gradient(180deg, #F8F8FC, #6A4BBC, #4E3792, #6A4BBC, #F8F8FC,)',
+        height: '1000px',
       }}
     >
       <div>

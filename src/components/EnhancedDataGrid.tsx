@@ -1,11 +1,11 @@
+import { Box, useTheme } from '@mui/material';
 import {
   DataGrid,
+  DataGridProps,
   GridColDef,
   GridToolbar,
-  DataGridProps,
-} from "@mui/x-data-grid";
-import { Box, useTheme } from "@mui/material";
-import { useState } from "react";
+} from '@mui/x-data-grid';
+import { useState } from 'react';
 
 interface EnhancedDataGridProps<T> extends Partial<DataGridProps> {
   rows: T[];
@@ -18,16 +18,16 @@ const EnhancedDataGrid = <T,>({
   ...props
 }: EnhancedDataGridProps<T>) => {
   const theme = useTheme();
-    const [paginationModel, setPaginationModel] = useState({
-      page: 0,
-      pageSize: 10,
-    });
-  
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  });
+
   return (
     <Box
       sx={{
         borderRadius: 1,
-        overflow: "hidden",
+        overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
       }}
     >
@@ -40,33 +40,33 @@ const EnhancedDataGrid = <T,>({
         pageSizeOptions={[10, 25, 50]}
         slots={{ toolbar: GridToolbar }}
         sx={{
-          transition: "background-color 0.2s ease",
+          transition: 'background-color 0.2s ease',
 
-          "& .MuiDataGrid-columnHeaders": {
+          '& .MuiDataGrid-columnHeaders': {
             backgroundColor: theme.palette.secondary.main,
             // color: theme.palette.getContrastText(theme.palette.secondary.main),
-            fontWeight: "bold",
+            fontWeight: 'bold',
           },
 
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
+          '& .MuiDataGrid-row:nth-of-type(odd)': {
             backgroundColor:
-              theme.palette.mode === "light"
+              theme.palette.mode === 'light'
                 ? theme.palette.background.default
                 : theme.palette.background.paper,
           },
 
-          "& .MuiDataGrid-row:hover": {
+          '& .MuiDataGrid-row:hover': {
             backgroundColor:
-              theme.palette.mode === "light"
-                ? "#F0ECFF"
+              theme.palette.mode === 'light'
+                ? '#F0ECFF'
                 : theme.palette.action.hover,
           },
 
-          "& .MuiDataGrid-cell": {
-            transition: "all 0.15s ease",
+          '& .MuiDataGrid-cell': {
+            transition: 'all 0.15s ease',
           },
 
-          "& .MuiDataGrid-columnHeader:focus": {
+          '& .MuiDataGrid-columnHeader:focus': {
             outline: `2px solid ${theme.palette.primary.main}`,
           },
         }}

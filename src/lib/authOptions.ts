@@ -94,7 +94,7 @@ export const authOptions: AuthOptions = {
           refresh_token: user.refresh_token,
           user: {
             id: userData?.user_id || 'N/A',
-              profileId: userData?.profile_id || 'N/A',
+            profileId: userData?.profile_id || 'N/A',
             name: userData?.name || user.name,
             email: userData?.email || user.email,
             username: userData?.preferred_username || user.username,

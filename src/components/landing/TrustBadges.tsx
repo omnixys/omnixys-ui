@@ -1,14 +1,14 @@
 // components/landing/TrustBadges.jsx
-"use client";
+'use client';
 
-import { Box, Container, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box, Container, Typography } from '@mui/material';
+import Image from 'next/image';
 
 export default function TrustBadges() {
-  const badges = ["/trusted-ssl.png", "/trusted-dsgvo.png", "/trusted-iso.png"];
+  const badges = ['/trusted-ssl.png', '/trusted-dsgvo.png', '/trusted-iso.png'];
   return (
     <Box sx={{ py: 6 }}>
-      <Container maxWidth="md" sx={{ textAlign: "center" }}>
+      <Container maxWidth="md" sx={{ textAlign: 'center' }}>
         <Typography
           color="text.primary"
           variant="h5"
@@ -19,9 +19,9 @@ export default function TrustBadges() {
         </Typography>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
             gap: 4,
             mt: 3,
           }}
@@ -33,7 +33,7 @@ export default function TrustBadges() {
               alt="Trust-Siegel"
               width={80}
               height={80}
-              style={{ filter: "brightness(1.2)" }}
+              style={{ filter: 'brightness(1.2)' }}
             />
           ))}
         </Box>

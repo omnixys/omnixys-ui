@@ -1,16 +1,15 @@
-import React from "react";
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import {
   Avatar,
   Card,
   CardContent,
   Stack,
   Typography,
-  useTheme,
   useMediaQuery,
-} from "@mui/material";
-import ReceiptIcon from "@mui/icons-material/Receipt";
-import { Carousel } from "antd";
-import type { SxProps } from "@mui/material/styles";
+  useTheme,
+} from '@mui/material';
+import type { SxProps } from '@mui/material/styles';
+import { Carousel } from 'antd';
 
 export interface ProfitProps {
   value: number;
@@ -18,23 +17,23 @@ export interface ProfitProps {
 }
 
 const currencies = [
-  { code: "EUR", symbol: "€", rate: 1 },
-  { code: "USD", symbol: "$", rate: 1.08 },
-  { code: "GBP", symbol: "£", rate: 0.86 },
-  { code: "GHS", symbol: "₵", rate: 14.5 },
+  { code: 'EUR', symbol: '€', rate: 1 },
+  { code: 'USD', symbol: '$', rate: 1.08 },
+  { code: 'GBP', symbol: '£', rate: 0.86 },
+  { code: 'GHS', symbol: '₵', rate: 14.5 },
 ];
 
 export function ProfitCard({ value, sx }: ProfitProps) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMedium = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
   return (
     <Card
       sx={{
-        minWidth: isSmall ? "100%" : isMedium ? 260 : 280,
-        maxWidth: isSmall ? "100%" : isMedium ? 320 : 290,
-        height: isSmall ? "auto" : 180,
+        minWidth: isSmall ? '100%' : isMedium ? 260 : 280,
+        maxWidth: isSmall ? '100%' : isMedium ? 320 : 290,
+        height: isSmall ? 'auto' : 180,
         ...sx,
       }}
     >

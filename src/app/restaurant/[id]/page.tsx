@@ -37,7 +37,6 @@ export default function RestaurantPage() {
   const { id } = useParams();
   const restaurant = restaurants.find((r) => r.id === id);
 
-
   if (!restaurant) return <p>Restaurant nicht gefunden</p>;
 
   return (
@@ -60,8 +59,7 @@ export default function RestaurantPage() {
               variant="contained"
               sx={{ mt: 2, mr: 2 }}
               onClick={
-                () =>
-                  alert(`"${dish.name}" zum Warenkorb hinzugefügt!`)
+                () => alert(`"${dish.name}" zum Warenkorb hinzugefügt!`)
                 // () =>
                 // addItem({
                 //   id: dish.id + '-cook',

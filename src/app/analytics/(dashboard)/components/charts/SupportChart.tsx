@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { PieChart } from "@mui/x-charts";
-import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
-import { useQuery, gql } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../../../lib/apolloClient";
-import { getLogger } from "../../../../../utils/logger";
+import { gql, useQuery } from '@apollo/client';
+import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
+import { PieChart } from '@mui/x-charts';
+import { useSession } from 'next-auth/react';
+import getApolloClient from '../../../../../lib/apolloClient';
+import { getLogger } from '../../../../../utils/logger';
 
 const SUPPORT_KPI_QUERY = gql`
   query SupportKpis($filter: KpiFilter!) {
@@ -40,21 +40,15 @@ export default function SupportChart() {
     },
   });
 
-  logger.debug(data)
+  logger.debug(data);
   if (loading) return <CircularProgress />;
   if (error || !data)
     return <Typography color="error">Fehler beim Laden der Daten</Typography>;
 
   const kpis: SupportKpi[] = data.supportKpis;
-  const totalRequests = kpis.reduce(
-    (sum, kpi) => sum + kpi.supportRequests,
-    0
-  );
+  const totalRequests = kpis.reduce((sum, kpi) => sum + kpi.supportRequests, 0);
   const avgResponseTime = (() => {
-    const total = kpis.reduce(
-      (acc, kpi) => acc + kpi.avgResponseTimeTotal,
-      0
-    );
+    const total = kpis.reduce((acc, kpi) => acc + kpi.avgResponseTimeTotal, 0);
     const count = kpis.reduce((acc, kpi) => acc + kpi.requestCount, 0);
     return count > 0 ? total / count : 0;
   })();
@@ -65,15 +59,15 @@ export default function SupportChart() {
         Support-Analyse {currentYear}
       </Typography>
       <Typography variant="body2" gutterBottom>
-        Gesamtanfragen: {totalRequests} — ⏱️ Durchschnittliche Antwortzeit:{" "}
+        Gesamtanfragen: {totalRequests} — ⏱️ Durchschnittliche Antwortzeit:{' '}
         {avgResponseTime.toFixed(1)} min
       </Typography>
       <PieChart
         series={[
           {
             data: [
-              { id: 0, value: totalRequests, label: "Anfragen" },
-              { id: 1, value: avgResponseTime, label: "Ø Antwortzeit (min)" },
+              { id: 0, value: totalRequests, label: 'Anfragen' },
+              { id: 1, value: avgResponseTime, label: 'Ø Antwortzeit (min)' },
             ],
             innerRadius: 40,
             outerRadius: 100,

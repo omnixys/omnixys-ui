@@ -1,7 +1,9 @@
 //TODO echte Daten hinzufügen
-"use client";
+'use client';
 
-import React from "react";
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import NorthIcon from '@mui/icons-material/North';
+import SouthIcon from '@mui/icons-material/South';
 import {
   Avatar,
   Card,
@@ -10,41 +12,38 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
-import NorthIcon from "@mui/icons-material/North";
-import SouthIcon from "@mui/icons-material/South";
-import { Carousel } from "antd";
-import type { SxProps } from "@mui/material/styles";
+} from '@mui/material';
+import type { SxProps } from '@mui/material/styles';
+import { Carousel } from 'antd';
 
 export interface BudgetProps {
   diff?: number;
-  trend: "up" | "down";
+  trend: 'up' | 'down';
   value: number; // Basiswert in EUR
   sx?: SxProps;
 }
 
 const currencies = [
-  { code: "EUR", symbol: "€", rate: 1 },
-  { code: "USD", symbol: "$", rate: 1.08 },
-  { code: "GBP", symbol: "£", rate: 0.86 },
-  { code: "GHS", symbol: "₵", rate: 14.5 },
+  { code: 'EUR', symbol: '€', rate: 1 },
+  { code: 'USD', symbol: '$', rate: 1.08 },
+  { code: 'GBP', symbol: '£', rate: 0.86 },
+  { code: 'GHS', symbol: '₵', rate: 14.5 },
 ];
 
 export function BudgetCard({ diff, trend, value, sx }: BudgetProps) {
   const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const isMedium = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  const TrendIcon = trend === "up" ? NorthIcon : SouthIcon;
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const TrendIcon = trend === 'up' ? NorthIcon : SouthIcon;
   const trendColor =
-    trend === "up" ? theme.palette.success.main : theme.palette.error.main;
+    trend === 'up' ? theme.palette.success.main : theme.palette.error.main;
 
   return (
     <Card
       sx={{
-        minWidth: isSmall ? "100%" : isMedium ? 260 : 280,
-        maxWidth: isSmall ? "100%" : isMedium ? 320 : 290,
-        height: isSmall ? "auto" : 180,
+        minWidth: isSmall ? '100%' : isMedium ? 260 : 280,
+        maxWidth: isSmall ? '100%' : isMedium ? 320 : 290,
+        height: isSmall ? 'auto' : 180,
         ...sx,
       }}
     >

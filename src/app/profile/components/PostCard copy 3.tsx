@@ -13,19 +13,18 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import dayjs from 'dayjs';
+import 'dayjs/locale/de';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import "dayjs/locale/de";
 
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
-dayjs.locale("de");
+dayjs.locale('de');
 
-const readableDate = dayjs("2025-07-27T16:28:37.675Z").fromNow(); // → "vor 9 Tagen"
-const fullDate = dayjs("2025-07-27T16:28:37.675Z").format("DD.MM.YYYY – HH:mm"); // → "27.07.2025 – 16:28"
-
+const readableDate = dayjs('2025-07-27T16:28:37.675Z').fromNow(); // → "vor 9 Tagen"
+const fullDate = dayjs('2025-07-27T16:28:37.675Z').format('DD.MM.YYYY – HH:mm'); // → "27.07.2025 – 16:28"
 
 interface PostCardProps {
   title: string;

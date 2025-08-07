@@ -1,64 +1,65 @@
 // src/components/Navbar.tsx
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  Stack,
-  useScrollTrigger,
-  Slide,
-  useTheme,
-  IconButton,
-  Tooltip,
-  Avatar,
-  Menu,
-  MenuItem,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  Drawer,
-  List,
-  ListItem,
-  useMediaQuery,
-  ListItemButton,
-} from "@mui/material";
-import { Timer, Refresh } from "@mui/icons-material";
-import {
+  AccountCircle,
   Brightness4,
   Brightness7,
-  Settings,
-  AccountCircle,
   ColorLens,
-} from "@mui/icons-material";
-import { useColorMode } from "../theme/ColorModeContext";
-import { useColorScheme } from "../theme/ColorSchemeContext";
-import { useCallback, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import LogInIcon from "@mui/icons-material/Login";
-import Logout from "./Logout";
-import { formatTime } from "../utils/counter-format.util";
-import { OmnixysColorScheme } from "../theme/theme";
-import MenuIcon from "@mui/icons-material/Menu";
+  Refresh,
+  Settings,
+  Timer,
+} from '@mui/icons-material';
+import LogInIcon from '@mui/icons-material/Login';
+import MenuIcon from '@mui/icons-material/Menu';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Slide,
+  Stack,
+  Toolbar,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useScrollTrigger,
+  useTheme,
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
+import { useColorMode } from '../theme/ColorModeContext';
+import { useColorScheme } from '../theme/ColorSchemeContext';
+import { OmnixysColorScheme } from '../theme/theme';
+import { formatTime } from '../utils/counter-format.util';
+import Logout from './Logout';
 
 const colorSchemeLabels: Record<OmnixysColorScheme, string> = {
-  original: "Original (Lila)",
-  red: "Rot",
-  green: "Grün",
-  yellow: "Gelb",
-  blue: "Blau",
+  original: 'Original (Lila)',
+  red: 'Rot',
+  green: 'Grün',
+  yellow: 'Gelb',
+  blue: 'Blau',
 };
 
 const colorSchemeIcons: Record<OmnixysColorScheme, React.ReactNode> = {
-  original: <ColorLens sx={{ color: "#6A4BBC" }} fontSize="small" />,
-  red: <ColorLens sx={{ color: "#DC2626" }} fontSize="small" />,
-  green: <ColorLens sx={{ color: "#16A34A" }} fontSize="small" />,
-  yellow: <ColorLens sx={{ color: "#F59E0B" }} fontSize="small" />,
-  blue: <ColorLens sx={{ color: "#2563EB" }} fontSize="small" />,
+  original: <ColorLens sx={{ color: '#6A4BBC' }} fontSize="small" />,
+  red: <ColorLens sx={{ color: '#DC2626' }} fontSize="small" />,
+  green: <ColorLens sx={{ color: '#16A34A' }} fontSize="small" />,
+  yellow: <ColorLens sx={{ color: '#F59E0B' }} fontSize="small" />,
+  blue: <ColorLens sx={{ color: '#2563EB' }} fontSize="small" />,
 };
 
 function HideOnScroll({ children }: { children: React.ReactElement }) {
@@ -78,11 +79,11 @@ export default function Navbar() {
 
   const { data: session, update } = useSession();
   const isLoggedIn = session ?? false;
-  const isAdmin = session?.user.roles?.includes("Admin");
+  const isAdmin = session?.user.roles?.includes('Admin');
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [remainingTime, setRemainingTime] = useState<number | undefined>(
-    undefined
+    undefined,
   );
 
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -102,7 +103,7 @@ export default function Navbar() {
     try {
       await update();
     } catch (err) {
-      console.error("Fehler beim Aktualisieren des Tokens:", err);
+      console.error('Fehler beim Aktualisieren des Tokens:', err);
     }
   }, [update]);
 
@@ -244,11 +245,7 @@ export default function Navbar() {
               <Button color="inherit" component={Link} href="/">
                 Home
               </Button>
-              <Button
-                color="inherit"
-                component={Link}
-                href="/profile/feed"
-              >
+              <Button color="inherit" component={Link} href="/profile/feed">
                 Feed
               </Button>
               <Button color="inherit" component={Link} href="/shop">

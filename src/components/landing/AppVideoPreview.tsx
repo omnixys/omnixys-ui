@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useRef, useCallback } from "react";
-import { Box, Dialog, Typography } from "@mui/material";
-import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
-import { motion } from "framer-motion";
-import { trackVideoEvent } from "@/utils/trackVideo";
-import Image from "next/image";
+import { trackVideoEvent } from '@/utils/trackVideo';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import { Box, Dialog, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useCallback, useRef, useState } from 'react';
 
 export default function AppVideoPreview() {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -13,17 +13,17 @@ export default function AppVideoPreview() {
   const reportedMilestones = useRef<Set<number>>(new Set());
 
   const handleOpen = () => {
-    trackVideoEvent("video_play", "Omnixys Vorschau");
+    trackVideoEvent('video_play', 'Omnixys Vorschau');
     setVideoOpen(true);
   };
 
   const handleClose = () => {
     if (videoRef.current) {
       const played = Math.floor(
-        (videoRef.current.currentTime / videoRef.current.duration) * 100
+        (videoRef.current.currentTime / videoRef.current.duration) * 100,
       );
       if (played < 95) {
-        trackVideoEvent("video_aborted", "Omnixys Vorschau", played);
+        trackVideoEvent('video_aborted', 'Omnixys Vorschau', played);
       }
       videoRef.current.pause();
     }
@@ -41,14 +41,14 @@ export default function AppVideoPreview() {
         ) {
           trackVideoEvent(
             `video_${milestone}_percent`,
-            "Omnixys Vorschau",
-            milestone
+            'Omnixys Vorschau',
+            milestone,
           );
           reportedMilestones.current.add(milestone);
         }
       });
     },
-    []
+    [],
   );
 
   return (
@@ -62,15 +62,15 @@ export default function AppVideoPreview() {
       >
         <Box
           sx={{
-            position: "relative",
+            position: 'relative',
             maxWidth: 800,
-            mx: "auto",
+            mx: 'auto',
             mt: 10,
             borderRadius: 3,
-            overflow: "hidden",
-            cursor: "pointer",
+            overflow: 'hidden',
+            cursor: 'pointer',
             boxShadow: 6,
-            backgroundColor: "rgba(255,255,255,0.125)",
+            backgroundColor: 'rgba(255,255,255,0.125)',
           }}
           onClick={handleOpen}
         >
@@ -82,27 +82,27 @@ export default function AppVideoPreview() {
           />
           <Box
             sx={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: "rgba(0,0,0,0.4)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transition: "background 0.3s ease",
-              "&:hover": { backgroundColor: "rgba(0,0,0,0.6)" },
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'background 0.3s ease',
+              '&:hover': { backgroundColor: 'rgba(0,0,0,0.6)' },
             }}
           >
-            <EmojiObjectsIcon sx={{ fontSize: 64, color: "#fff" }} />
+            <EmojiObjectsIcon sx={{ fontSize: 64, color: '#fff' }} />
           </Box>
         </Box>
         <Typography
           variant="caption"
           sx={{
-            textAlign: "center",
-            display: "block",
+            textAlign: 'center',
+            display: 'block',
             mt: 2,
             opacity: 0.8,
           }}
@@ -120,27 +120,27 @@ export default function AppVideoPreview() {
         fullWidth
         PaperProps={{
           sx: {
-            backgroundColor: "rgba(0,0,0,0.9)",
-            backdropFilter: "blur(10px)",
+            backgroundColor: 'rgba(0,0,0,0.9)',
+            backdropFilter: 'blur(10px)',
           },
         }}
       >
-        <Box sx={{ position: "relative", pt: "56.25%", width: "100%" }}>
+        <Box sx={{ position: 'relative', pt: '56.25%', width: '100%' }}>
           <video
             ref={videoRef}
             src="/preview/omnixys-preview.mp4"
             controls
             autoPlay
             onEnded={() =>
-              trackVideoEvent("video_complete", "Omnixys Vorschau", 100)
+              trackVideoEvent('video_complete', 'Omnixys Vorschau', 100)
             }
             onTimeUpdate={handleTimeUpdate}
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               left: 0,
-              width: "100%",
-              height: "100%",
+              width: '100%',
+              height: '100%',
               borderRadius: 4,
             }}
           />

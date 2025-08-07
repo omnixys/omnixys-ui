@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Box, Typography, Alert } from "@mui/material";
-import { useSession } from "next-auth/react";
+import { Alert, Box, Typography } from '@mui/material';
+import { useSession } from 'next-auth/react';
 
 export default function AdminPage() {
   const { data: session } = useSession();
-    const isAdmin = session?.user.roles?.includes('Admin'); 
+  const isAdmin = session?.user.roles?.includes('Admin');
 
   return (
     <>
@@ -18,9 +18,7 @@ export default function AdminPage() {
           <Typography variant="h4" gutterBottom>
             Admin-Dashboard
           </Typography>
-          <Typography>
-            Willkommen, {session?.user.username}
-          </Typography>
+          <Typography>Willkommen, {session?.user.username}</Typography>
           {/* Weitere Admin-Komponenten */}
         </Box>
       )}

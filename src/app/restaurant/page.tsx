@@ -41,7 +41,6 @@ export const groceries = [
   { id: 'g3', name: 'Pfeffer', price: 2.49, image: '/images/pepper.jpg' },
 ];
 
-
 export default function HomePage() {
   return (
     <Container sx={{ mt: 3 }}>

@@ -1,8 +1,8 @@
 // components/common/MotionPageWrapper.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 export default function MotionPageWrapper({
   children,

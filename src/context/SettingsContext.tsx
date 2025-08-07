@@ -1,15 +1,15 @@
 // src/context/SettingsContext.tsx
-"use client";
+'use client';
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { PaletteMode } from "@mui/material";
-import { OmnixysColorScheme } from "@/theme/theme";
-import { useSession } from "next-auth/react";
-import { useMutation, useQuery } from "@apollo/client";
-import { UPDATE_PROFILE } from "@/graphql/profile/mutation/update";
-import { MY_PROFILE } from "@/graphql/profile/query/profile";
-import getApolloClient from "@/lib/apolloClient";
-import { getLogger } from "../utils/logger";
+import { UPDATE_PROFILE } from '@/graphql/profile/mutation/update';
+import { MY_PROFILE } from '@/graphql/profile/query/profile';
+import getApolloClient from '@/lib/apolloClient';
+import { OmnixysColorScheme } from '@/theme/theme';
+import { useMutation, useQuery } from '@apollo/client';
+import { PaletteMode } from '@mui/material';
+import { useSession } from 'next-auth/react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getLogger } from '../utils/logger';
 
 export type Settings = {
   language: string;
@@ -25,10 +25,10 @@ type SettingsContextType = {
 };
 
 const defaultSettings: Settings = {
-  language: "de",
+  language: 'de',
   compactLayout: false,
-  colorMode: "light",
-  colorScheme: "original",
+  colorMode: 'light',
+  colorScheme: 'original',
 };
 
 const SettingsContext = createContext<SettingsContextType>({
@@ -40,13 +40,13 @@ const SettingsContext = createContext<SettingsContextType>({
 export function useSettings() {
   const context = useContext(SettingsContext);
   if (!context) {
-    throw new Error("useSettings must be used within a SettingsProvider");
+    throw new Error('useSettings must be used within a SettingsProvider');
   }
   return context;
 }
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
-     const logger = getLogger(SettingsProvider.name);
+  const logger = getLogger(SettingsProvider.name);
   const { data: session } = useSession();
   const client = getApolloClient(session?.access_token);
 
@@ -60,9 +60,9 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (data?.myProfile) {
       setSettings({
-        language: data.myProfile.language ?? "de",
-        colorMode: data.myProfile.colorMode ?? "light",
-        colorScheme: data.myProfile.colorScheme ?? "original",
+        language: data.myProfile.language ?? 'de',
+        colorMode: data.myProfile.colorMode ?? 'light',
+        colorScheme: data.myProfile.colorScheme ?? 'original',
         compactLayout: !data.myProfile.showWelcomeScreen,
       });
     }

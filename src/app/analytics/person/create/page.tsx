@@ -1,64 +1,64 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useMutation } from '@apollo/client';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Container,
-  Paper,
-  Typography,
   Box,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Button,
   Checkbox,
-  FormControlLabel,
   Chip,
+  Container,
+  FormControl,
+  FormControlLabel,
   IconButton,
   InputAdornment,
+  InputLabel,
+  MenuItem,
   OutlinedInput,
-} from "@mui/material";
-import { useMutation } from "@apollo/client";
-import getApolloClient from "../../../../lib/apolloClient";
-import { CREATE_CUSTOMER } from "../../../../graphql/customer/mutation/create";
-import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { getLogger } from "../../../../utils/logger";
+  Paper,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { CREATE_CUSTOMER } from '../../../../graphql/customer/mutation/create';
+import getApolloClient from '../../../../lib/apolloClient';
+import { getLogger } from '../../../../utils/logger';
 
 // Optionen für Auswahlfelder und Mehrfachauswahlen
 const tierLevelOptions = [
-  { value: 1, label: "Basic" },
-  { value: 2, label: "Elite" },
-  { value: 3, label: "Supreme" },
+  { value: 1, label: 'Basic' },
+  { value: 2, label: 'Elite' },
+  { value: 3, label: 'Supreme' },
 ];
 
 const genderOptions = [
-  { value: "MALE", label: "Männlich" },
-  { value: "FEMALE", label: "Weiblich" },
-  { value: "DIVERSE", label: "Divers" },
+  { value: 'MALE', label: 'Männlich' },
+  { value: 'FEMALE', label: 'Weiblich' },
+  { value: 'DIVERSE', label: 'Divers' },
 ];
 
 const maritalStatusOptions = [
-  { value: "SINGLE", label: "Ledig" },
-  { value: "MARRIED", label: "Verheiratet" },
-  { value: "DIVORCED", label: "Geschieden" },
-  { value: "WIDOWED", label: "Verwitwet" },
+  { value: 'SINGLE', label: 'Ledig' },
+  { value: 'MARRIED', label: 'Verheiratet' },
+  { value: 'DIVORCED', label: 'Geschieden' },
+  { value: 'WIDOWED', label: 'Verwitwet' },
 ];
 
-const contactOptionsOptions = ["EMAIL", "PHONE", "LETTER", "SMS"];
+const contactOptionsOptions = ['EMAIL', 'PHONE', 'LETTER', 'SMS'];
 
 const interestOptions = [
-  "INVESTMENTS",
-  "SAVING_AND_FINANCE",
-  "CREDIT_AND_DEBT",
-  "BANK_PRODUCTS_AND_SERVICES",
-  "FINANCIAL_EDUCATION_AND_COUNSELING",
-  "REAL_ESTATE",
-  "INSURANCE",
-  "SUSTAINABLE_FINANCE",
-  "TECHNOLOGY_AND_INNOVATION",
-  "TRAVEL",
+  'INVESTMENTS',
+  'SAVING_AND_FINANCE',
+  'CREDIT_AND_DEBT',
+  'BANK_PRODUCTS_AND_SERVICES',
+  'FINANCIAL_EDUCATION_AND_COUNSELING',
+  'REAL_ESTATE',
+  'INSURANCE',
+  'SUSTAINABLE_FINANCE',
+  'TECHNOLOGY_AND_INNOVATION',
+  'TRAVEL',
 ];
 
 /**
@@ -79,25 +79,25 @@ export default function CreateCustomerPage() {
   const client = getApolloClient(undefined);
 
   const [formData, setFormData] = useState<FormDataPerson>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    birthdate: "",
-    gender: "MALE",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    birthdate: '',
+    gender: 'MALE',
     address: {
-      street: "",
-      houseNumber: "",
-      zipCode: "",
-      city: "",
-      state: "",
-      country: "",
+      street: '',
+      houseNumber: '',
+      zipCode: '',
+      city: '',
+      state: '',
+      country: '',
     },
-    username: "",
-    password: "",
+    username: '',
+    password: '',
     tierLevel: 1,
     subscribed: false,
-    maritalStatus: "SINGLE",
+    maritalStatus: 'SINGLE',
     contactOptions: [],
     interests: [],
   });
@@ -117,7 +117,7 @@ export default function CreateCustomerPage() {
     e.preventDefault();
 
     if (!formData.firstName || !formData.lastName || !formData.email) {
-      alert("Bitte fülle alle erforderlichen Felder aus.");
+      alert('Bitte fülle alle erforderlichen Felder aus.');
       return;
     }
 
@@ -150,14 +150,14 @@ export default function CreateCustomerPage() {
         },
       });
 
-      logger.debug("✅ Kunde erfolgreich erstellt:", data.createCustomer);
-      alert("Kunde erfolgreich erstellt!");
+      logger.debug('✅ Kunde erfolgreich erstellt:', data.createCustomer);
+      alert('Kunde erfolgreich erstellt!');
       if (data && data.createCustomer && data.createCustomer.id) {
         router.push(`/analytics/customers/${data.createCustomer.id}`);
       }
     } catch (error) {
-      console.error("❌ Fehler beim Erstellen des Kunden:", error);
-      alert("Fehler beim Erstellen des Kunden.");
+      console.error('❌ Fehler beim Erstellen des Kunden:', error);
+      alert('Fehler beim Erstellen des Kunden.');
     }
   };
 
@@ -166,13 +166,13 @@ export default function CreateCustomerPage() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
   };
 
   const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
   };
@@ -183,7 +183,7 @@ export default function CreateCustomerPage() {
    * @param {React.ChangeEvent<HTMLInputElement>} e - Das Änderungsereignis eines Adressfeldes.
    */
   const handleAddressChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -197,16 +197,16 @@ export default function CreateCustomerPage() {
       <Paper sx={{ p: 4, borderRadius: 3, boxShadow: 3 }}>
         <Typography
           variant="h4"
-          sx={{ mb: 3, textAlign: "center", color: "#1c2b39" }}
+          sx={{ mb: 3, textAlign: 'center', color: '#1c2b39' }}
         >
           Neuer Kunde erstellen
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Box sx={{ display: "grid", gap: 2 }}>
+          <Box sx={{ display: 'grid', gap: 2 }}>
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: 2,
               }}
             >
@@ -260,8 +260,8 @@ export default function CreateCustomerPage() {
             />
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: 2,
               }}
             >
@@ -305,8 +305,8 @@ export default function CreateCustomerPage() {
 
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: 2,
               }}
             >
@@ -355,8 +355,8 @@ export default function CreateCustomerPage() {
 
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: 2,
               }}
             >
@@ -399,21 +399,21 @@ export default function CreateCustomerPage() {
             </Box>
             <Box
               sx={{
-                border: "1px solid #ddd",
+                border: '1px solid #ddd',
                 borderRadius: 2,
                 p: 2,
               }}
             >
               <Typography
                 variant="subtitle1"
-                sx={{ mb: 1, fontWeight: "bold" }}
+                sx={{ mb: 1, fontWeight: 'bold' }}
               >
                 Adresse
               </Typography>
               <Box
                 sx={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                   gap: 2,
                 }}
               >
@@ -469,8 +469,8 @@ export default function CreateCustomerPage() {
             </Box>
             <Box
               sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: 2,
               }}
             >
@@ -491,7 +491,7 @@ export default function CreateCustomerPage() {
                     })
                   }
                   renderValue={(selected) => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                       {selected.map((value) => (
                         <Chip key={value} label={value} />
                       ))}
@@ -517,10 +517,10 @@ export default function CreateCustomerPage() {
                     setFormData({
                       ...formData,
                       interests: e.target.value as string[],
-                     })
+                    })
                   }
                   renderValue={(selected) => (
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                       {selected.map((value) => (
                         <Chip key={value} label={value} />
                       ))}
@@ -542,7 +542,7 @@ export default function CreateCustomerPage() {
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 label="Password"
                 value={formData.password}
                 onChange={(e) =>
@@ -554,8 +554,8 @@ export default function CreateCustomerPage() {
                     <IconButton
                       aria-label={
                         showPassword
-                          ? "hide the password"
-                          : "display the password"
+                          ? 'hide the password'
+                          : 'display the password'
                       }
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
@@ -579,8 +579,8 @@ export default function CreateCustomerPage() {
               variant="contained"
               sx={{
                 mt: 3,
-                backgroundColor: "#6A4BBC",
-                "&:hover": { backgroundColor: "#4E3792" },
+                backgroundColor: '#6A4BBC',
+                '&:hover': { backgroundColor: '#4E3792' },
               }}
             >
               Kunde erstellen
@@ -607,13 +607,13 @@ interface FormDataPerson {
   email: string;
   phoneNumber: string;
   birthdate: string;
-  gender: "MALE" | "FEMALE" | "DIVERSE";
+  gender: 'MALE' | 'FEMALE' | 'DIVERSE';
   address: Address;
   username: string;
   password: string;
   tierLevel: 1 | 2 | 3;
   subscribed: boolean;
-  maritalStatus: "SINGLE" | "MARRIED" | "DIVORCED" | "WIDOWED";
+  maritalStatus: 'SINGLE' | 'MARRIED' | 'DIVORCED' | 'WIDOWED';
   contactOptions: string[]; // Optional: genauer typisieren mit Union
   interests: string[];
 }

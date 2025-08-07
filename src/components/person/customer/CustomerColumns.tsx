@@ -1,8 +1,8 @@
-import { GridColDef } from "@mui/x-data-grid";
-import { Box, Chip, IconButton, Theme, Tooltip } from "@mui/material";
-import { Visibility, Edit, Delete } from "@mui/icons-material";
-import { tierLevels, statusColors } from "../../../types/constants/customer";
-import { CustomerState } from "../../../types/person/enums";
+import { Delete, Edit, Visibility } from '@mui/icons-material';
+import { Box, Chip, IconButton, Theme, Tooltip } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
+import { statusColors, tierLevels } from '../../../types/constants/customer';
+import { CustomerState } from '../../../types/person/enums';
 
 export const createCustomerColumns = (
   theme: Theme,
@@ -10,34 +10,34 @@ export const createCustomerColumns = (
     onInspect: (id: string | number) => void;
     onEdit: (id: string | number) => void;
     onDelete: (id: string | number, version: number) => void;
-  }
+  },
 ): GridColDef[] => {
   return [
     {
-      field: "id",
-      headerName: "ID",
+      field: 'id',
+      headerName: 'ID',
       // width: 330,
       minWidth: 150,
       flex: 1,
     },
     {
-      field: "username",
-      headerName: "Benutzername",
+      field: 'username',
+      headerName: 'Benutzername',
       width: 160,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: 'email',
+      headerName: 'Email',
       width: 230,
     },
     {
-      field: "tierLevel",
-      headerName: "Rang",
+      field: 'tierLevel',
+      headerName: 'Rang',
       width: 180,
       renderCell: (params) => {
         const value = Number(params.value);
         const tier = tierLevels[value] || {
-          label: "Unbekannt",
+          label: 'Unbekannt',
           color: theme.palette.grey[400],
         };
 
@@ -48,7 +48,7 @@ export const createCustomerColumns = (
             sx={{
               color: tier.color,
               borderColor: tier.color,
-              fontWeight: "bold",
+              fontWeight: 'bold',
               px: 2,
             }}
           />
@@ -56,14 +56,14 @@ export const createCustomerColumns = (
       },
     },
     {
-      field: "customerState",
-      headerName: "Status",
+      field: 'customerState',
+      headerName: 'Status',
       width: 130,
       renderCell: (params) => {
         const raw = params.value as CustomerState;
         const status = statusColors[raw] || {
-          label: "Unbekannt",
-          color: "default",
+          label: 'Unbekannt',
+          color: 'default',
         };
 
         return (
@@ -71,18 +71,18 @@ export const createCustomerColumns = (
             label={status.label}
             color={status.color}
             variant="outlined"
-            sx={{ fontWeight: "bold" }}
+            sx={{ fontWeight: 'bold' }}
           />
         );
       },
     },
     {
-      field: "actions",
-      headerName: "Aktionen",
+      field: 'actions',
+      headerName: 'Aktionen',
       width: 160,
       sortable: false,
       renderCell: (params) => (
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 1 }}>
           <Tooltip title="Anzeigen">
             <IconButton
               onClick={() => handlers.onInspect(params.id)}

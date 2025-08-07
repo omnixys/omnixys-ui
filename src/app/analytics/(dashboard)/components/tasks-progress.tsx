@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React from "react";
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import {
   Avatar,
   Card,
@@ -9,9 +9,8 @@ import {
   Stack,
   Typography,
   useTheme,
-} from "@mui/material";
-import ListAltIcon from "@mui/icons-material/ListAlt";
-import type { SxProps } from "@mui/material/styles";
+} from '@mui/material';
+import type { SxProps } from '@mui/material/styles';
 
 export interface TasksProgressProps {
   value: number;
@@ -21,7 +20,7 @@ export interface TasksProgressProps {
 export function TasksProgressCard({ value, sx }: TasksProgressProps) {
   const theme = useTheme();
   return (
-    <Card sx={{ width: "100%", maxWidth: 340, height: 180, ...sx }}>
+    <Card sx={{ width: '100%', maxWidth: 340, height: 180, ...sx }}>
       <CardContent>
         <Stack spacing={3} justifyContent="center">
           <Stack

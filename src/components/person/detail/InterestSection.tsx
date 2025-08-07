@@ -1,62 +1,62 @@
-import { Grid, Typography, Chip } from "@mui/material";
 import {
   Business,
   CorporateFare,
+  Home,
   Savings,
   School,
   TravelExplore,
   VerifiedUser,
-  Home,
-} from "@mui/icons-material";
-import type { Interest } from "../../../types/person/enums";
-import { JSX } from "react";
+} from '@mui/icons-material';
+import { Chip, Grid, Typography } from '@mui/material';
+import { JSX } from 'react';
+import type { Interest } from '../../../types/person/enums';
 
 const interestsMapping: Record<
   Interest,
   {
     label: string;
     icon: JSX.Element;
-    color: "success" | "warning" | "error" | "info" | "primary" | "secondary";
+    color: 'success' | 'warning' | 'error' | 'info' | 'primary' | 'secondary';
   }
 > = {
-  INVESTMENTS: { label: "Investitionen", icon: <Savings />, color: "success" },
+  INVESTMENTS: { label: 'Investitionen', icon: <Savings />, color: 'success' },
   SAVING_AND_FINANCE: {
-    label: "Sparen & Finanzen",
+    label: 'Sparen & Finanzen',
     icon: <CorporateFare />,
-    color: "warning",
+    color: 'warning',
   },
   CREDIT_AND_DEBT: {
-    label: "Kredit & Schulden",
+    label: 'Kredit & Schulden',
     icon: <Business />,
-    color: "error",
+    color: 'error',
   },
   BANK_PRODUCTS_AND_SERVICES: {
-    label: "Bankprodukte",
+    label: 'Bankprodukte',
     icon: <CorporateFare />,
-    color: "info",
+    color: 'info',
   },
   FINANCIAL_EDUCATION_AND_COUNSELING: {
-    label: "Finanzbildung",
+    label: 'Finanzbildung',
     icon: <School />,
-    color: "primary",
+    color: 'primary',
   },
-  REAL_ESTATE: { label: "Immobilien", icon: <Home />, color: "success" },
+  REAL_ESTATE: { label: 'Immobilien', icon: <Home />, color: 'success' },
   INSURANCE: {
-    label: "Versicherungen",
+    label: 'Versicherungen',
     icon: <VerifiedUser />,
-    color: "secondary",
+    color: 'secondary',
   },
   SUSTAINABLE_FINANCE: {
-    label: "Nachhaltige Finanzen",
+    label: 'Nachhaltige Finanzen',
     icon: <TravelExplore />,
-    color: "info",
+    color: 'info',
   },
   TECHNOLOGY_AND_INNOVATION: {
-    label: "Technologie & Innovation",
+    label: 'Technologie & Innovation',
     icon: <TravelExplore />,
-    color: "warning",
+    color: 'warning',
   },
-  TRAVEL: { label: "Reisen", icon: <TravelExplore />, color: "success" },
+  TRAVEL: { label: 'Reisen', icon: <TravelExplore />, color: 'success' },
 };
 
 export default function InterestSection({
@@ -66,7 +66,7 @@ export default function InterestSection({
 }) {
   return (
     <>
-      <Typography variant="h6" sx={{ fontWeight: "bold", color: "#4E3792" }}>
+      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#4E3792' }}>
         Interessen
       </Typography>
       <Grid container spacing={2} sx={{ mt: 1 }}>

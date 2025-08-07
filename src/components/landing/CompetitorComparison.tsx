@@ -1,81 +1,81 @@
 // Anpassung des Farbsystems für bessere Sichtbarkeit
 
-"use client";
+'use client';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-  Box,
-  Typography,
-  Switch,
-  FormControlLabel,
-  Tooltip,
-  Container,
-  useTheme,
-  useMediaQuery,
-  AccordionDetails,
   Accordion,
+  AccordionDetails,
   AccordionSummary,
-  Stack,
+  Box,
+  Container,
+  FormControlLabel,
   LinearProgress,
+  Stack,
+  Switch,
   Theme,
-} from "@mui/material";
-import { useState } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
+import { useState } from 'react';
 
 const features: Feature[] = [
   {
-    label: "Modular aufgebaut",
-    key: "modular",
-    description: "Jedes Modul ist eigenständig deploybar und kombinierbar.",
-    values: ["✅", "❌", "❌"],
+    label: 'Modular aufgebaut',
+    key: 'modular',
+    description: 'Jedes Modul ist eigenständig deploybar und kombinierbar.',
+    values: ['✅', '❌', '❌'],
   },
   {
-    label: "GraphQL API-only",
-    key: "graphql",
+    label: 'GraphQL API-only',
+    key: 'graphql',
     description:
-      "Keine REST-Endpunkte – nur moderne, typisierte Schnittstellen.",
-    values: ["✅", "❌", "🔶"],
+      'Keine REST-Endpunkte – nur moderne, typisierte Schnittstellen.',
+    values: ['✅', '❌', '🔶'],
   },
   {
-    label: "Open Source",
-    key: "openSource",
+    label: 'Open Source',
+    key: 'openSource',
     description:
-      "Quelloffen unter GNU GPLv3 – anpassbar für deine Bedürfnisse.",
-    values: ["✅", "❌", "❌"],
+      'Quelloffen unter GNU GPLv3 – anpassbar für deine Bedürfnisse.',
+    values: ['✅', '❌', '❌'],
   },
   {
-    label: "Eventbasiert (Kafka)",
-    key: "event",
+    label: 'Eventbasiert (Kafka)',
+    key: 'event',
     description:
-      "Microservices kommunizieren über Kafka für Echtzeit-Ereignisse.",
-    values: ["✅", "❌", "❌"],
+      'Microservices kommunizieren über Kafka für Echtzeit-Ereignisse.',
+    values: ['✅', '❌', '❌'],
   },
   {
-    label: "Echtzeit-Dashboards",
-    key: "dashboards",
-    description: "KPIs und Business-Daten live mit Grafana/Prometheus.",
-    values: ["✅", "🔶", "🔶"],
+    label: 'Echtzeit-Dashboards',
+    key: 'dashboards',
+    description: 'KPIs und Business-Daten live mit Grafana/Prometheus.',
+    values: ['✅', '🔶', '🔶'],
   },
   {
-    label: "Observability integriert",
-    key: "observability",
-    description: "Monitoring mit Tempo, Loki, Grafana – von Haus aus.",
-    values: ["✅", "❌", "❌"],
+    label: 'Observability integriert',
+    key: 'observability',
+    description: 'Monitoring mit Tempo, Loki, Grafana – von Haus aus.',
+    values: ['✅', '❌', '❌'],
   },
   {
-    label: "Individuell erweiterbar",
-    key: "extensible",
-    description: "Plug-in-System und modulare Erweiterbarkeit.",
-    values: ["✅", "❌", "🔶"],
+    label: 'Individuell erweiterbar',
+    key: 'extensible',
+    description: 'Plug-in-System und modulare Erweiterbarkeit.',
+    values: ['✅', '❌', '🔶'],
   },
 ];
 
 const legend = {
-  "✅": "Vollständig vorhanden",
-  "🔶": "Teilweise vorhanden",
-  "❌": "Nicht vorhanden",
+  '✅': 'Vollständig vorhanden',
+  '🔶': 'Teilweise vorhanden',
+  '❌': 'Nicht vorhanden',
 };
 
-export type FeatureIcon = "✅" | "❌" | "🔶";
+export type FeatureIcon = '✅' | '❌' | '🔶';
 
 interface Feature {
   key: string;
@@ -84,29 +84,29 @@ interface Feature {
   values: [FeatureIcon, FeatureIcon, FeatureIcon];
 }
 
-const columnLabels = ["Omnixys", "Mitbewerber A", "Mitbewerber B"];
+const columnLabels = ['Omnixys', 'Mitbewerber A', 'Mitbewerber B'];
 
 export default function CompetitorComparison() {
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const filtered = showOnlyDifferences
     ? features.filter((f) => new Set(f.values).size > 1)
     : features;
 
   const headStyle: React.CSSProperties = {
-    padding: "12px 16px",
+    padding: '12px 16px',
     fontWeight: 700,
-    textAlign: "left",
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderBottom: "1px solid rgba(255,255,255,0.2)",
+    textAlign: 'left',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderBottom: '1px solid rgba(255,255,255,0.2)',
     color: theme.palette.text.primary,
   };
 
   const cellStyle: React.CSSProperties = {
-    padding: "12px 16px",
-    borderBottom: "1px solid rgba(255,255,255,0.1)",
+    padding: '12px 16px',
+    borderBottom: '1px solid rgba(255,255,255,0.1)',
     color: theme.palette.text.primary,
   };
 
@@ -115,12 +115,12 @@ export default function CompetitorComparison() {
       <Typography
         color="text.primary"
         variant="h4"
-        sx={{ fontWeight: "bold", mb: 4, textAlign: "center" }}
+        sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}
       >
         Omnixys vs. Mitbewerber
       </Typography>
 
-      <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
         <FormControlLabel
           control={
             <Switch
@@ -160,13 +160,13 @@ export default function CompetitorComparison() {
                       </Typography>
                       <LinearProgress
                         variant="determinate"
-                        value={v === "✅" ? 100 : v === "🔶" ? 50 : 0}
+                        value={v === '✅' ? 100 : v === '🔶' ? 50 : 0}
                         color={
-                          v === "✅"
-                            ? "success"
-                            : v === "🔶"
-                              ? "warning"
-                              : "error"
+                          v === '✅'
+                            ? 'success'
+                            : v === '🔶'
+                              ? 'warning'
+                              : 'error'
                         }
                         sx={{ height: 8, borderRadius: 5 }}
                       />
@@ -180,15 +180,15 @@ export default function CompetitorComparison() {
       ) : (
         <Box
           sx={{
-            overflowX: "auto",
+            overflowX: 'auto',
             borderRadius: 2,
-            backdropFilter: "blur(6px)",
+            backdropFilter: 'blur(6px)',
             boxShadow: 3,
           }}
         >
           <table
             aria-label="Vergleich Omnixys vs. Mitbewerber"
-            style={{ width: "100%", borderCollapse: "collapse", minWidth: 700 }}
+            style={{ width: '100%', borderCollapse: 'collapse', minWidth: 700 }}
           >
             <caption style={{ ...visuallyHidden }}>
               Vergleichstabelle von Plattform-Funktionen
@@ -210,8 +210,8 @@ export default function CompetitorComparison() {
                     <Tooltip title={f.description} arrow>
                       <span
                         style={{
-                          cursor: "help",
-                          textDecoration: "dotted underline",
+                          cursor: 'help',
+                          textDecoration: 'dotted underline',
                         }}
                       >
                         {f.label}
@@ -230,9 +230,9 @@ export default function CompetitorComparison() {
         </Box>
       )}
 
-      <Box sx={{ mt: 2, opacity: 0.7, textAlign: "center" }}>
+      <Box sx={{ mt: 2, opacity: 0.7, textAlign: 'center' }}>
         {Object.entries(legend).map(([icon, text]) => (
-          <Typography key={icon} variant="caption" sx={{ display: "block" }}>
+          <Typography key={icon} variant="caption" sx={{ display: 'block' }}>
             {icon} – {text}
           </Typography>
         ))}
@@ -242,23 +242,23 @@ export default function CompetitorComparison() {
 }
 
 const visuallyHidden: React.CSSProperties = {
-  position: "absolute",
+  position: 'absolute',
   width: 1,
   height: 1,
   padding: 0,
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  whiteSpace: "nowrap",
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  whiteSpace: 'nowrap',
   border: 0,
 };
 
 function getColor(value: string, theme: Theme): string {
   switch (value) {
-    case "✅":
+    case '✅':
       return theme.palette.success.light;
-    case "❌":
+    case '❌':
       return theme.palette.error.light;
-    case "🔶":
+    case '🔶':
       return theme.palette.warning.light;
     default:
       return theme.palette.text.primary;

@@ -1,6 +1,6 @@
-import { GridColDef } from "@mui/x-data-grid";
-import { Box, IconButton, Theme, Tooltip } from "@mui/material";
-import { Visibility, Edit, Delete } from "@mui/icons-material";
+import { Delete, Edit, Visibility } from '@mui/icons-material';
+import { Box, IconButton, Theme, Tooltip } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
 
 interface ColumnHandlers {
   onInspect: (id: string | number) => void;
@@ -10,20 +10,20 @@ interface ColumnHandlers {
 
 export const createEmployeeColumns = (
   theme: Theme,
-  handlers: ColumnHandlers
+  handlers: ColumnHandlers,
 ): GridColDef[] => [
-  { field: "id", headerName: "ID", width: 330 },
-  { field: "username", headerName: "Benutzername", width: 160 },
-  { field: "email", headerName: "E-Mail", width: 210 },
-  { field: "department", headerName: "Abteilung", width: 160 },
-  { field: "jobTitle", headerName: "Position", width: 160 },
+  { field: 'id', headerName: 'ID', width: 330 },
+  { field: 'username', headerName: 'Benutzername', width: 160 },
+  { field: 'email', headerName: 'E-Mail', width: 210 },
+  { field: 'department', headerName: 'Abteilung', width: 160 },
+  { field: 'jobTitle', headerName: 'Position', width: 160 },
   {
-    field: "actions",
-    headerName: "Aktionen",
+    field: 'actions',
+    headerName: 'Aktionen',
     width: 160,
     sortable: false,
     renderCell: (params) => (
-      <Box sx={{ display: "flex", gap: 1 }}>
+      <Box sx={{ display: 'flex', gap: 1 }}>
         <Tooltip title="Anzeigen">
           <IconButton
             onClick={() => handlers.onInspect(params.id)}

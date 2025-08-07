@@ -1,25 +1,25 @@
 // components/landing/BlogPreview.jsx
-"use client";
+'use client';
 
-import { Box, Container, Typography, Button } from "@mui/material";
-import Link from "next/link";
+import { Box, Button, Container, Typography } from '@mui/material';
+import Link from 'next/link';
 
 export default function BlogPreview() {
   const articles = [
     {
-      title: "Die Zukunft modularer Plattformen",
-      desc: "Wie OmnixysSphere Unternehmen revolutioniert.",
-      href: "#",
+      title: 'Die Zukunft modularer Plattformen',
+      desc: 'Wie OmnixysSphere Unternehmen revolutioniert.',
+      href: '#',
     },
     {
-      title: "Vergleich: Monolith vs. Microservices",
-      desc: "Warum modulare Architekturen gewinnen.",
-      href: "#",
+      title: 'Vergleich: Monolith vs. Microservices',
+      desc: 'Warum modulare Architekturen gewinnen.',
+      href: '#',
     },
     {
-      title: "Sicherheit & Compliance bei Omnixys",
-      desc: "Unsere Standards für dein Vertrauen.",
-      href: "#",
+      title: 'Sicherheit & Compliance bei Omnixys',
+      desc: 'Unsere Standards für dein Vertrauen.',
+      href: '#',
     },
   ];
 
@@ -48,11 +48,11 @@ export default function BlogPreview() {
         </Typography>
         <Box
           sx={{
-            display: "grid",
+            display: 'grid',
             gridTemplateColumns: {
-              xs: "1fr",
-              sm: "1fr 1fr",
-              md: "1fr 1fr 1fr",
+              xs: '1fr',
+              sm: '1fr 1fr',
+              md: '1fr 1fr 1fr',
             },
             gap: 4,
           }}
@@ -63,9 +63,9 @@ export default function BlogPreview() {
               sx={{
                 p: 3,
                 borderRadius: 2,
-                backgroundColor: "rgba(255,255,255,0.08)",
+                backgroundColor: 'rgba(255,255,255,0.08)',
                 boxShadow: 2,
-                height: "100%",
+                height: '100%',
               }}
             >
               <Typography

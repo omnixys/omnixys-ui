@@ -1,7 +1,7 @@
 'use client';
-import { useCart } from './context/CartContext';
 import { Button, Container, Typography } from '@mui/material';
 import Link from 'next/link';
+import { useCart } from './context/CartContext';
 
 export default function CartPage() {
   const { cart, removeItem, updateQuantity, clearCart } = useCart();
@@ -19,7 +19,8 @@ export default function CartPage() {
           {cart.map((item) => (
             <div key={item.id} style={{ marginBottom: '1rem' }}>
               <Typography>
-                {item.name} – {item.option === 'cook' ? 'Kochbox' : 'Fertiggericht'}
+                {item.name} –{' '}
+                {item.option === 'cook' ? 'Kochbox' : 'Fertiggericht'}
               </Typography>
 
               <Typography>{item.price.toFixed(2)} €</Typography>

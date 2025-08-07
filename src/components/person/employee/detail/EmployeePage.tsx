@@ -1,48 +1,48 @@
-"use client";
+'use client';
 
-import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { useQuery } from '@apollo/client';
 import {
-  Container,
-  Paper,
-  Typography,
-  Box,
-  Button,
-  Divider,
-  Avatar,
-  Grid,
-  Stack,
-  useTheme,
-} from "@mui/material";
-import {
-  Edit,
   ArrowBack,
-  Email,
-  Phone,
-  Home,
   Business,
-  Work,
   CheckCircle,
   Close,
-} from "@mui/icons-material";
-import { useQuery } from "@apollo/client";
-import Link from "next/link";
-import getApolloClient from "../../../../lib/apolloClient";
-import { useSession } from "next-auth/react";
-import { Person } from "../../../../types/person/person.type";
-import LoadingSpinner from "../../detail/LoadingSpinner";
-import ErrorCard from "../../detail/ErrorCard";
-import InfoItem from "../../detail/InfoItem";
-import { GET_EMPLOYEE_BY_ID } from "../../../../graphql/customer/query/person";
+  Edit,
+  Email,
+  Home,
+  Phone,
+  Work,
+} from '@mui/icons-material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useMemo } from 'react';
+import { GET_EMPLOYEE_BY_ID } from '../../../../graphql/customer/query/person';
+import getApolloClient from '../../../../lib/apolloClient';
+import { Person } from '../../../../types/person/person.type';
+import ErrorCard from '../../detail/ErrorCard';
+import InfoItem from '../../detail/InfoItem';
+import LoadingSpinner from '../../detail/LoadingSpinner';
 
 // 🔤 Hilfsfunktion
-const generateAvatarInitials = (name: string = "") =>
+const generateAvatarInitials = (name: string = '') =>
   name
-    .split(" ")
+    .split(' ')
     .map((n) => n[0])
     .slice(0, 2)
-    .join("")
-    .toUpperCase() || "U";
+    .join('')
+    .toUpperCase() || 'U';
 
 export default function EmployeeInspect() {
   const { id } = useParams();
@@ -51,7 +51,7 @@ export default function EmployeeInspect() {
 
   const client = useMemo(
     () => getApolloClient(session?.access_token),
-    [session]
+    [session],
   );
   const { loading, error, data } = useQuery(GET_EMPLOYEE_BY_ID, {
     client,
@@ -77,8 +77,8 @@ export default function EmployeeInspect() {
         {/* 👤 Header */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
             mb: 4,
             p: 3,
             borderRadius: 2,
@@ -96,15 +96,15 @@ export default function EmployeeInspect() {
               color: theme.palette.secondary.main,
 
               mr: 3,
-              fontSize: "2rem",
+              fontSize: '2rem',
             }}
           >
             {generateAvatarInitials(
-              `${employee.firstName} ${employee.lastName}`
+              `${employee.firstName} ${employee.lastName}`,
             )}
           </Avatar>
           <Box>
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
               {employee.firstName} {employee.lastName}
             </Typography>
             <Typography variant="subtitle1">{employee.username}</Typography>
@@ -117,7 +117,7 @@ export default function EmployeeInspect() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", color: theme.palette.secondary.main }}
+              sx={{ fontWeight: 'bold', color: theme.palette.secondary.main }}
             >
               Persönliche Informationen
             </Typography>
@@ -125,23 +125,23 @@ export default function EmployeeInspect() {
               <InfoItem
                 icon={<Work sx={{ color: theme.palette.primary.main }} />}
                 label="Position"
-                value={employee.employee?.jobTitle ?? "Unbekannt"}
+                value={employee.employee?.jobTitle ?? 'Unbekannt'}
               />
               <InfoItem
                 icon={<Business sx={{ color: theme.palette.primary.main }} />}
                 label="Abteilung"
-                value={employee.employee?.department ?? "Unbekannt"}
+                value={employee.employee?.department ?? 'Unbekannt'}
               />
               <InfoItem
                 icon={
                   employee.employee?.active ? (
-                    <CheckCircle sx={{ color: "green" }} />
+                    <CheckCircle sx={{ color: 'green' }} />
                   ) : (
-                    <Close sx={{ color: "red" }} />
+                    <Close sx={{ color: 'red' }} />
                   )
                 }
                 label="Aktiv"
-                value={employee.employee?.active ? "Ja" : "Nein"}
+                value={employee.employee?.active ? 'Ja' : 'Nein'}
               />
             </Stack>
           </Grid>
@@ -150,7 +150,7 @@ export default function EmployeeInspect() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", color: theme.palette.secondary.main }}
+              sx={{ fontWeight: 'bold', color: theme.palette.secondary.main }}
             >
               Kontaktinformationen
             </Typography>
@@ -171,7 +171,7 @@ export default function EmployeeInspect() {
                 value={
                   employee.address
                     ? `${employee.address.street} ${employee.address.houseNumber}, ${employee.address.zipCode} ${employee.address.city}, ${employee.address.state}, ${employee.address.country}`
-                    : "Keine Adresse hinterlegt"
+                    : 'Keine Adresse hinterlegt'
                 }
               />
             </Stack>
@@ -180,7 +180,7 @@ export default function EmployeeInspect() {
 
         {/* 🔧 Aktionen */}
         <Divider sx={{ my: 4 }} />
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button
             component={Link}
             href="/analytics/person"
@@ -200,7 +200,7 @@ export default function EmployeeInspect() {
             startIcon={<Edit />}
             sx={{
               backgroundColor: theme.palette.secondary.main,
-              "&:hover": { borderColor: theme.palette.secondary.main },
+              '&:hover': { borderColor: theme.palette.secondary.main },
             }}
           >
             Bearbeiten

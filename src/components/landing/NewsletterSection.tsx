@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function NewsletterSection() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Backend/API-Call
     alert(`Danke für deine Anmeldung, ${email}!`);
-    setEmail("");
+    setEmail('');
   };
 
   return (
@@ -19,11 +19,11 @@ export default function NewsletterSection() {
       sx={{
         py: 10,
         // backgroundColor: "rgba(255,255,255,0.05)",
-        backdropFilter: "blur(8px)",
+        backdropFilter: 'blur(8px)',
         mt: 10,
       }}
     >
-      <Container maxWidth="sm" sx={{ textAlign: "center" }}>
+      <Container maxWidth="sm" sx={{ textAlign: 'center' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,11 +47,11 @@ export default function NewsletterSection() {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-              display: "flex",
+              display: 'flex',
               gap: 2,
-              flexDirection: { xs: "column", sm: "row" },
-              alignItems: "center",
-              justifyContent: "center",
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <TextField
@@ -62,10 +62,10 @@ export default function NewsletterSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: 'white',
                 borderRadius: 1,
-                width: { xs: "100%", sm: 300 },
-                color: "text.primary",
+                width: { xs: '100%', sm: 300 },
+                color: 'text.primary',
               }}
             />
             <Button

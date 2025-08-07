@@ -1,5 +1,11 @@
-"use client";
+'use client';
 
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import EmailIcon from '@mui/icons-material/Email';
+import InsightsIcon from '@mui/icons-material/Insights';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import PeopleIcon from '@mui/icons-material/People';
+import StorageIcon from '@mui/icons-material/Storage';
 import {
   Box,
   Divider,
@@ -9,60 +15,54 @@ import {
   ListItemText,
   Typography,
   useTheme,
-} from "@mui/material";
-import { useRouter, usePathname } from "next/navigation";
-import InsightsIcon from "@mui/icons-material/Insights";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import PeopleIcon from "@mui/icons-material/People";
-import EmailIcon from "@mui/icons-material/Email";
-import StorageIcon from "@mui/icons-material/Storage";
+} from '@mui/material';
+import { usePathname, useRouter } from 'next/navigation';
 
 const sections = [
   {
-    title: "Kunden & Nutzer",
+    title: 'Kunden & Nutzer',
     items: [
-      { label: "Personen", path: "/analytics/person", icon: <PeopleIcon /> },
+      { label: 'Personen', path: '/analytics/person', icon: <PeopleIcon /> },
       {
-        label: "Konten",
-        path: "/analytics/account",
+        label: 'Konten',
+        path: '/analytics/account',
         icon: <AccountBalanceIcon />,
       },
     ],
   },
   {
-    title: "Produkte & Bestand",
+    title: 'Produkte & Bestand',
     items: [
       {
-        label: "Produkte",
-        path: "/analytics/product",
+        label: 'Produkte',
+        path: '/analytics/product',
         icon: <InventoryIcon />,
       },
-      { label: "Lager", path: "/analytics/inventory", icon: <StorageIcon /> },
+      { label: 'Lager', path: '/analytics/inventory', icon: <StorageIcon /> },
     ],
   },
   {
-    title: "Kommunikation & Logs",
+    title: 'Kommunikation & Logs',
     items: [
       {
-        label: "Benachrichtigungen",
-        path: "/analytics/notification",
+        label: 'Benachrichtigungen',
+        path: '/analytics/notification',
         icon: <EmailIcon />,
       },
-      { label: "Logs", path: "/analytics/logcollector", icon: <StorageIcon /> },
+      { label: 'Logs', path: '/analytics/logcollector', icon: <StorageIcon /> },
     ],
   },
   {
-    title: "KPI-Dashboards",
+    title: 'KPI-Dashboards',
     items: [
       {
-        label: "Analytics",
-        path: "/analytics/analytics",
+        label: 'Analytics',
+        path: '/analytics/analytics',
         icon: <InsightsIcon />,
       },
       {
-        label: "Transaktionen",
-        path: "/analytics/transaction",
+        label: 'Transaktionen',
+        path: '/analytics/transaction',
         icon: <InsightsIcon />,
       },
     ],
@@ -95,7 +95,7 @@ export default function SidebarContent({
               fontSize: 13,
               color: theme.palette.text.secondary,
               fontWeight: 600,
-              textTransform: "uppercase",
+              textTransform: 'uppercase',
             }}
           >
             {section.title}
@@ -113,9 +113,9 @@ export default function SidebarContent({
                   borderRadius: 1,
                   mx: 1,
                   my: 0.5,
-                  "&.Mui-selected": {
+                  '&.Mui-selected': {
                     backgroundColor: theme.palette.action.selected,
-                    "&:hover": {
+                    '&:hover': {
                       backgroundColor: theme.palette.action.hover,
                     },
                   },

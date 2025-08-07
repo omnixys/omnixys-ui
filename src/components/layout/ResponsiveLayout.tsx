@@ -1,10 +1,10 @@
 // components/ResponsiveLayout.tsx
-import { Container, CssBaseline } from "@mui/material";
-import Head from "next/head";
+import { Container, CssBaseline } from '@mui/material';
+import Head from 'next/head';
 
 export default function ResponsiveLayout({
   children,
-  title = "Omnixys – Modular Innovation",
+  title = 'Omnixys – Modular Innovation',
 }: {
   children: React.ReactNode;
   title?: string;

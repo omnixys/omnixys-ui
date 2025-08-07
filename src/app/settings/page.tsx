@@ -1,23 +1,23 @@
 // src/app/settings/page.tsx
-"use client";
+'use client';
 
+import { useSettings } from '@/context/SettingsContext';
+import { useColorMode } from '@/theme/ColorModeContext';
+import { useColorScheme } from '@/theme/ColorSchemeContext';
+import { OmnixysColorScheme } from '@/theme/theme';
 import {
   Box,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Switch,
-  FormControlLabel,
   Button,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
   Snackbar,
-} from "@mui/material";
-import { useSettings } from "@/context/SettingsContext";
-import { useColorMode } from "@/theme/ColorModeContext";
-import { useColorScheme } from "@/theme/ColorSchemeContext";
-import { OmnixysColorScheme } from "@/theme/theme";
-import { useEffect, useState } from "react";
+  Switch,
+  Typography,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export default function SettingsPage() {
   const { settings, updateSettings, loading } = useSettings();
@@ -38,7 +38,7 @@ export default function SettingsPage() {
   };
 
   const handleModeToggle = () => {
-    const newMode = localSettings.colorMode === "light" ? "dark" : "light";
+    const newMode = localSettings.colorMode === 'light' ? 'dark' : 'light';
     setLocalSettings((prev) => ({ ...prev, colorMode: newMode }));
   };
 
@@ -98,7 +98,7 @@ export default function SettingsPage() {
       <FormControlLabel
         control={
           <Switch
-            checked={localSettings.colorMode === "dark"}
+            checked={localSettings.colorMode === 'dark'}
             onChange={handleModeToggle}
           />
         }
@@ -133,7 +133,7 @@ export default function SettingsPage() {
         autoHideDuration={3000}
         onClose={() => setShowFeedback(false)}
         message="Einstellungen gespeichert"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
     </Box>
   );

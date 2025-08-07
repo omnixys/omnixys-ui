@@ -1,16 +1,16 @@
 'use client';
 
+import { useQuery } from '@apollo/client';
 import { Box, Container, Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
+import { useMemo } from 'react';
+import { GET_PROFILE_BY_USER_ID } from '../../graphql/profile/query/profile';
+import getApolloClient from '../../lib/apolloClient';
+import { FullProfile } from '../../types/profile/profile.type';
+import { getLogger } from '../../utils/logger';
 import NavigationBar from './components/NavigationBar';
 import ProfileHeader from './components/ProfileHeader';
 import ProfileTabs from './components/ProfileTabs';
-import getApolloClient from '../../lib/apolloClient';
-import { useQuery } from '@apollo/client';
-import { GET_PROFILE_BY_USER_ID} from '../../graphql/profile/query/profile';
-import { getLogger } from '../../utils/logger';
-import { FullProfile } from '../../types/profile/profile.type';
-import { useMemo } from 'react';
 
 export default function ProfilePage() {
   const logger = getLogger(ProfilePage.name);
@@ -22,8 +22,6 @@ export default function ProfilePage() {
   const userId = session?.user?.id;
   logger.debug('userId:', userId);
   const profileId = session?.user?.profileId;
-
-
 
   const { loading, error, data } = useQuery(GET_PROFILE_BY_USER_ID, {
     client,
@@ -68,10 +66,7 @@ export default function ProfilePage() {
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <NavigationBar />
       {/* Profil Header */}
-      <ProfileHeader
-        data={profileData}
-        email={session?.user?.email}
-      />
+      <ProfileHeader data={profileData} email={session?.user?.email} />
 
       {/* Tabs für Inhalte */}
       <Box sx={{ mt: 4 }}>

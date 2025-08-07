@@ -1,9 +1,9 @@
 // src/theme/ColorModeContext.tsx
-"use client";
+'use client';
 
-import React, { createContext, useContext} from "react";
-import { PaletteMode } from "@mui/material";
-import { useSettings } from "../context/SettingsContext";
+import { PaletteMode } from '@mui/material';
+import React, { createContext, useContext } from 'react';
+import { useSettings } from '../context/SettingsContext';
 
 interface ColorModeContextValue {
   mode: PaletteMode;
@@ -11,13 +11,13 @@ interface ColorModeContextValue {
 }
 
 const ColorModeContext = createContext<ColorModeContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 export const useColorMode = (): ColorModeContextValue => {
   const ctx = useContext(ColorModeContext);
   if (!ctx)
-    throw new Error("useColorMode must be used within ColorModeProvider");
+    throw new Error('useColorMode must be used within ColorModeProvider');
   return ctx;
 };
 
@@ -30,12 +30,12 @@ export const ColorModeProvider = ({
 
   if (loading) return null; // Verhindert falschen Theme-Render
 
-  const mode = settings.colorMode ?? "light";
+  const mode = settings.colorMode ?? 'light';
 
   const value: ColorModeContextValue = {
     mode,
     toggleColorMode: () => {
-      const newMode: PaletteMode = mode === "light" ? "dark" : "light";
+      const newMode: PaletteMode = mode === 'light' ? 'dark' : 'light';
       updateSettings({ colorMode: newMode });
     },
   };
@@ -49,7 +49,7 @@ export const ColorModeProvider = ({
     <ColorModeContext.Provider value={value}>
       {/* <ThemeProvider theme={theme}>
         <CssBaseline /> */}
-        {children}
+      {children}
       {/* </ThemeProvider> */}
     </ColorModeContext.Provider>
   );

@@ -1,21 +1,24 @@
-"use client";
+'use client';
 
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { SessionProvider } from "next-auth/react";
-import Navbar from "../components/Navbar";
-import { ColorModeProvider, useColorMode } from "../theme/ColorModeContext";
-import { SettingsProvider } from "../context/SettingsContext";
-import { Inter } from "next/font/google";
-import { ColorSchemeProvider, useColorScheme } from "../theme/ColorSchemeContext";
-import themeFactory from "../theme/theme";
-import { SidebarProvider } from "../context/SidebarContext";
-import SettingsGate from "./settings/SettingsGate";
-import { MotionProvider } from "../components/common/MotionProvider";
-import MotionLayout from "../components/common/MotionLayout";
-import { ProgressBarProvider } from "../components/common/PageProgressBar";
-import NavigationProgress from "../components/common/NavigationProgress";
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { SessionProvider } from 'next-auth/react';
+import { Inter } from 'next/font/google';
+import MotionLayout from '../components/common/MotionLayout';
+import { MotionProvider } from '../components/common/MotionProvider';
+import NavigationProgress from '../components/common/NavigationProgress';
+import { ProgressBarProvider } from '../components/common/PageProgressBar';
+import Navbar from '../components/Navbar';
+import { SettingsProvider } from '../context/SettingsContext';
+import { SidebarProvider } from '../context/SidebarContext';
+import { ColorModeProvider, useColorMode } from '../theme/ColorModeContext';
+import {
+  ColorSchemeProvider,
+  useColorScheme,
+} from '../theme/ColorSchemeContext';
+import themeFactory from '../theme/theme';
+import SettingsGate from './settings/SettingsGate';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (

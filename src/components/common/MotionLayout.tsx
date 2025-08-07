@@ -1,15 +1,15 @@
 // components/common/MotionLayout.tsx
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { ReactNode } from "react";
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
-  transition: { duration: 0.4, ease: "easeInOut" },
+  transition: { duration: 0.4, ease: 'easeInOut' },
 };
 
 export default function MotionLayout({ children }: { children: ReactNode }) {

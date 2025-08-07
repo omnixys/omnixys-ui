@@ -1,24 +1,24 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import MotionWrapper from "../common/MotionWrapper";
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import MotionWrapper from '../common/MotionWrapper';
 
 export default function EventsSection() {
   const events = [
     {
-      date: "12. Juni 2025",
-      title: "Omnixys Kickstart-Webinar",
-      desc: "In 30 Minuten zur modularen Plattform: Live-Demo & Q&A.",
+      date: '12. Juni 2025',
+      title: 'Omnixys Kickstart-Webinar',
+      desc: 'In 30 Minuten zur modularen Plattform: Live-Demo & Q&A.',
     },
     {
-      date: "25. Juni 2025",
-      title: "Security First: ISO & DSGVO Deep Dive",
-      desc: "Best Practices zur sicheren Plattformarchitektur.",
+      date: '25. Juni 2025',
+      title: 'Security First: ISO & DSGVO Deep Dive',
+      desc: 'Best Practices zur sicheren Plattformarchitektur.',
     },
     {
-      date: "10. Juli 2025",
-      title: "Microservices in Action",
-      desc: "Von der Idee zur Umsetzung mit OmnixysSphere.",
+      date: '10. Juli 2025',
+      title: 'Microservices in Action',
+      desc: 'Von der Idee zur Umsetzung mit OmnixysSphere.',
     },
   ];
 
@@ -28,8 +28,8 @@ export default function EventsSection() {
         id="events"
         sx={{
           py: 8,
-          backgroundColor: "rgba(255,255,255,0.03)",
-          borderTop: "1px solid rgba(255,255,255,0.1)",
+          backgroundColor: 'rgba(255,255,255,0.03)',
+          borderTop: '1px solid rgba(255,255,255,0.1)',
         }}
       >
         <Container maxWidth="lg">
@@ -49,7 +49,7 @@ export default function EventsSection() {
           </motion.div>
           <Grid container spacing={4}>
             {events.map((event, i) => (
-              <Grid sx={{ xs:12, md:4 }} key={i}>
+              <Grid sx={{ xs: 12, md: 4 }} key={i}>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -58,11 +58,11 @@ export default function EventsSection() {
                 >
                   <Box
                     sx={{
-                      backgroundColor: "rgba(255,255,255,0.06)",
+                      backgroundColor: 'rgba(255,255,255,0.06)',
                       borderRadius: 2,
                       p: 3,
                       boxShadow: 2,
-                      height: "100%",
+                      height: '100%',
                     }}
                   >
                     <Typography variant="overline" sx={{ opacity: 0.7 }}>

@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 
-
 export default function OffersSection({ offers }: { offers: any[] }) {
   return (
     <Box sx={{ py: 6 }}>

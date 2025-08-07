@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-import { getLogger } from '../../../utils/logger';
 import { FullProfile } from '../../../types/profile/profile.type';
+import { getLogger } from '../../../utils/logger';
 
 interface ProfileHeaderProps {
   data?: FullProfile;
@@ -20,13 +20,15 @@ interface ProfileHeaderProps {
   isOwnProfile?: boolean;
 }
 
-export default function ProfileHeader({ data, email, isOwnProfile=true}: ProfileHeaderProps) {
+export default function ProfileHeader({
+  data,
+  email,
+  isOwnProfile = true,
+}: ProfileHeaderProps) {
   const logger = getLogger(ProfileHeader.name);
   logger.debug('data:', { data });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-
 
   if (!data || !data.profile) {
     return <Typography>Profil nicht gefunden.</Typography>;
@@ -36,8 +38,6 @@ export default function ProfileHeader({ data, email, isOwnProfile=true}: Profile
   const followers = data?.followCount.followers || 0;
   const following = data?.followCount.following || 0;
   const friends = data?.friendships || 0;
-
-
 
   return (
     <Box

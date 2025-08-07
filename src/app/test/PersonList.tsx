@@ -1,12 +1,12 @@
 // app/person/PersonList.tsx
-"use client";
+'use client';
 
-import { CircularProgress, Box } from "@mui/material";
-import CustomerDataGrid from "../../components/person/customer/CustomerDataGrid";
-import EmployeeDataGrid from "../../components/person/employee/EmployeeDataGrid";
+import { Box, CircularProgress } from '@mui/material';
+import CustomerDataGrid from '../../components/person/customer/CustomerDataGrid';
+import EmployeeDataGrid from '../../components/person/employee/EmployeeDataGrid';
 
 interface Props {
-  type: "CUSTOMER" | "EMPLOYEE";
+  type: 'CUSTOMER' | 'EMPLOYEE';
   token: string;
 }
 
@@ -19,6 +19,6 @@ export default function PersonList({ type, token }: Props) {
     );
   }
 
-  if (type === "CUSTOMER") return <CustomerDataGrid token={token} />;
+  if (type === 'CUSTOMER') return <CustomerDataGrid token={token} />;
   return <EmployeeDataGrid token={token} />;
 }

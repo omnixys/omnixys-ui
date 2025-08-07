@@ -1,9 +1,9 @@
 // src/theme/ColorSchemeContext.tsx
-"use client";
+'use client';
 
-import React, { createContext, useContext} from "react";
-import { OmnixysColorScheme } from "./theme";
-import { useSettings } from "../context/SettingsContext";
+import React, { createContext, useContext } from 'react';
+import { useSettings } from '../context/SettingsContext';
+import { OmnixysColorScheme } from './theme';
 
 interface ColorSchemeContextValue {
   scheme: OmnixysColorScheme;
@@ -11,13 +11,13 @@ interface ColorSchemeContextValue {
 }
 
 const ColorSchemeContext = createContext<ColorSchemeContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 export const useColorScheme = (): ColorSchemeContextValue => {
   const ctx = useContext(ColorSchemeContext);
   if (!ctx)
-    throw new Error("useColorScheme must be used within ColorSchemeProvider");
+    throw new Error('useColorScheme must be used within ColorSchemeProvider');
   return ctx;
 };
 
@@ -26,8 +26,8 @@ export const ColorSchemeProvider = ({
 }: {
   initialScheme?: OmnixysColorScheme;
   children: React.ReactNode;
-  }) => {
-    const { settings, updateSettings, loading } = useSettings();
+}) => {
+  const { settings, updateSettings, loading } = useSettings();
 
   if (loading) return null;
 

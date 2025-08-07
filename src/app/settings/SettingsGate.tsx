@@ -1,8 +1,8 @@
 // src/components/SettingsGate.tsx
-"use client";
+'use client';
 
-import { Typography } from "@mui/material";
-import { useSettings } from "@/context/SettingsContext";
+import { useSettings } from '@/context/SettingsContext';
+import { Typography } from '@mui/material';
 
 export default function SettingsGate({
   children,

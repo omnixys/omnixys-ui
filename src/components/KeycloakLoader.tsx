@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useKeycloak } from "@react-keycloak/web";
-import { CircularProgress, Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from '@mui/material';
+import { useKeycloak } from '@react-keycloak/web';
 
 export default function KeycloakLoader({
   children,

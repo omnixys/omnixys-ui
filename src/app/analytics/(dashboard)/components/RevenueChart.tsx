@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
+import { Card, CardContent } from '@mui/material';
 import {
-  LineChart,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { GET_REVENUE_KPIS } from "../../../../graphql/analytics/query/transaction-kpis";
-import { Card, CardContent } from "@mui/material";
-import { RevenueKpi } from "../../../../types/analytics/kpi.type";
+} from 'recharts';
+import { GET_REVENUE_KPIS } from '../../../../graphql/analytics/query/transaction-kpis';
+import { RevenueKpi } from '../../../../types/analytics/kpi.type';
 
 export function RevenueChart() {
   const { data, loading } = useQuery(GET_REVENUE_KPIS, {

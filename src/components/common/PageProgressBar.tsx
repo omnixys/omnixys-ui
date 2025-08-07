@@ -1,8 +1,8 @@
 // components/common/ProgressBarContext.tsx
-"use client";
+'use client';
 
-import { createContext, useContext, useRef, useState, ReactNode } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls } from 'framer-motion';
+import { createContext, ReactNode, useContext, useRef, useState } from 'react';
 
 type ProgressBarContextType = {
   start: () => void;
@@ -10,13 +10,13 @@ type ProgressBarContextType = {
 };
 
 const ProgressBarContext = createContext<ProgressBarContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const useProgressBar = () => {
   const ctx = useContext(ProgressBarContext);
   if (!ctx)
-    throw new Error("useProgressBar must be used within ProgressBarProvider");
+    throw new Error('useProgressBar must be used within ProgressBarProvider');
   return ctx;
 };
 
@@ -25,15 +25,14 @@ export function ProgressBarProvider({ children }: { children: ReactNode }) {
   const [visible, setVisible] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-
   const start = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     setVisible(true);
-    controls.set({ width: "0%" });
-    controls.start({ width: "70%", transition: { duration: 0.4 } });
+    controls.set({ width: '0%' });
+    controls.start({ width: '70%', transition: { duration: 0.4 } });
     timeoutRef.current = setTimeout(() => {
-      controls.start({ width: "90%", transition: { duration: 2.0 } });
+      controls.start({ width: '90%', transition: { duration: 2.0 } });
     }, 500);
   };
 
@@ -41,11 +40,11 @@ export function ProgressBarProvider({ children }: { children: ReactNode }) {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     controls
-      .start({ width: "100%", transition: { duration: 0.3 } })
+      .start({ width: '100%', transition: { duration: 0.3 } })
       .then(() => {
         setTimeout(() => {
           setVisible(false);
-          controls.set({ width: "0%" });
+          controls.set({ width: '0%' });
         }, 300);
       });
   };
@@ -55,14 +54,14 @@ export function ProgressBarProvider({ children }: { children: ReactNode }) {
       {visible && (
         <motion.div
           animate={controls}
-          initial={{ width: "0%" }}
+          initial={{ width: '0%' }}
           style={{
-            position: "fixed",
+            position: 'fixed',
             top: 0,
             left: 0,
             height: 4,
             zIndex: 2000,
-            background: "linear-gradient(to right, #6A4BBC, #4E3792)",
+            background: 'linear-gradient(to right, #6A4BBC, #4E3792)',
           }}
         />
       )}

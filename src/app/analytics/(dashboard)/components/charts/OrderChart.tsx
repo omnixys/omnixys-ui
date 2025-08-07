@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 // import { AreaChart } from "@mui/x-charts";
-import { LineChart } from "@mui/x-charts";
-import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
-import { useQuery, gql } from "@apollo/client";
-import getApolloClient from "../../../../../lib/apolloClient";
-import { useSession } from "next-auth/react";
+import { gql, useQuery } from '@apollo/client';
+import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
+import { LineChart } from '@mui/x-charts';
+import { useSession } from 'next-auth/react';
+import getApolloClient from '../../../../../lib/apolloClient';
 
 const ORDER_KPI_QUERY = gql`
   query OrderKpis($filter: KpiFilter!) {
@@ -47,10 +47,10 @@ export default function OrderChart() {
   const months = kpis.map((kpi) => `${kpi.month}.`);
 
   const avgBasketSizes = kpis.map((kpi) =>
-    kpi.totalOrders ? kpi.basketSizeSum / kpi.totalOrders : 0
+    kpi.totalOrders ? kpi.basketSizeSum / kpi.totalOrders : 0,
   );
   const avgOrderValues = kpis.map((kpi) =>
-    kpi.totalOrders ? kpi.orderValueSum / kpi.totalOrders : 0
+    kpi.totalOrders ? kpi.orderValueSum / kpi.totalOrders : 0,
   );
 
   return (
@@ -59,16 +59,16 @@ export default function OrderChart() {
         Bestellverhalten {currentYear}
       </Typography>
       <LineChart
-        xAxis={[{ data: months, scaleType: "point" }]}
+        xAxis={[{ data: months, scaleType: 'point' }]}
         series={[
           {
             data: avgBasketSizes,
-            label: "Ø Warenkorbgröße",
+            label: 'Ø Warenkorbgröße',
             color: theme.palette.info.main,
           },
           {
             data: avgOrderValues,
-            label: "Ø Bestellwert",
+            label: 'Ø Bestellwert',
             color: theme.palette.success.main,
           },
         ]}

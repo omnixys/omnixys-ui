@@ -2,14 +2,12 @@
 
 'use client';
 
-import {
-  Box, TextField, MenuItem, Button, Snackbar
-} from '@mui/material';
 import { gql, useMutation } from '@apollo/client';
+import { Box, Button, MenuItem, Snackbar, TextField } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { AccountType } from '../../types/account.type';
 import getApolloClient from '../../lib/apolloClient';
+import { AccountType } from '../../types/account.type';
 
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation CreateAccount($input: CreateAccountInput!) {
@@ -29,9 +27,9 @@ const AccountForm = () => {
   const client = getApolloClient(session?.access_token);
 
   const [input, setInput] = useState<CreateAccountInput>({
-    category: "CHECKING",
-    username: "",
-    userId: "",
+    category: 'CHECKING',
+    username: '',
+    userId: '',
     transactionLimit: 0,
   });
   const [open, setOpen] = useState(false);
@@ -42,9 +40,9 @@ const AccountForm = () => {
     await createAccount({ variables: { input } });
     setOpen(true);
     setInput({
-      category: "CHECKING",
-      username: "",
-      userId: "",
+      category: 'CHECKING',
+      username: '',
+      userId: '',
       transactionLimit: 0,
     });
   };
@@ -52,7 +50,7 @@ const AccountForm = () => {
   return (
     <Box
       component="form"
-      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
     >
       <TextField
         select
@@ -64,14 +62,14 @@ const AccountForm = () => {
         required
       >
         {[
-          "CHECKING",
-          "SAVINGS",
-          "CREDIT",
-          "DEPOSIT",
-          "INVESTMENT",
-          "LOAN",
-          "BUSINESS",
-          "JOINT",
+          'CHECKING',
+          'SAVINGS',
+          'CREDIT',
+          'DEPOSIT',
+          'INVESTMENT',
+          'LOAN',
+          'BUSINESS',
+          'JOINT',
         ].map((value) => (
           <MenuItem key={value} value={value}>
             {value}

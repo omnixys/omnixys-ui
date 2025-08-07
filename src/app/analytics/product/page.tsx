@@ -1,37 +1,37 @@
-"use client";
+'use client';
 
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
-  Typography,
-  Grid,
+  Button,
   Card,
   CardContent,
   Chip,
   CircularProgress,
-  Button,
+  Grid,
+  Typography,
   useTheme,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import DownloadIcon from "@mui/icons-material/Download";
-import { GET_PRODUCTS } from "../../../graphql/product/query/products";
-import { ProductType } from "../../../types/product/product.type";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../lib/apolloClient";
-import { getLogger } from "../../../utils/logger";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { GET_PRODUCTS } from '../../../graphql/product/query/products';
+import getApolloClient from '../../../lib/apolloClient';
+import { ProductType } from '../../../types/product/product.type';
+import { getLogger } from '../../../utils/logger';
 
 export default function ProductAnalyticsPage() {
-    const logger = getLogger(ProductAnalyticsPage.name);
+  const logger = getLogger(ProductAnalyticsPage.name);
   const { data: session } = useSession();
   const client = getApolloClient(session?.access_token);
   const { data, loading } = useQuery(GET_PRODUCTS, { client });
   const products: ProductType[] = data?.products?.content || [];
 
-  logger.debug('produkte: %o', data)
+  logger.debug('produkte: %o', data);
   const theme = useTheme();
 
   const handleExport = () => {
-    window.open("/export/products/report.xlsx", "_blank");
+    window.open('/export/products/report.xlsx', '_blank');
   };
 
   return (
@@ -73,7 +73,7 @@ export default function ProductAnalyticsPage() {
                       {product.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {product.description || "Keine Beschreibung"}
+                      {product.description || 'Keine Beschreibung'}
                     </Typography>
                     <Box mt={2}>
                       <Chip

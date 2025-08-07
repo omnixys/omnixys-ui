@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { Box, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import Navbar from "../Navbar";
-import AnalyticsSidebar from "../AnalyticsSidebar";
+import { Box, Toolbar, useMediaQuery, useTheme } from '@mui/material';
+import AnalyticsSidebar from '../AnalyticsSidebar';
+import Navbar from '../Navbar';
 
 const drawerWidth = 260;
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box
       sx={{
-        display: "flex",
-        minHeight: "100vh",
+        display: 'flex',
+        minHeight: '100vh',
         backgroundColor: theme.palette.background.default,
       }}
     >
@@ -26,7 +26,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           flexGrow: 1,
           p: 3,
           ml: isMobile ? 0 : `${drawerWidth}px`,
-          transition: "margin 0.3s ease",
+          transition: 'margin 0.3s ease',
         }}
       >
         {/* Abstand für feste Navbar */}

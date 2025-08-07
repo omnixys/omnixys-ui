@@ -1,14 +1,14 @@
 // components/common/MotionSection.tsx
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
-import { fadeIn, staggerContainer } from "@/lib/animation/motionVariants";
+import { fadeIn, staggerContainer } from '@/lib/animation/motionVariants';
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 type MotionSectionProps = {
   children: ReactNode;
   delay?: number;
-  direction?: "up" | "down" | "left" | "right";
+  direction?: 'up' | 'down' | 'left' | 'right';
   stagger?: boolean;
   duration?: number;
 };
@@ -16,7 +16,7 @@ type MotionSectionProps = {
 export default function MotionSection({
   children,
   delay = 0,
-  direction = "up",
+  direction = 'up',
   stagger = false,
   duration = 0.6,
 }: MotionSectionProps) {

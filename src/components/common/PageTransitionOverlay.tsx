@@ -1,11 +1,11 @@
 // components/common/PageTransitionOverlay.tsx
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { Button } from "@mui/material";
-import { useProgressBar } from "./PageProgressBar";
+import { Button } from '@mui/material';
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useProgressBar } from './PageProgressBar';
 
 export default function PageTransitionOverlay() {
   const pathname = usePathname();
@@ -17,7 +17,7 @@ export default function PageTransitionOverlay() {
     setIsTransitioning(true);
     start();
     if (playSound) {
-      const audio = new Audio("/transition-sound.mp3"); // platziere unter /public
+      const audio = new Audio('/transition-sound.mp3'); // platziere unter /public
       audio.volume = 0.4;
       audio.play().catch(() => {}); // Fehler ignorieren (Autoplay-Schutz)
     }
@@ -27,7 +27,6 @@ export default function PageTransitionOverlay() {
     finish(); // ✅ Ladebalken beenden
     // ohne playSound, finish und start
   }, [finish, pathname, playSound, start]);
-    
 
   return (
     <AnimatePresence mode="wait">
@@ -39,18 +38,18 @@ export default function PageTransitionOverlay() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
           style={{
-            position: "fixed",
+            position: 'fixed',
             inset: 0,
-            background: "#000",
+            background: '#000',
             zIndex: 1600,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            pointerEvents: "none",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            pointerEvents: 'none',
           }}
         >
           <Button onClick={() => setPlaySound((prev) => !prev)}>
-            {playSound ? "🔊 Sound Aus" : "🔈 Sound An"}
+            {playSound ? '🔊 Sound Aus' : '🔈 Sound An'}
           </Button>
 
           <motion.img
@@ -58,23 +57,23 @@ export default function PageTransitionOverlay() {
             alt="Omnixys Logo"
             initial={{
               scale: 0.7,
-              filter: "grayscale(100%) brightness(0.7)",
+              filter: 'grayscale(100%) brightness(0.7)',
               rotate: -90,
               opacity: 0,
             }}
             animate={{
               scale: 1,
               rotate: 0,
-              filter: "grayscale(0%) brightness(1)",
+              filter: 'grayscale(0%) brightness(1)',
               opacity: 1,
             }}
             exit={{
               scale: 0.5,
               opacity: 0,
               rotate: 45,
-              filter: "grayscale(100%)",
+              filter: 'grayscale(100%)',
             }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
             style={{ width: 80, height: 80 }}
           />
         </motion.div>

@@ -1,42 +1,42 @@
-"use client";
+'use client';
 
-import { Box, Container, Typography, useTheme } from "@mui/material";
-import "keen-slider/keen-slider.min.css";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { Box, Container, Typography, useTheme } from '@mui/material';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import 'keen-slider/keen-slider.min.css';
+import { useRef } from 'react';
 
-import FeatureTimeline from "../components/landing/FeatureTimeline";
-import AppVideoPreview from "../components/landing/AppVideoPreview";
-import CompetitorComparison from "../components/landing/CompetitorComparison";
-import StepProgressNav from "../components/landing/ProgressBar";
-import USPGrid from "../components/landing/USPGrid";
-import KPISection from "../components/landing/KPISection";
-import NewsletterSection from "../components/landing/NewsletterSection";
-import ChatWidget from "../components/landing/ChatWidget";
-import MotionWrapper from "../components/common/MotionWrapper";
-import HeroSection from "../components/landing/HeroSection";
-import ModuleCarousel from "../components/landing/ModuleCarousel";
-import StickyNavbar from "../components/landing/StickyNavbar";
-import ProgressBanner from "../components/landing/ProgressBanner";
-import TrustBadges from "../components/landing/TrustBadges";
-import BlogPreview from "../components/landing/BlogPreview";
-import Testimonials from "../components/landing/Testimonials";
-import EventsTeaser from "../components/landing/EventsTeaser";
-import AppDownloadBadges from "../components/landing/AppDownloadBadges";
-import StickyCTA from "../components/common/StickyCTA";
-import ScrollSpyNavigation from "../components/landing/ScrollSpyNavigation";
-import ScrollDownArrow from "../components/common/ScrollDownArrow";
+import MotionWrapper from '../components/common/MotionWrapper';
+import ScrollDownArrow from '../components/common/ScrollDownArrow';
+import StickyCTA from '../components/common/StickyCTA';
+import AppDownloadBadges from '../components/landing/AppDownloadBadges';
+import AppVideoPreview from '../components/landing/AppVideoPreview';
+import BlogPreview from '../components/landing/BlogPreview';
+import ChatWidget from '../components/landing/ChatWidget';
+import CompetitorComparison from '../components/landing/CompetitorComparison';
+import EventsTeaser from '../components/landing/EventsTeaser';
+import FeatureTimeline from '../components/landing/FeatureTimeline';
+import HeroSection from '../components/landing/HeroSection';
+import KPISection from '../components/landing/KPISection';
+import ModuleCarousel from '../components/landing/ModuleCarousel';
+import NewsletterSection from '../components/landing/NewsletterSection';
+import ProgressBanner from '../components/landing/ProgressBanner';
+import StepProgressNav from '../components/landing/ProgressBar';
+import ScrollSpyNavigation from '../components/landing/ScrollSpyNavigation';
+import StickyNavbar from '../components/landing/StickyNavbar';
+import Testimonials from '../components/landing/Testimonials';
+import TrustBadges from '../components/landing/TrustBadges';
+import USPGrid from '../components/landing/USPGrid';
 
 const MODULES = [
-  "Shop",
-  "Bank",
-  "Immobilien",
-  "Auktion",
-  "Reisen",
-  "Kino",
-  "Auto",
-  "Aktivitäten",
-  "Social Feed",
+  'Shop',
+  'Bank',
+  'Immobilien',
+  'Auktion',
+  'Reisen',
+  'Kino',
+  'Auto',
+  'Aktivitäten',
+  'Social Feed',
 ];
 
 export default function LandingPage() {
@@ -49,7 +49,7 @@ export default function LandingPage() {
 
   const scrollToModules = () => {
     if (moduleRef.current)
-      moduleRef.current.scrollIntoView({ behavior: "smooth" });
+      moduleRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   const getBackgroundGradient = (index: number) => {
@@ -61,28 +61,28 @@ export default function LandingPage() {
   };
 
   const shineOverlay = {
-    position: "relative",
-    "&::before": {
+    position: 'relative',
+    '&::before': {
       content: "''",
-      position: "absolute",
+      position: 'absolute',
       top: 0,
-      left: "-75%",
-      width: "50%",
-      height: "100%",
+      left: '-75%',
+      width: '50%',
+      height: '100%',
       background:
-        "linear-gradient(120deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%)",
-      transform: "skewX(-20deg)",
-      animation: "shine 4s infinite",
+        'linear-gradient(120deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%)',
+      transform: 'skewX(-20deg)',
+      animation: 'shine 4s infinite',
     },
-    "@keyframes shine": {
-      "0%": { left: "-75%" },
-      "100%": { left: "125%" },
+    '@keyframes shine': {
+      '0%': { left: '-75%' },
+      '100%': { left: '125%' },
     },
-    overflow: "hidden",
+    overflow: 'hidden',
   };
 
   return (
-    <Box sx={{ color: theme.palette.text.primary, position: "relative" }}>
+    <Box sx={{ color: theme.palette.text.primary, position: 'relative' }}>
       <ScrollSpyNavigation />
       <StepProgressNav />
       <StickyNavbar />
@@ -91,7 +91,7 @@ export default function LandingPage() {
         id="hero"
         maxWidth="md"
         sx={{
-          textAlign: "center",
+          textAlign: 'center',
           py: 8,
           ...shineOverlay,
           background: getBackgroundGradient(0),
@@ -204,7 +204,7 @@ export default function LandingPage() {
         sx={{
           background: getBackgroundGradient(11),
           py: 8,
-          borderTop: "1px solid rgba(255,255,255,0.1)",
+          borderTop: '1px solid rgba(255,255,255,0.1)',
           ...shineOverlay,
         }}
       >
@@ -222,7 +222,7 @@ export default function LandingPage() {
         style={{ opacity: opacityFooter }}
         className="footer"
       >
-        <Box sx={{ textAlign: "center", py: 6, pb: 10, opacity: 0.9 }}>
+        <Box sx={{ textAlign: 'center', py: 6, pb: 10, opacity: 0.9 }}>
           <Typography variant="body2">
             © 2025 Omnixys – Modular Thinking. Infinite Possibilities.
           </Typography>

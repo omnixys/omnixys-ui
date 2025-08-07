@@ -20,16 +20,14 @@ import isToday from 'dayjs/plugin/isToday';
 import isYesterday from 'dayjs/plugin/isYesterday';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { getDayjsLocale } from '../utils/getDayjsLocale';
-import { useSession } from 'next-auth/react';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
 dayjs.extend(isToday);
 dayjs.extend(isYesterday);
-
-
 
 interface PostCardProps {
   title: string;
@@ -49,7 +47,9 @@ export default function PostCard({
   isSupremeUser = false,
 }: PostCardProps) {
   const { data: session } = useSession();
-  const userLang = getDayjsLocale(session?.user?.language?.toLowerCase() || 'de');
+  const userLang = getDayjsLocale(
+    session?.user?.language?.toLowerCase() || 'de',
+  );
   dayjs.locale(userLang);
 
   const now = dayjs();
@@ -78,7 +78,6 @@ export default function PostCard({
     else if (date.isYesterday()) displayDate = 'Gestern';
     else displayDate = relative;
   }
-
 
   return (
     <Card sx={{ mb: 3 }}>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@apollo/client';
 import {
   Avatar,
   Box,
@@ -12,9 +13,11 @@ import {
 import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
-import { GET_PROFILE_BY_USER_ID, MY_PROFILE } from '../../../graphql/profile/query/profile';
+import {
+  GET_PROFILE_BY_USER_ID,
+  MY_PROFILE,
+} from '../../../graphql/profile/query/profile';
 import getApolloClient from '../../../lib/apolloClient';
-import { useQuery } from '@apollo/client';
 
 interface ProfileHeaderProps {
   userId?: string;
@@ -36,15 +39,14 @@ export default function ProfileHeader({
   const { data: session } = useSession();
 
   const client = getApolloClient(session?.access_token);
-    const { loading, error, data, refetch } = useQuery<{ profile: Profile }>(
-      isOwnProfile ? MY_PROFILE : GET_PROFILE_BY_USER_ID,
-      {
-        client,
-        variables: isOwnProfile ? undefined : { userId },
-        skip: !isOwnProfile && !userId, // ✅ Verhindert Fehler bei fehlender ID
-      },
-    );
-
+  const { loading, error, data, refetch } = useQuery<{ profile: Profile }>(
+    isOwnProfile ? MY_PROFILE : GET_PROFILE_BY_USER_ID,
+    {
+      client,
+      variables: isOwnProfile ? undefined : { userId },
+      skip: !isOwnProfile && !userId, // ✅ Verhindert Fehler bei fehlender ID
+    },
+  );
 
   const displayName = isOwnProfile
     ? session?.user?.name || 'Mein Profil'

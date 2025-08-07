@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import { BarChart } from "@mui/x-charts";
-import { CircularProgress, Paper, Typography, useTheme } from "@mui/material";
-import { useQuery, gql } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../../../lib/apolloClient";
-
+import { gql, useQuery } from '@apollo/client';
+import { CircularProgress, Paper, Typography, useTheme } from '@mui/material';
+import { BarChart } from '@mui/x-charts';
+import { useSession } from 'next-auth/react';
+import getApolloClient from '../../../../../lib/apolloClient';
 
 const CUSTOMER_GROWTH_QUERY = gql`
   query CustomerGrowthKpis($filter: KpiFilter!) {
@@ -36,10 +35,10 @@ export default function CustomerGrowthChart() {
     return <Typography color="error">Fehler beim Laden der Daten</Typography>;
 
   const months = data.customerGrowthKpis.map(
-    (kpi: { month: number }) => `${kpi.month}.`
+    (kpi: { month: number }) => `${kpi.month}.`,
   );
   const values = data.customerGrowthKpis.map(
-    (kpi: { newCustomers: number }) => kpi.newCustomers
+    (kpi: { newCustomers: number }) => kpi.newCustomers,
   );
 
   return (
@@ -48,11 +47,11 @@ export default function CustomerGrowthChart() {
         Neukunden {currentYear}
       </Typography>
       <BarChart
-        xAxis={[{ scaleType: "band", data: months }]}
+        xAxis={[{ scaleType: 'band', data: months }]}
         series={[
           {
             data: values,
-            label: "Neukunden",
+            label: 'Neukunden',
             color: theme.palette.secondary.main,
           },
         ]}

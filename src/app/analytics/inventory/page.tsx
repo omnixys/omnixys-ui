@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
+import { useQuery } from '@apollo/client';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
-  Typography,
   Box,
-  Grid,
+  Button,
   Card,
   CardContent,
   Chip,
-  Button,
   CircularProgress,
+  Grid,
+  Typography,
   useTheme,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import { useQuery } from "@apollo/client";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../lib/apolloClient";
-import { GET_INVENTORYS } from "../../../graphql/inventory/query/inventory";
-import { InventoryType } from "../../../types/inventory/inventory.type";
-import DownloadIcon from "@mui/icons-material/Download";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { GET_INVENTORYS } from '../../../graphql/inventory/query/inventory';
+import getApolloClient from '../../../lib/apolloClient';
+import { InventoryType } from '../../../types/inventory/inventory.type';
 
 export default function InventoryAnalyticsPage() {
   const { data: session } = useSession();
@@ -27,7 +27,7 @@ export default function InventoryAnalyticsPage() {
   const theme = useTheme();
 
   const handleExport = () => {
-    window.open("/export/inventorys/report.xlsx", "_blank");
+    window.open('/export/inventorys/report.xlsx', '_blank');
   };
 
   return (
@@ -66,7 +66,7 @@ export default function InventoryAnalyticsPage() {
                       fontWeight="bold"
                       color={theme.palette.text.primary}
                     >
-                      {inv.product_name || "Unbekanntes Produkt"}
+                      {inv.product_name || 'Unbekanntes Produkt'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       SKU: {inv.sku_code} — Status: {inv.status}

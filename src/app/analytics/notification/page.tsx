@@ -1,25 +1,25 @@
 // app/analytics/notification/page.tsx
 
-"use client";
+'use client';
 
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
-  Typography,
-  Grid,
+  Button,
   Card,
   CardContent,
   Chip,
   CircularProgress,
-  Button,
+  Grid,
+  Typography,
   useTheme,
-} from "@mui/material";
-import { motion } from "framer-motion";
-import DownloadIcon from "@mui/icons-material/Download";
-import { useSession } from "next-auth/react";
-import getApolloClient from "../../../lib/apolloClient";
-import { NotificationTemplateType } from "../../../types/notification/template.type";
-import { GET_NOTIFICATION_TEMPLATES } from "../../../graphql/notification/query/templates";
+} from '@mui/material';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { GET_NOTIFICATION_TEMPLATES } from '../../../graphql/notification/query/templates';
+import getApolloClient from '../../../lib/apolloClient';
+import { NotificationTemplateType } from '../../../types/notification/template.type';
 
 export default function NotificationAnalyticsPage() {
   const { data: session } = useSession();
@@ -29,7 +29,7 @@ export default function NotificationAnalyticsPage() {
   const theme = useTheme();
 
   const handleExport = () => {
-    window.open("/export/notifications/templates.xlsx", "_blank");
+    window.open('/export/notifications/templates.xlsx', '_blank');
   };
 
   return (
@@ -71,8 +71,8 @@ export default function NotificationAnalyticsPage() {
                       {template.subject}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Typ: {template.type} — Format:{" "}
-                      {template.isHtml ? "HTML" : "Text"}
+                      Typ: {template.type} — Format:{' '}
+                      {template.isHtml ? 'HTML' : 'Text'}
                     </Typography>
                     <Box mt={2}>
                       <Chip

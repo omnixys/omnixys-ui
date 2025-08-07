@@ -1,17 +1,16 @@
 // File: app/analytics/customers/[id]/edit/components/InterestSelector.tsx
 
-import React from "react";
 import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Checkbox,
   Box,
+  Checkbox,
   Chip,
-  SelectChangeEvent,
+  FormControl,
   Grid,
-} from "@mui/material";
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 
 interface Props {
   value: string[];
@@ -19,16 +18,16 @@ interface Props {
 }
 
 const options = [
-  "INVESTMENTS",
-  "SAVING_AND_FINANCE",
-  "CREDIT_AND_DEBT",
-  "BANK_PRODUCTS_AND_SERVICES",
-  "FINANCIAL_EDUCATION_AND_COUNSELING",
-  "REAL_ESTATE",
-  "INSURANCE",
-  "SUSTAINABLE_FINANCE",
-  "TECHNOLOGY_AND_INNOVATION",
-  "TRAVEL",
+  'INVESTMENTS',
+  'SAVING_AND_FINANCE',
+  'CREDIT_AND_DEBT',
+  'BANK_PRODUCTS_AND_SERVICES',
+  'FINANCIAL_EDUCATION_AND_COUNSELING',
+  'REAL_ESTATE',
+  'INSURANCE',
+  'SUSTAINABLE_FINANCE',
+  'TECHNOLOGY_AND_INNOVATION',
+  'TRAVEL',
 ];
 
 export default function InterestSelector({ value, onChange }: Props) {
@@ -38,7 +37,7 @@ export default function InterestSelector({ value, onChange }: Props) {
   };
 
   return (
-  <Grid size={{ xs: 12 }}>
+    <Grid size={{ xs: 12 }}>
       <FormControl fullWidth variant="outlined">
         <InputLabel id="interests-label">Interessen</InputLabel>
         <Select
@@ -48,7 +47,7 @@ export default function InterestSelector({ value, onChange }: Props) {
           onChange={handleChange}
           label="Interessen"
           renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((val) => (
                 <Chip key={val} label={val} />
               ))}

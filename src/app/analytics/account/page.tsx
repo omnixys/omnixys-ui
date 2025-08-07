@@ -1,31 +1,31 @@
 // Pfad: src/app/analytics/account/page.tsx
 
-"use client";
+'use client';
 
-import { useState } from "react";
 import {
-  Container,
-  Typography,
-  Tabs,
-  Tab,
   Box,
-  Paper,
+  Container,
   Divider,
-} from "@mui/material";
-import AccountList from "../../../components/account/AccountList";
-import AccountForm from "../../../components/account/AccountForm";
-import { AccountType } from "../../../types/account.type";
+  Paper,
+  Tab,
+  Tabs,
+  Typography,
+} from '@mui/material';
+import { useState } from 'react';
+import AccountForm from '../../../components/account/AccountForm';
+import AccountList from '../../../components/account/AccountList';
+import { AccountType } from '../../../types/account.type';
 
 const TABS: { label: string; type?: AccountType }[] = [
-  { label: "Girokonten", type: "CHECKING" },
-  { label: "Sparkonten", type: "SAVINGS" },
-  { label: "Kreditkonten", type: "CREDIT" },
-  { label: "Festgeldkonten", type: "DEPOSIT" },
-  { label: "Investmentkonten", type: "INVESTMENT" },
-  { label: "Darlehen", type: "LOAN" },
-  { label: "Geschäftskonten", type: "BUSINESS" },
-  { label: "Gemeinschaftskonten", type: "JOINT" },
-  { label: "Neues Konto" }, // keine `type`-Angabe → Formular
+  { label: 'Girokonten', type: 'CHECKING' },
+  { label: 'Sparkonten', type: 'SAVINGS' },
+  { label: 'Kreditkonten', type: 'CREDIT' },
+  { label: 'Festgeldkonten', type: 'DEPOSIT' },
+  { label: 'Investmentkonten', type: 'INVESTMENT' },
+  { label: 'Darlehen', type: 'LOAN' },
+  { label: 'Geschäftskonten', type: 'BUSINESS' },
+  { label: 'Gemeinschaftskonten', type: 'JOINT' },
+  { label: 'Neues Konto' }, // keine `type`-Angabe → Formular
 ];
 
 const AccountManagementPage = () => {

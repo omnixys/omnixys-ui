@@ -1,7 +1,7 @@
 // File: app/analytics/customers/[id]/edit/components/AddressForm.tsx
 
-import React from "react";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField } from '@mui/material';
+import React from 'react';
 
 interface Address {
   street: string;
@@ -20,7 +20,7 @@ interface Props {
 export default function AddressForm({ address, onChange }: Props) {
   return (
     <>
-    <Grid size={{ xs: 12 }}>
+      <Grid size={{ xs: 12 }}>
         <h4>Adresse</h4>
       </Grid>
       <Grid size={{ xs: 12, sm: 6 }}>
