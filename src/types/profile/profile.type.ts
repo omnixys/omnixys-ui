@@ -3,37 +3,66 @@ type FollowCount = {
   following: number;
 };
 
-export type Profile = {
+export type ProfileType = {
   id: string;
   username: string;
-  info: Info;
-  settings: Settings;
+  info: InfoType;
+  settings: SettingsType;
 };
 
-type Info = {
+export type InfoType = {
   bio: string | null;
-  profileImage: string | null;
+  profileImage?: string;
+  headline?: string;
+  location?: string;
+  coverImage?: string;
+  kurzprofil?: string;
+  ausbildung?: {
+    abschluss: string;
+    in: string;
+    wo: string;
+  }[];
+  berufserfahrung?: {
+    wo?: string;
+    als: string;
+    beschreibung: string;
+    von: string;
+    bis: string;
+  }[];
+  kenntnisse?: string[];
+  sprachen?: string[];
+  socialLinks?: {
+    linkedIn?: string;
+    twitter?: string;
+    instagram?: string;
+    github?: string;
+  };
 };
 
-type Settings = {
+type SettingsType = {
   isSuspended: boolean;
   suspendedUntil: string | null;
   language: 'de' | 'en' | 'fr';
   colorMode: 'light' | 'dark' | 'system';
   colorScheme: 'original' | 'red' | 'green' | 'yellow' | 'blue';
   showWelcomeScreen: boolean;
-  blockedUsers: BlockedUser[];
+  blockedUsers: BlockedUserType[];
 };
 
-type BlockedUser = {
+type BlockedUserType = {
   blockedId: string;
   blockedUsername: string;
   blockedAt: string;
   reason: string;
 };
 
-export type FullProfile = {
-  profile: Profile;
+export type FullProfileType = {
+  profile: ProfileType;
   followCount: FollowCount;
   friendships: number;
+};
+
+export type UpdateProfileType = {
+  info: InfoType;
+  settings: SettingsType;
 };

@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import { GET_PROFILE_BY_USER_ID } from '../../graphql/profile/query/profile';
 import getApolloClient from '../../lib/apolloClient';
-import { FullProfile } from '../../types/profile/profile.type';
+import { FullProfileType } from '../../types/profile/profile.type';
 import { getLogger } from '../../utils/logger';
 import NavigationBar from './components/NavigationBar';
 import ProfileHeader from './components/ProfileHeader';
@@ -34,7 +34,7 @@ export default function ProfilePage() {
     return <Typography>Lade Benutzerprofil...</Typography>;
   }
 
-  const profileData: FullProfile | undefined = data?.getFullProfileByUserId;
+  const profileData: FullProfileType | undefined = data?.getFullProfileByUserId;
 
   if (!profileData) {
     logger.error('Profil ist null, obwohl Query erfolgreich war.');
@@ -70,7 +70,7 @@ export default function ProfilePage() {
 
       {/* Tabs für Inhalte */}
       <Box sx={{ mt: 4 }}>
-        <ProfileTabs profileId={profileId} />
+        <ProfileTabs profileId={profileId} fullProfile={profileData} />
       </Box>
     </Container>
   );

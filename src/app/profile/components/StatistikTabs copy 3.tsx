@@ -30,6 +30,13 @@ import {
   YAxis,
 } from 'recharts';
 
+const cardStyle = {
+  borderRadius: 3,
+  boxShadow: 3,
+  p: 2,
+  height: '100%',
+};
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const dataPostsPerMonth = [

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const UPDATE_CUSTOMER = gql`
+export const UPDATE_EMPLOYEE = gql`
   mutation UpdateCustomer(
     $id: ID!
     $version: Int!
@@ -12,13 +12,19 @@ export const UPDATE_CUSTOMER = gql`
   }
 `;
 
-export const UPDATE_EMPLOYEE = gql`
+export const UPDATE_CUSTOMER = gql`
   mutation UpdateCustomer(
     $id: ID!
     $version: Int!
     $input: UpdateCustomerInput!
+    $username: String
   ) {
-    updateCustomer(id: $id, version: $version, input: $input) {
+    updateCustomer(
+      id: $id
+      version: $version
+      input: $input
+      username: $username
+    ) {
       id
     }
   }

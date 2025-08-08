@@ -34,3 +34,24 @@ export type RelationshipType = 'SPOUSE' | 'CHILD' | 'PARENT' | 'GUARDIAN';
 export type ProblemType = 'FINANCIAL' | 'TECHNICAL' | 'LEGAL' | 'GENERAL';
 export type StatusType = 'OPEN' | 'IN_PROGRESS' | 'CLOSED';
 export type OrderDirection = 'ASC' | 'DESC';
+
+export enum MaritalStatusEnum {
+  SINGLE = 'SINGLE',
+  MARRIED = 'MARRIED',
+  DIVORCED = 'DIVORCED',
+  WIDOWED = 'WIDOWED',
+}
+
+export enum ContactOptionEnum {
+  EMAIL = 'EMAIL',
+  PHONE = 'PHONE',
+  LETTER = 'LETTER',
+  SMS = 'SMS',
+}
+
+export enum InterestEnum {
+  INVESTMENTS = 'INVESTMENTS',
+  REAL_ESTATE = 'REAL_ESTATE',
+  INSURANCE = 'INSURANCE',
+  OTHER = 'OTHER',
+}

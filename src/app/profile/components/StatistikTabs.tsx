@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 import {
   Box,
   Card,
@@ -12,55 +13,25 @@ import {
   Typography,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { useState } from 'react';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import CountryHeatmap from './heatmap/CountryHeatmap';
 
-const ReachHeatmap = () => {
-  const HeatLayer = () => {
-    const map = useMap();
-
-    useEffect(() => {
-      (async () => {
-        const L = await import('leaflet');
-        await import('leaflet.heat');
-
-        const points = [
-          [52.52, 13.405, 0.8], // Berlin
-          [48.8566, 2.3522, 0.6], // Paris
-          [40.7128, -74.006, 0.4], // New York
-          [37.7749, -122.4194, 0.7], // San Francisco
-        ];
-
-        const heat = (L as any)
-          .heatLayer(points, {
-            radius: 25,
-            gradient: { 0.1: 'blue', 0.2: 'lime' },
-          })
-          .addTo(map);
-        return () => map.removeLayer(heat);
-      })();
-    }, [map]);
-
-    return null;
-  };
-
-  return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <MapContainer
-        center={[20, 0]}
-        zoom={2}
-        scrollWheelZoom={false}
-        style={{ height: '100%', width: '100%' }}
-      >
-        <TileLayer
-          attribution="© OpenStreetMap"
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <HeatLayer />
-      </MapContainer>
-    </Box>
-  );
+const cardStyle = {
+  borderRadius: 3,
+  boxShadow: 3,
+  p: 2,
+  height: '100%',
 };
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -162,15 +133,234 @@ export default function StatisticTab() {
           </FormControl>
         </Box>
 
-        <Grid container spacing={3} width={5600}>
-          <Grid sx={{ xs: 12 }}>
+        {/* <Grid container spacing={3}> */}
+
+        <Grid sx={{ xs: 12, md: 6 }}>
+          <Card sx={cardStyle}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Beiträge pro Monat
+              </Typography>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={dataPostsPerMonth}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="posts" fill={COLORS[0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6">Follower Wachstum</Typography>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={dataFollowerGrowth}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="followers"
+                    stroke={COLORS[1]}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Durchschnittliche Interaktionen
+              </Typography>
+              <Grid container spacing={2}>
+                {engagementData.map((item) => (
+                  <Grid item xs={12} sm={4} key={item.type}>
+                    <Typography>{item.type}</Typography>
+                    <Typography variant="h6">
+                      {item.value}{' '}
+                      {item.trend === 'up' ? (
+                        <ArrowDropUp color="success" />
+                      ) : (
+                        <ArrowDropDown color="error" />
+                      )}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6">Aktivität nach Uhrzeit</Typography>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={interactionTime}>
+                  <XAxis dataKey="hour" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="interactions" fill={COLORS[2]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6">Profilaufrufe pro Woche</Typography>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={profileViewsWeekly}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="week" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="views" stroke={COLORS[3]} />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid container spacing={3}>
+          {/* Ergänzte Komponenten */}
+          <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Typography variant="h6">Reichweite Heatmap</Typography>
-                <ReachHeatmap />
+                <Typography variant="h6">Schnellste Interaktionen</Typography>
+                <Grid container spacing={2}>
+                  {fastestInteractions.map((item) => (
+                    <Grid item xs={6} md={3} key={item.type}>
+                      <Typography>{item.type}</Typography>
+                      <Typography variant="body2">{item.time}</Typography>
+                    </Grid>
+                  ))}
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
+
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">Langsamste Interaktionen</Typography>
+                <Grid container spacing={2}>
+                  {slowestInteractions.map((item) => (
+                    <Grid item xs={6} md={3} key={item.type}>
+                      <Typography>{item.type}</Typography>
+                      <Typography variant="body2">{item.time}</Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">Top-Beiträge</Typography>
+                <Grid container spacing={2}>
+                  {topPosts.map((item) => (
+                    <Grid item xs={12} md={4} key={item.title}>
+                      <Typography>{item.type}</Typography>
+                      <Typography variant="subtitle1">{item.title}</Typography>
+                      <Typography variant="caption">
+                        {item.value} Interaktionen
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">Erwähnungen</Typography>
+                <Grid container spacing={2}>
+                  {mentions.map((item, i) => (
+                    <Grid item xs={12} sm={6} key={i}>
+                      <Typography>
+                        @{item.user} – {item.context}
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+          {/*
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">
+                  Kategorievergleich: Du vs. Durchschnitt
+                </Typography>
+                <Grid container spacing={2}>
+                  {peerComparison.map((item) => (
+                    <Grid item xs={12} sm={6} key={item.category}>
+                      <Typography>{item.category}</Typography>
+                      <Typography variant="body2">Du: {item.you}</Typography>
+                      <Typography variant="body2">
+                        Durchschnitt: {item.average}
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid> */}
+        </Grid>
+
+        <br />
+        <br />
+        <br />
+
+        {/* <Grid item xs={12} md={6}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">Reichweite nach Region</Typography>
+                <ResponsiveContainer width="100%" height={200}>
+                  <PieChart>
+                    <Pie
+                      data={reachByRegion}
+                      dataKey="value"
+                      nameKey="region"
+                      outerRadius={80}
+                      label
+                    >
+                      {reachByRegion.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+        </Grid> */}
+
+        <Grid>
+          <Card>
+            <Typography variant="h6">🌍 Interaktive Länder-Heatmap</Typography>
+            <CountryHeatmap />
+          </Card>
         </Grid>
       </Box>
     </motion.div>

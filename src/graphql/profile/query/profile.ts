@@ -43,6 +43,28 @@ export const GET_PROFILE_BY_USER_ID = gql`
         info {
           bio
           profileImage
+          headline
+          location
+          coverImage
+          socialLinks {
+            type
+            link
+          }
+          kurzprofil
+          ausbildung {
+            abschluss
+            in
+            wo
+          }
+          berufserfahrung {
+            wo
+            als
+            beschreibung
+            von
+            bis
+          }
+          sprachen
+          kenntnisse
         }
         settings {
           isSuspended
@@ -64,6 +86,14 @@ export const GET_PROFILE_BY_USER_ID = gql`
         following
       }
       friendships
+    }
+  }
+`;
+
+export const UPDATE_MY_PROFILE = gql`
+  mutation UpdateProfile($input: UpdateProfileInput!) {
+    updateProfile(input: $input) {
+      id
     }
   }
 `;

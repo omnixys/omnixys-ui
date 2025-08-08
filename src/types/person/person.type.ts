@@ -1,7 +1,14 @@
 import { Address } from './address.type';
 import { CustomerData } from './customer.type';
 import { EmployeeData } from './employee.type';
-import { Gender, PersonType } from './enums';
+import {
+  ContactOptionEnum,
+  Gender,
+  InterestEnum,
+  MaritalStatus,
+  MaritalStatusEnum,
+  PersonType,
+} from './enums';
 
 /**
  * Einheitlicher Person-Datentyp für Kunden und Mitarbeiter
@@ -25,3 +32,52 @@ export interface Person {
   customer?: CustomerData;
   employee?: EmployeeData;
 }
+
+// 📄 /mnt/data/CustomerFormData.ts
+
+export type CustomerFormData = {
+  // PersonInput
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+
+  // Address
+  street: string;
+  houseNumber: string; // wird später zu number gecastet
+  zipCode: string;
+  city: string;
+  state: string;
+  country: string;
+
+  // CustomerInput
+  tierLevel?: number;
+  subscribed?: boolean;
+  maritalStatus?: MaritalStatusEnum | MaritalStatus;
+  contactOptions: ContactOptionEnum[];
+  interests: InterestEnum[];
+};
+
+export type UpdateCustomerInput = {
+  personInput: {
+    lastName: string;
+    firstName: string;
+    phoneNumber: string;
+    email: string;
+    address: {
+      street: string;
+      houseNumber: number;
+      zipCode: string;
+      city: string;
+      state: string;
+      country: string;
+    };
+  };
+  customerInput: {
+    tierLevel: number;
+    subscribed: boolean;
+    maritalStatus: string;
+    contactOptions: string[];
+    interests: string[];
+  };
+};

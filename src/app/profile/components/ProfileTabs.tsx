@@ -15,15 +15,21 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { GET_POST_BY_ID } from '../../../graphql/profile/query/post';
 import getApolloClient from '../../../lib/apolloClient';
+import { FullProfileType } from '../../../types/profile/profile.type';
 import { getLogger } from '../../../utils/logger';
+import AboutMeTab from './AboutMeTab';
 import PostCard from './PostCard';
 import StatistikTabs from './StatistikTabs';
 
 interface ProfileTabsProps {
   profileId?: string;
+  fullProfile: FullProfileType | undefined;
 }
 
-export default function ProfileTabs({ profileId }: ProfileTabsProps) {
+export default function ProfileTabs({
+  profileId,
+  fullProfile,
+}: ProfileTabsProps) {
   const logger = getLogger(ProfileTabs.name);
   logger.debug('profileId:', profileId);
 
@@ -134,53 +140,54 @@ export default function ProfileTabs({ profileId }: ProfileTabsProps) {
     // },
     {
       label: 'Über mich',
-      content: (
-        <Box p={3}>
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Kurzprofil
-          </Typography>
-          <Typography variant="body1" color="text.secondary" paragraph>
-            Fullstack Developer mit Fokus auf TypeScript, GraphQL und
-            Cloud-Infrastruktur. Zielorientiert, kreativ und immer bereit für
-            neue Herausforderungen.
-          </Typography>
+      content: <AboutMeTab fullProfile={fullProfile} />,
+      //   (
+      //   <Box p={3}>
+      //     <Typography variant="h6" fontWeight="bold" gutterBottom>
+      //       Kurzprofil
+      //     </Typography>
+      //     <Typography variant="body1" color="text.secondary" paragraph>
+      //       Fullstack Developer mit Fokus auf TypeScript, GraphQL und
+      //       Cloud-Infrastruktur. Zielorientiert, kreativ und immer bereit für
+      //       neue Herausforderungen.
+      //     </Typography>
 
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Fähigkeiten
-          </Typography>
-          <Stack direction="row" spacing={1} flexWrap="wrap" mb={2}>
-            {[
-              'TypeScript',
-              'Next.js',
-              'GraphQL',
-              'MongoDB',
-              'Docker',
-              'Kubernetes',
-            ].map((skill) => (
-              <Box
-                key={skill}
-                px={2}
-                py={0.5}
-                borderRadius={99}
-                bgcolor="primary.main"
-                color="white"
-              >
-                {skill}
-              </Box>
-            ))}
-          </Stack>
+      //     <Typography variant="h6" fontWeight="bold" gutterBottom>
+      //       Fähigkeiten
+      //     </Typography>
+      //     <Stack direction="row" spacing={1} flexWrap="wrap" mb={2}>
+      //       {[
+      //         'TypeScript',
+      //         'Next.js',
+      //         'GraphQL',
+      //         'MongoDB',
+      //         'Docker',
+      //         'Kubernetes',
+      //       ].map((skill) => (
+      //         <Box
+      //           key={skill}
+      //           px={2}
+      //           py={0.5}
+      //           borderRadius={99}
+      //           bgcolor="primary.main"
+      //           color="white"
+      //         >
+      //           {skill}
+      //         </Box>
+      //       ))}
+      //     </Stack>
 
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
-            Persönliches
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            🏡 Wohnort: Berlin <br />
-            🎓 Ausbildung: M.Sc. in Computer Science <br />
-            💼 Berufserfahrung: 5 Jahre <br />
-            💬 Sprachen: Deutsch, Englisch, Französisch
-          </Typography>
-        </Box>
-      ),
+      //     <Typography variant="h6" fontWeight="bold" gutterBottom>
+      //       Persönliches
+      //     </Typography>
+      //     <Typography variant="body1" color="text.secondary">
+      //       🏡 Wohnort: Berlin <br />
+      //       🎓 Ausbildung: M.Sc. in Computer Science <br />
+      //       💼 Berufserfahrung: 5 Jahre <br />
+      //       💬 Sprachen: Deutsch, Englisch, Französisch
+      //     </Typography>
+      //   </Box>
+      // ),
     },
 
     {
