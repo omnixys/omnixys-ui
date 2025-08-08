@@ -270,6 +270,9 @@ export default function Navbar() {
                   Analytics
                 </Button>
               )}
+              <Button color="inherit" component={Link} href="/finanzen">
+                Finanzen
+              </Button>
 
               <Tooltip
                 title={mode === 'dark' ? 'Helles Design' : 'Dunkles Design'}

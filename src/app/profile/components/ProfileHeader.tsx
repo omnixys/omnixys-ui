@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-import { FullProfile } from '../../../types/profile/profile.type';
+import { FullProfileType } from '../../../types/profile/profile.type';
 import { getLogger } from '../../../utils/logger';
 
 interface ProfileHeaderProps {
-  data?: FullProfile;
+  data?: FullProfileType;
   email: string | undefined;
   isOwnProfile?: boolean;
 }
