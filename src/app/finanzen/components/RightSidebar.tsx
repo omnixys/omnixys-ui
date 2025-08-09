@@ -84,8 +84,7 @@ export default function RightSidebar({
         </Box>
 
         {/* Inhalt */}
-        <Box sx={{ position: 'relative', zIndex: 1, textAlign: 'center'
-        }}>
+        <Box sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <Avatar
             sx={{ width: 64, height: 64, margin: '0 auto', bgcolor: '#8ab4f8' }}
           >

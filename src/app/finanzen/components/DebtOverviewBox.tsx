@@ -1,8 +1,8 @@
 'use client';
 
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import DoughnutChart from './DoughnutChart';
 import AnimatedCounter from './AnimatedCounter';
+import DoughnutChart from './DoughnutChart';
 
 export interface Debt {
   creditor: string;
@@ -14,7 +14,10 @@ export interface DebtOverviewBoxProps {
   totalDebt: number;
 }
 
-export default function DebtOverviewBox({ debts, totalDebt }: DebtOverviewBoxProps) {
+export default function DebtOverviewBox({
+  debts,
+  totalDebt,
+}: DebtOverviewBoxProps) {
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 2, maxWidth: 400 }}>
       {/* Donut Chart */}

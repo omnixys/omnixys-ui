@@ -1,7 +1,7 @@
 'use client';
-import { Card, CardContent, Typography, Box } from '@mui/material';
-import DoughnutChart from './DoughnutChart';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import AnimatedCounter from './AnimatedCounter';
+import DoughnutChart from './DoughnutChart';
 
 export interface MonthlySpendingBoxProps {
   categories: { name: string; amount: number }[];

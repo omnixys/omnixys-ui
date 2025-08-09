@@ -6,7 +6,9 @@ interface DashboardCardGridProps {
   children: ReactNode;
 }
 
-export default function DashboardCardGrid({ children }: DashboardCardGridProps) {
+export default function DashboardCardGrid({
+  children,
+}: DashboardCardGridProps) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -26,7 +28,6 @@ export default function DashboardCardGrid({ children }: DashboardCardGridProps) 
         //   scrollSnapAlign: isSmallScreen ? 'start' : 'unset',
         //   flex: isSmallScreen ? '0 0 85%' : '1 1 30%',
         // },
-
       }}
     >
       {children}

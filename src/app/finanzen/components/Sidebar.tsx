@@ -65,16 +65,16 @@ export default function Sidebar({ user }: SidebarProps) {
       {/* Links */}
       <Stack spacing={2}>
         {sidebarLinks.map((item) => {
-            const route = normalizePath(item.route);
-            let isActive = false;
+          const route = normalizePath(item.route);
+          let isActive = false;
 
-            if (route === '/finanzen') {
-              // Home unter Finanzen → nur exakter Match
-              isActive = pathname === route;
-            } else {
-              // Unterseiten → alles was mit dem Pfad beginnt
-              isActive = pathname === route || pathname.startsWith(`${route}/`);
-            }
+          if (route === '/finanzen') {
+            // Home unter Finanzen → nur exakter Match
+            isActive = pathname === route;
+          } else {
+            // Unterseiten → alles was mit dem Pfad beginnt
+            isActive = pathname === route || pathname.startsWith(`${route}/`);
+          }
 
           return (
             <Link href={item.route} key={item.label} passHref>

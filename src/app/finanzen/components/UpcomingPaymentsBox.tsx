@@ -1,5 +1,12 @@
 'use client';
-import { Card, CardContent, Typography, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 
 export interface UpcomingPayment {
   title: string;
@@ -11,7 +18,9 @@ export interface UpcomingPaymentsBoxProps {
   payments: UpcomingPayment[];
 }
 
-export default function UpcomingPaymentsBox({ payments }: UpcomingPaymentsBoxProps) {
+export default function UpcomingPaymentsBox({
+  payments,
+}: UpcomingPaymentsBoxProps) {
   return (
     <Card sx={{ p: 2, maxWidth: 400 }}>
       <CardContent>

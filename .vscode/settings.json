@@ -1,0 +1,20 @@
+{
+  // Prettier als Standard-Formatter für TS/TSX
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Formatieren bei Speichern
+  "editor.formatOnSave": true,
+
+  // Spezifisch für TS/TSX
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // Optional: Auto-Organize Imports
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}

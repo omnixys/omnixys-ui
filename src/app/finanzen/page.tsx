@@ -1,12 +1,12 @@
 'use client';
 import { Box } from '@mui/material';
+import DashboardCardGrid from './components/DashboardCardGrid';
+import DebtOverviewBox from './components/DebtOverviewBox';
 import HeaderBox from './components/HeaderBox';
+import MonthlySpendingBox from './components/MonthlySpendingBox';
 import RecentTransactions from './components/RecentTransactions';
 import TotalBalanceBox from './components/TotalBalanceBox';
-import DebtOverviewBox from './components/DebtOverviewBox';
-import MonthlySpendingBox from './components/MonthlySpendingBox';
 import UpcomingPaymentsBox from './components/UpcomingPaymentsBox';
-import DashboardCardGrid from './components/DashboardCardGrid';
 
 export type TxStatus = 'Success' | 'Processing' | 'Failed';
 export type TxChannel = 'In Store' | 'Online' | 'ATM';
@@ -101,13 +101,11 @@ export const AccountDatas: Account[] = [
   },
 ];
 
-
 const sampleDebts = [
   { creditor: 'Max Mustermann', amount: 150.5 },
   { creditor: 'Bank of Germany', amount: 1200 },
   { creditor: 'Amazon Bestellung', amount: 89.99 },
 ];
-
 
 const spendingCategories = [
   { name: 'Food', amount: 320 },
@@ -133,17 +131,23 @@ export default function BankingDashboard({
         user="admin"
         type="greeting"
         title="Willkommen"
-          subtext="Access and manage your account and transactions effeciently."
+        subtext="Access and manage your account and transactions effeciently."
       />
 
       {/* 📌 Karten-Bereich mit Grid + Carousel */}
       <DashboardCardGrid>
-        <TotalBalanceBox accounts={AccountDatas} totalCurrentBalance={1250.35} />
+        <TotalBalanceBox
+          accounts={AccountDatas}
+          totalCurrentBalance={1250.35}
+        />
         <DebtOverviewBox debts={sampleDebts} totalDebt={totalDebt} />
-        <MonthlySpendingBox categories={spendingCategories} totalSpending={670} />
+        <MonthlySpendingBox
+          categories={spendingCategories}
+          totalSpending={670}
+        />
         <UpcomingPaymentsBox payments={upcomingPayments} />
       </DashboardCardGrid>
-      
+
       <RecentTransactions accounts={AccountDatas} page={currentTab} />
     </Box>
   );
