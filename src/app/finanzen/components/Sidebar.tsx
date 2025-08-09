@@ -64,7 +64,7 @@ export default function Sidebar({ user }: SidebarProps) {
       <Stack spacing={2}>
         {sidebarLinks.map((item) => {
           const isActive =
-            pathname === item.route || pathname.startsWith(`${item.route}/`);
+            pathname === item.route;
 
           return (
             <Link href={item.route} key={item.label} passHref>

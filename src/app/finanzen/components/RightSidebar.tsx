@@ -9,6 +9,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import Image from 'next/image';
 import { JSX } from 'react';
 import BankCard from './BankCard';
 
@@ -55,16 +56,46 @@ export default function RightSidebar({
       }}
     >
       {/* UserCard */}
-      <Box sx={{ textAlign: 'center' }}>
-        <Avatar
-          sx={{ width: 64, height: 64, margin: '0 auto', bgcolor: '#8ab4f8' }}
+      <Box
+        sx={{
+          position: 'relative',
+          p: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        {/* Hintergrund */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 0,
+            opacity: 0.15,
+            pointerEvents: 'none',
+          }}
         >
-          {user.firstName[0]}
-        </Avatar>
-        <Typography variant="h6">{user.firstName}</Typography>
-        <Typography variant="body2" color="text.secondary">
-          {user.email}
-        </Typography>
+          <Image
+            src="/icons/gradient-mesh.svg"
+            alt="background"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        </Box>
+
+        {/* Inhalt */}
+        <Box sx={{ position: 'relative', zIndex: 1, textAlign: 'center'
+        }}>
+          <Avatar
+            sx={{ width: 64, height: 64, margin: '0 auto', bgcolor: '#8ab4f8' }}
+          >
+            {user.firstName[0]}
+          </Avatar>
+          <Typography variant="h6">{user.firstName}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {user.email}
+          </Typography>
+        </Box>
       </Box>
 
       {/* My Banks */}
@@ -94,7 +125,7 @@ export default function RightSidebar({
           </IconButton>
         </Box>
 
-        <Box sx={{ position: 'relative', height: 160, mb: 15,  }}>
+        <Box sx={{ position: 'relative', height: 160, mb: 15 }}>
           {banks.map((bank, index) => (
             <Box
               key={bank.id}
