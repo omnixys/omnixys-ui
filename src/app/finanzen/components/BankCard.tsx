@@ -14,6 +14,7 @@ import { useMemo, useState } from 'react';
 
 export interface BankCardProps {
   account: {
+    id: string
     name: string;
     balance: number;
     number: string;
@@ -91,7 +92,7 @@ const BankCard = ({
   };
 
   return (
-    <Link href="/" style={{ textDecoration: 'none' }}>
+    <Link href={`/finanzen/banks/${account.id}`} style={{ textDecoration: 'none' }}>
       <Box
         sx={{
           width: 320,

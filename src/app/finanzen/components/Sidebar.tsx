@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+const normalizePath = (path: string) => path.replace(/\/+$/, '').toLowerCase();
+
 export interface SidebarProps {
   user: { username: string };
 }
@@ -33,7 +35,7 @@ const sidebarLinks = [
 ];
 
 export default function Sidebar({ user }: SidebarProps) {
-  const pathname = usePathname();
+  const pathname = normalizePath(usePathname());
 
   return (
     <Box
@@ -63,8 +65,16 @@ export default function Sidebar({ user }: SidebarProps) {
       {/* Links */}
       <Stack spacing={2}>
         {sidebarLinks.map((item) => {
-          const isActive =
-            pathname === item.route;
+            const route = normalizePath(item.route);
+            let isActive = false;
+
+            if (route === '/finanzen') {
+              // Home unter Finanzen → nur exakter Match
+              isActive = pathname === route;
+            } else {
+              // Unterseiten → alles was mit dem Pfad beginnt
+              isActive = pathname === route || pathname.startsWith(`${route}/`);
+            }
 
           return (
             <Link href={item.route} key={item.label} passHref>
