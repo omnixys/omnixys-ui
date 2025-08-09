@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { Typography, Box, useTheme } from '@mui/material'
-import { tokens } from './tokens'
+import { Box, Typography, useTheme } from '@mui/material';
+import { tokens } from './tokens';
 
 type HeaderProps = {
-  title: string
-  subtitle: string
-}
+  title: string;
+  subtitle: string;
+};
 
 export default function Header({ title, subtitle }: HeaderProps) {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   return (
     <Box mb="30px">
@@ -26,5 +26,5 @@ export default function Header({ title, subtitle }: HeaderProps) {
         {subtitle}
       </Typography>
     </Box>
-  )
+  );
 }

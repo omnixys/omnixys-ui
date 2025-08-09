@@ -1,25 +1,28 @@
-'use client'
+'use client';
 
-import { useTheme } from '@mui/material'
-import { ResponsiveChoropleth } from '@nivo/geo'
-import type { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson'
-import { geoFeatures } from '../data/mockGeoFeatures'
-import { mockGeographyData as mockData } from '../data/mockData'
-import { tokens } from './tokens'
+import { useTheme } from '@mui/material';
+import { ResponsiveChoropleth } from '@nivo/geo';
+import type { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { mockGeographyData as mockData } from '../data/mockData';
+import { geoFeatures } from '../data/mockGeoFeatures';
+import { tokens } from './tokens';
 
 type Props = {
-  isDashboard?: boolean
-}
+  isDashboard?: boolean;
+};
 
-type ChoroplethDatum = { id: string | number; value: number }
+type ChoroplethDatum = { id: string | number; value: number };
 
 export default function GeographyChart({ isDashboard = false }: Props) {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   // Tipp: Wenn du mockData in TS definierst als `ChoroplethDatum[]`, kannst du das Casting sparen.
-  const data = mockData as unknown as ChoroplethDatum[]
-  const features = geoFeatures as FeatureCollection<Geometry, GeoJsonProperties>
+  const data = mockData as unknown as ChoroplethDatum[];
+  const features = geoFeatures as FeatureCollection<
+    Geometry,
+    GeoJsonProperties
+  >;
 
   return (
     <ResponsiveChoropleth
@@ -45,7 +48,12 @@ export default function GeographyChart({ isDashboard = false }: Props) {
           },
         },
         legends: { text: { fill: colors.grey[100] } },
-        tooltip: { container: { background: colors.primary[500], color: colors.grey[100] } },
+        tooltip: {
+          container: {
+            background: colors.primary[500],
+            color: colors.grey[100],
+          },
+        },
       }}
       legends={
         !isDashboard
@@ -63,11 +71,16 @@ export default function GeographyChart({ isDashboard = false }: Props) {
                 itemTextColor: colors.grey[100],
                 itemOpacity: 0.85,
                 symbolSize: 18,
-                effects: [{ on: 'hover', style: { itemTextColor: '#ffffff', itemOpacity: 1 } }],
+                effects: [
+                  {
+                    on: 'hover',
+                    style: { itemTextColor: '#ffffff', itemOpacity: 1 },
+                  },
+                ],
               },
             ]
           : undefined
       }
     />
-  )
+  );
 }

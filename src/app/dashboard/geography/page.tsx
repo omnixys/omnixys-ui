@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Box, useTheme } from '@mui/material'
-import GeographyChart from '../components/GeographyChart'
-import Header from '../components/Header'
-import { tokens } from '../components/tokens'
+import { Box, useTheme } from '@mui/material';
+import GeographyChart from '../components/GeographyChart';
+import Header from '../components/Header';
+import { tokens } from '../components/tokens';
 
 export default function Geography() {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   return (
     <Box m="20px">
@@ -21,5 +21,5 @@ export default function Geography() {
         <GeographyChart />
       </Box>
     </Box>
-  )
+  );
 }

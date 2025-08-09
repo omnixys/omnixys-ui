@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { useTheme } from '@mui/material'
-import { ResponsiveBar, BarDatum } from '@nivo/bar'
-import { tokens } from './tokens'
-import { mockBarData as mockData } from '../data/mockData'
+import { useTheme } from '@mui/material';
+import { BarDatum, ResponsiveBar } from '@nivo/bar';
+import { mockBarData as mockData } from '../data/mockData';
+import { tokens } from './tokens';
 
 type Props = {
-  isDashboard?: boolean
-}
+  isDashboard?: boolean;
+};
 
 export default function BarChart({ isDashboard = false }: Props) {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   // Tipp: definiere mockBarData in TS als BarDatum[] → dann entfällt das Casting
-  const data = mockData as unknown as BarDatum[]
+  const data = mockData as unknown as BarDatum[];
 
   return (
     <ResponsiveBar
@@ -29,7 +29,12 @@ export default function BarChart({ isDashboard = false }: Props) {
           },
         },
         legends: { text: { fill: colors.grey[100] } },
-        tooltip: { container: { background: colors.primary[500], color: colors.grey[100] } },
+        tooltip: {
+          container: {
+            background: colors.primary[500],
+            color: colors.grey[100],
+          },
+        },
       }}
       keys={['hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut']}
       indexBy="country"
@@ -97,7 +102,9 @@ export default function BarChart({ isDashboard = false }: Props) {
         },
       ]}
       role="application"
-      barAriaLabel={e => `${e.id}: ${e.formattedValue} in country: ${e.indexValue}`}
+      barAriaLabel={(e) =>
+        `${e.id}: ${e.formattedValue} in country: ${e.indexValue}`
+      }
     />
-  )
+  );
 }

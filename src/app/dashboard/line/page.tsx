@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { Box } from '@mui/material'
-import Header from '../components/Header'
-import LineChart from '../components/LineChart'
+import { Box } from '@mui/material';
+import Header from '../components/Header';
+import LineChart from '../components/LineChart';
 
 export default function Line() {
   return (
@@ -12,5 +12,5 @@ export default function Line() {
         <LineChart />
       </Box>
     </Box>
-  )
+  );
 }

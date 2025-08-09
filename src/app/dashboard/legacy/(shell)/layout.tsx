@@ -1,12 +1,16 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { CssBaseline } from '@mui/material'
-import Sidebar from '@/scenes/global/Sidebar'
-import Topbar from '@/scenes/global/Topbar'
+import Sidebar from '@/scenes/global/Sidebar';
+import Topbar from '@/scenes/global/Topbar';
+import { CssBaseline } from '@mui/material';
+import { useState } from 'react';
 
-export default function ShellLayout({ children }: { children: React.ReactNode }) {
-  const [isSidebar, setIsSidebar] = useState<boolean>(true)
+export default function ShellLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [isSidebar, setIsSidebar] = useState<boolean>(true);
 
   return (
     <>
@@ -19,5 +23,5 @@ export default function ShellLayout({ children }: { children: React.ReactNode })
         </main>
       </div>
     </>
-  )
+  );
 }

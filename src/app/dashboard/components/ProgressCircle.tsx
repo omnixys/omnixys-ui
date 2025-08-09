@@ -1,23 +1,27 @@
-'use client'
+'use client';
 
-import { Box, useTheme } from '@mui/material'
-import { tokens } from './tokens'
+import { Box, useTheme } from '@mui/material';
+import { tokens } from './tokens';
 
 type ProgressCircleProps = {
   /** Fortschritt von 0 bis 1 (z. B. 0.75 = 75 %) */
-  progress?: number | string
+  progress?: number | string;
   /** Durchmesser in Pixel */
-  size?: number | string
-}
+  size?: number | string;
+};
 
-export default function ProgressCircle({ progress = 0.75, size = 40 }: ProgressCircleProps) {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
+export default function ProgressCircle({
+  progress = 0.75,
+  size = 40,
+}: ProgressCircleProps) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-  const numericProgress = typeof progress === 'string' ? Number(progress) : progress
-  const numericSize = typeof size === 'string' ? Number(size) : size
+  const numericProgress =
+    typeof progress === 'string' ? Number(progress) : progress;
+  const numericSize = typeof size === 'string' ? Number(size) : size;
 
-  const angle = numericProgress * 360
+  const angle = numericProgress * 360;
 
   return (
     <Box
@@ -30,5 +34,5 @@ export default function ProgressCircle({ progress = 0.75, size = 40 }: ProgressC
         height: `${numericSize}px`,
       }}
     />
-  )
+  );
 }

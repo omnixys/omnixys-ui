@@ -1,23 +1,28 @@
-'use client'
+'use client';
 
-import { useTheme } from '@mui/material'
-import { ResponsivePie } from '@nivo/pie'
-import { tokens } from './tokens'
-import { mockPieData as mockData } from '../data/mockData'
+import { useTheme } from '@mui/material';
+import { ResponsivePie } from '@nivo/pie';
+import { mockPieData as mockData } from '../data/mockData';
+import { tokens } from './tokens';
 
 type Props = {
   /** kompakter Modus fürs Dashboard (optional später nutzen) */
-  isDashboard?: boolean
-}
+  isDashboard?: boolean;
+};
 
 // Minimales Datums-Interface, falls deine Mockdaten nicht getypt sind
-export type PieDatum = { id: string | number; label?: string; value: number; color?: string }
+export type PieDatum = {
+  id: string | number;
+  label?: string;
+  value: number;
+  color?: string;
+};
 
 export default function PieChart({ isDashboard = false }: Props) {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
-  const data = mockData as unknown as PieDatum[]
+  const data = mockData as unknown as PieDatum[];
 
   return (
     <ResponsivePie
@@ -26,10 +31,18 @@ export default function PieChart({ isDashboard = false }: Props) {
         axis: {
           domain: { line: { stroke: colors.grey[100] } },
           legend: { text: { fill: colors.grey[100] } },
-          ticks: { line: { stroke: colors.grey[100], strokeWidth: 1 }, text: { fill: colors.grey[100] } },
+          ticks: {
+            line: { stroke: colors.grey[100], strokeWidth: 1 },
+            text: { fill: colors.grey[100] },
+          },
         },
         legends: { text: { fill: colors.grey[100] } },
-        tooltip: { container: { background: colors.primary[500], color: colors.grey[100] } },
+        tooltip: {
+          container: {
+            background: colors.primary[500],
+            color: colors.grey[100],
+          },
+        },
       }}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
@@ -79,5 +92,5 @@ export default function PieChart({ isDashboard = false }: Props) {
         },
       ]}
     />
-  )
+  );
 }

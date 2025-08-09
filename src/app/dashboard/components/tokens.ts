@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { createContext, useState, useMemo } from 'react'
-import { createTheme, ThemeOptions, Theme } from '@mui/material/styles'
+import { createTheme, Theme, ThemeOptions } from '@mui/material/styles';
+import { createContext, useMemo, useState } from 'react';
 
 // Farbmodus als Literaltyp
-export type ColorMode = 'light' | 'dark'
+export type ColorMode = 'light' | 'dark';
 
 // Design Tokens
 export const tokens = (mode: ColorMode) => ({
@@ -123,11 +123,11 @@ export const tokens = (mode: ColorMode) => ({
           900: '#e1e2fe',
         },
       }),
-})
+});
 
 // Theme Settings
 export const themeSettings = (mode: ColorMode): ThemeOptions => {
-  const colors = tokens(mode)
+  const colors = tokens(mode);
   return {
     palette: {
       mode,
@@ -157,30 +157,51 @@ export const themeSettings = (mode: ColorMode): ThemeOptions => {
     typography: {
       fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
       fontSize: 12,
-      h1: { fontFamily: ['Source Sans Pro', 'sans-serif'].join(','), fontSize: 40 },
-      h2: { fontFamily: ['Source Sans Pro', 'sans-serif'].join(','), fontSize: 32 },
-      h3: { fontFamily: ['Source Sans Pro', 'sans-serif'].join(','), fontSize: 24 },
-      h4: { fontFamily: ['Source Sans Pro', 'sans-serif'].join(','), fontSize: 20 },
-      h5: { fontFamily: ['Source Sans Pro', 'sans-serif'].join(','), fontSize: 16 },
-      h6: { fontFamily: ['Source Sans Pro', 'sans-serif'].join(','), fontSize: 14 },
+      h1: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 40,
+      },
+      h2: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 32,
+      },
+      h3: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 24,
+      },
+      h4: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 20,
+      },
+      h5: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 16,
+      },
+      h6: {
+        fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
+        fontSize: 14,
+      },
     },
-  }
-}
+  };
+};
 
 // ColorMode-Context
 export const ColorModeContext = createContext<{ toggleColorMode: () => void }>({
   toggleColorMode: () => {},
-})
+});
 
 // Hook liefert Theme + Toggle
 export const useMode = (): [Theme, { toggleColorMode: () => void }] => {
-  const [mode, setMode] = useState<ColorMode>('dark')
+  const [mode, setMode] = useState<ColorMode>('dark');
 
   const colorMode = useMemo(
-    () => ({ toggleColorMode: () => setMode(prev => (prev === 'light' ? 'dark' : 'light')) }),
-    []
-  )
+    () => ({
+      toggleColorMode: () =>
+        setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
+    }),
+    [],
+  );
 
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
-  return [theme, colorMode]
-}
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  return [theme, colorMode];
+};
