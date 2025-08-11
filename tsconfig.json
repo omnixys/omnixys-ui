@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/landing/HeroSection.jsx", "src/app/portfolio/components/brain.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/landing/HeroSection.jsx", "src/app/portfolio/components/brain.jsx", "src/app/food/restaurant/[slug]/page.tsx"],
   "exclude": ["node_modules"]
 }

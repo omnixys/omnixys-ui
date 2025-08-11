@@ -59,7 +59,7 @@ export default function HomePage() {
               <CardContent>
                 <Typography variant="h6">{r.name}</Typography>
                 <Typography color="text.secondary">{r.cuisine}</Typography>
-                <Link href={`/restaurant/${r.id}`}>
+                <Link href={`/food/restaurant/${r.id}`}>
                   <Button variant="contained" sx={{ mt: 1 }}>
                     Ansehen
                   </Button>

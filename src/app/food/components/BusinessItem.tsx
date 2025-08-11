@@ -29,11 +29,11 @@ export default function BusinessItem({ business }: BusinessItemProps) {
         "&:hover": { transform: "scale(1.02)", boxShadow: 4 },
       }}
     >
-      <CardActionArea component={Link} href={`/restaurant/${business.slug}`}>
+      <CardActionArea component={Link} href={`/food/restaurant/${business.slug}`}>
         {/* Banner */}
         <Box sx={{ position: "relative", width: "100%", height: 130 }}>
           <Image
-            src={business.banner?.url || "/placeholder.jpg"}
+            src={business.banner?.url || "/food/placeholder.jpg"}
             alt={business.name}
             fill
             sizes="500px"
