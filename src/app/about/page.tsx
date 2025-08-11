@@ -1,5 +1,5 @@
 // app/about/page.tsx
-import MotionPageWrapper from '@/components/common/MotionPageWrapper';
+import MotionPageWrapper from '../../components/common/MotionPageWrapper';
 
 export default function AboutPage() {
   return (
