@@ -69,8 +69,6 @@ body:
         - A11y: Labels, Roles, Tastaturfokus; WCAG 2.1 AA naheliegend
         - i18n-Keys vorhanden (de/en), Text nicht hart codiert
         - Tests (mind. 1 Unit + 1 Story)
-      validations:
-        required: true
 
   - type: checkboxes
     id: dod
