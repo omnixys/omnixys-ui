@@ -1,4 +1,4 @@
-name: Task
+name: ✅ Task
 description: Kleine, klar definierte Aufgabe (Frontend-first, Mockdaten)
 title: "🧩 [Feature] Kurzer, prägnanter Titel"
 labels: [task, frontend, nextjs, typescript, mui]
