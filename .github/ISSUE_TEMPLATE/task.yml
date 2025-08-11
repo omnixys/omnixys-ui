@@ -21,15 +21,6 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: design_link
-    attributes:
-      label: Design/Referenzen
-      description: Figma/Mockup/Referenzen (falls vorhanden)
-      placeholder: "https://www.figma.com/file/..."
-    validations:
-      required: false
-
   - type: checkboxes
     id: scope
     attributes:
@@ -90,13 +81,6 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: estimate
-    attributes:
-      label: Aufwand (Story Points)
-      options: ["1","2","3","5","8","13"]
-    validations:
-      required: true
 
   - type: textarea
     id: dependencies
