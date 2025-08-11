@@ -1,0 +1,120 @@
+name: ✅ Task
+description: Kleine, klar definierte Aufgabe (Frontend-first, Mockdaten)
+title: "🧩 [Feature] Kurzer, prägnanter Titel"
+labels: [task, frontend, nextjs, typescript, mui]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Zusammenfassung
+      description: Was soll entstehen? (1–3 Sätze, user-orientiert)
+      placeholder: "Als Nutzer:in möchte ich … damit …"
+    validations:
+      required: true
+
+  - type: input
+    id: route
+    attributes:
+      label: Route/Dateipfad (App Router)
+      description: Next.js App-Router Pfad (siehe Pfadstruktur)
+      placeholder: "z. B. /travel/cars  → app/travel/cars/page.tsx"
+    validations:
+      required: true
+
+  - type: input
+    id: design_link
+    attributes:
+      label: Design/Referenzen
+      description: Figma/Mockup/Referenzen (falls vorhanden)
+      placeholder: "https://www.figma.com/file/..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Bereiche
+      options:
+        - label: Frontend (UI/UX, Komponenten, Layout)
+          required: true
+        - label: Tests (Unit/Storybook/Playwright)
+        - label: Dokumentation (README/MDX)
+        - label: Konfiguration (ESLint/CI)
+        - label: i18n (de/en)
+        - label: Performance (Lighthouse, Code-Splitting)
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Beschreibung
+      description: Was muss konkret getan werden? (stichpunktartig)
+      placeholder: |
+        - Seiten-Layout mit App Router erstellen
+        - Mockdaten via util (ohne echte API)
+        - Interaktionen (Filter, Suche) stubben
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: ✅ Akzeptanzkriterien
+      description: Wann gilt die Aufgabe als erledigt? (Checkliste)
+      placeholder: |
+        - Responsive auf sm/md/lg/xl
+        - Keine hardcodierten Farben – nur Tokens aus theme.ts
+        - TypeScript strict, **kein `any`** im Code
+        - App Router Struktur eingehalten (app/…/page.tsx)
+        - MUI + Theme Tokens (Spacing, Palette, Typography)
+        - A11y: Labels, Roles, Tastaturfokus; WCAG 2.1 AA naheliegend
+        - i18n-Keys vorhanden (de/en), Text nicht hart codiert
+        - Tests (mind. 1 Unit + 1 Story)
+      validations:
+        required: true
+
+  - type: checkboxes
+    id: dod
+    attributes:
+      label: Definition of Done
+      options:
+        - label: Keine Lint-/Type-Fehler (ESLint, TS strict)
+        - label: Lighthouse ≥ 90 (Performance/Best Practices/SEO)
+        - label: Keine Console-Errors/Warnings im Browser
+        - label: Screenshots/GIFs im Issue angehängt
+        - label: Kurze Dev-Notizen im Code (Deutsch)
+        - label: Doku/README Abschnitt aktualisiert
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorität
+      options: [Hoch, Mittel, Niedrig]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: estimate
+    attributes:
+      label: Aufwand (Story Points)
+      options: ["1","2","3","5","8","13"]
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Abhängigkeiten/Blocker
+      placeholder: "Wartet auf: #123, Designfreigabe, Theme-Token XYZ"
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 💡 Hinweise
+      description: Randbedingungen, Risiken, Edge-Cases
+      placeholder: |
+        - Skeleton Loading bei Suspense
+        - State lokal (Zustand) + URL-SearchParams für Filter
+    validations:
+      required: false

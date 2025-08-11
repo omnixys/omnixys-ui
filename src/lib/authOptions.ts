@@ -210,7 +210,7 @@ export const authOptions: AuthOptions = {
      * Ergänzt die Session-Daten um Benutzer- und Token-Informationen.
      */
     async session({ session, token }) {
-      logger.debug('Session Token:', token);
+      logger.trace('Session Token:', token);
 
       session.user = token.user || {
         id: token.id as string,
